@@ -1,6 +1,6 @@
 # Sixth
 
-Création d'un jeu de [Sixth](http://www.variantes.com/jeux-de-societe-nouveautes-boutique/46602-sixth--3770000904482.html "Sources") en Java avec un mode de développement par méthode agile.
+Création d'un jeu de [Sixth](https://cdn2.trictrac.net/documents/originals/44/78/9e21ed12e2c6bf4ad792fbf93838b58b231e.pdf "Règles") en Java avec un mode de développement par méthode agile.
 
 ### Règles du jeu
 

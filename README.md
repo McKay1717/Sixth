@@ -14,4 +14,4 @@ Le but: être le premier à former une pile d'au moins 6 pions avec votre couleu
 - Nombre de joueurs : 2
 - Durée de la partie : 15min
 
-Copyright (c) 2016 Raphaël RAGOOMUNDUN, Nicolas IUNG, Florent MARTIN, Pierre-Antoine BOIS, Victor COUTURIEUX
+Copyright (c) 2016 Raphaël RAGOOMUNDUN, Nicolas IUNG, Florent MARTIN, Pierre-Antoine BOIS, Victor  COUTURIEUX

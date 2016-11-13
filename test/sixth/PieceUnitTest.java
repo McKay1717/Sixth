@@ -12,7 +12,7 @@ import static sixth.Piece.*;
 public class PieceUnitTest {
 
     @Test
-    public void testPion(){
+    public void testPiece(){
         Piece piece = new Piece(PION);
         Piece tour = new Piece(TOUR);
         Piece cavalier = new Piece(CAVALIER);
@@ -20,12 +20,20 @@ public class PieceUnitTest {
         Piece dame = new Piece(DAME);
         Piece roi = new Piece(ROI);
 
-        assertEquals(piece.getPion(), PION);
-        assertEquals(tour.getPion(), TOUR);
-        assertEquals(cavalier.getPion(), CAVALIER);
-        assertEquals(fou.getPion(), FOU);
-        assertEquals(dame.getPion(), DAME);
-        assertEquals(roi.getPion(), ROI);
+        assertEquals(piece.getPiece(), PION);
+        assertEquals(tour.getPiece(), TOUR);
+        assertEquals(cavalier.getPiece(), CAVALIER);
+        assertEquals(fou.getPiece(), FOU);
+        assertEquals(dame.getPiece(), DAME);
+        assertEquals(roi.getPiece(), ROI);
     }
 
+    @Test
+    public void testCouleur() {
+        Piece rouge = new Piece(PION, ROUGE);
+        Piece blanc = new Piece(PION, BLANC);
+
+        assertEquals(rouge.getCouleur(), ROUGE);
+        assertEquals(blanc.getCouleur(), BLANC);
+    }
 }

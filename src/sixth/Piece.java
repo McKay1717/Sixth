@@ -5,20 +5,35 @@ package sixth;
  */
 
 public class Piece {
-    public  static int PION = 1;
-    public static int TOUR = 2;
-    public static int CAVALIER = 3;
-    public static int FOU = 4;
-    public static int DAME = 5;
-    public static int ROI = 6;
+    //Couleurs
+    public static final int ROUGE = -1;
+    public static final int BLANC = -2;
 
-    private int pion;
+    //Valeurs
+    public static final int PION = 1;
+    public static final int TOUR = 2;
+    public static final int CAVALIER = 3;
+    public static final int FOU = 4;
+    public static final int DAME = 5;
+    public static final int ROI = 6;
 
-    public Piece(int pion) {
-        this.pion = pion;
+    private int piece;
+    private int couleur;
+
+    public Piece(int piece) {
+        this.piece = piece;
     }
 
-    public int getPion() {
-        return pion;
+    public Piece(int piece, int couleur) {
+        this(piece);
+        this.couleur = couleur;
+    }
+
+    public int getPiece() {
+        return piece;
+    }
+
+    public int getCouleur() {
+        return couleur;
     }
 }

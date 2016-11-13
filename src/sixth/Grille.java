@@ -1,7 +1,9 @@
+package sixth;
 
 /**
  * Created by ctx on 09/11/16.
  */
+
 public class Grille {
 
     public static int pionMax = 30;

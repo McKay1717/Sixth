@@ -5,13 +5,30 @@ package sixth;
  */
 
 public class Grille {
+    // On compte en commençant d'en haut à gauche
 
-    public static int pionMax = 30;
+    public static final int LARGEUR = 5;
+    public static final int PION_MAX = 30;
 
-    static Case Grille[][] = new Case[5][5];
+    private Case grille[][] = new Case[5][5];
 
-    public Grille(Case[][] grille) {
-        Grille = grille;
+    public Grille() {
+        grille = new Case[LARGEUR][LARGEUR];
     }
 
+    public Grille(Case[][] _grille) {
+        grille = _grille;
+    }
+
+    // ATTENTION : je me suis peut être trompé
+
+    public void addPiece(Piece piece, int x, int y) {
+        if(grille[x][y] != null) {
+
+        }
+        else {
+            grille[x][y] = new Case();
+            grille[x][y].add(piece);
+        }
+    }
 }

@@ -4,6 +4,7 @@ package sixth;
  * Created by ctx on 09/11/16.
  */
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -35,5 +36,16 @@ public class PieceUnitTest {
 
         assertEquals(rouge.getCouleur(), ROUGE);
         assertEquals(blanc.getCouleur(), BLANC);
+    }
+
+    @Test
+    public void testDeplacementPion() {
+        Grille grille = new Grille();
+        Piece piece = new Piece(Piece.PION);
+
+        grille.addPiece(piece, 2, 2);
+
+        grille.deplacer(2, 2, 2, 3);
+        Assert.assertEquals(grille.getGrille()[2][3], piece);
     }
 }

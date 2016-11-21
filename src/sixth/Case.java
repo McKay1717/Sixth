@@ -7,10 +7,16 @@ import java.util.List;
  */
 
 public class Case {
+    public static final Piece VIDE = null;
+    public static final int NB_PIECES_MAX = 6;
 
-    List<Piece> casePieces;
+    private Piece[] pieces;
 
-    public Case(List<Piece> casePieces) {
-        this.casePieces = casePieces;
+    public Case() {
+        pieces = new Piece[NB_PIECES_MAX];
+    }
+
+    public Case(Piece[] _pieces) {
+        pieces = _pieces;
     }
 }

@@ -17,6 +17,9 @@ public class Piece {
     public static final int DAME = 5;
     public static final int ROI = 6;
 
+    public static final int NUM_PIECE_MIN = PION;
+    public static final int NUM_PIECE_MAX = ROI;
+
     private int piece;
     private int couleur;
 

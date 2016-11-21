@@ -8,15 +8,18 @@ import java.util.List;
 
 public class Case {
     public static final Piece VIDE = null;
-    public static final int NB_PIECES_MAX = 6;
 
-    private Piece[] pieces;
+    private Piece piece;
 
     public Case() {
-        pieces = new Piece[NB_PIECES_MAX];
+        piece = new Piece(Piece.PION);
     }
 
-    public Case(Piece[] _pieces) {
-        pieces = _pieces;
+    public Case(Piece _piece) {
+        piece = _piece;
+    }
+
+    public Piece getPiece() {
+        return  piece;
     }
 }

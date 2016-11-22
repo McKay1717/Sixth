@@ -33,15 +33,15 @@ public class Grille {
                 (x2 < 0 || y2 < 0 || x2 >= LARGEUR || y2 >= LARGEUR))
             return false;
 
-        int piece = grille[x][y].getPiece().getPiece();
+        Piece piece = grille[x][y].getPiece();
 
         // ATTENTION LES YEUX !!!
-        if ((piece == PION && (x == x2 ^ y == y2) && ((x == x2 && testNbCasesDeplacement(x, x2, 1))) ^ (testNbCasesDeplacement(y, y2, 1))) ||
-                (piece == TOUR && (x == x2 ^ y == y2)) ||
-                (piece == CAVALIER && ((testNbCasesDeplacement(x, x2, 2) && testNbCasesDeplacement(y, y2, 1)) ^ (testNbCasesDeplacement(y, y2, 2) && testNbCasesDeplacement(x, x2, 1)))) ||
-                (piece == FOU && (x != x2 && y != y2 && ((x - x2 == y - y2) ^ (-(x - x2) == y - y2) ^ (x - x2 == -(y - y2))))) ||
-                (piece == DAME && ((x == x2 ^ y == y2) ^ (x != x2 && y != y2 && ((x - x2 == y - y2) ^ (-(x - x2) == y - y2) ^ (x - x2 == -(y - y2))))))) {
-            grille[x2][y2] = new Case(new Piece(piece));
+        if ((piece.getPiece() == PION && (x == x2 ^ y == y2) && ((x == x2 && testNbCasesDeplacement(x, x2, 1))) ^ (testNbCasesDeplacement(y, y2, 1))) ||
+                (piece.getPiece() == TOUR && (x == x2 ^ y == y2)) ||
+                (piece.getPiece() == CAVALIER && ((testNbCasesDeplacement(x, x2, 2) && testNbCasesDeplacement(y, y2, 1)) ^ (testNbCasesDeplacement(y, y2, 2) && testNbCasesDeplacement(x, x2, 1)))) ||
+                (piece.getPiece() == FOU && (x != x2 && y != y2 && ((x - x2 == y - y2) ^ (-(x - x2) == y - y2) ^ (x - x2 == -(y - y2))))) ||
+                (piece.getPiece() == DAME && ((x == x2 ^ y == y2) ^ (x != x2 && y != y2 && ((x - x2 == y - y2) ^ (-(x - x2) == y - y2) ^ (x - x2 == -(y - y2))))))) {
+            grille[x2][y2] = new Case(piece);
             grille[x][y] = null;
 
             return true;

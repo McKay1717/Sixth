@@ -1,4 +1,4 @@
-package sixth;
+package model;
 
 /**
  * Created by ctx on 09/11/16.
@@ -7,7 +7,7 @@ package sixth;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static sixth.Piece.*;
+import static model.Piece.*;
 
 public class PieceUnitTest {
 

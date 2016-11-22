@@ -1,6 +1,6 @@
-package sixth;
+package model;
 
-import static sixth.Piece.*;
+import static model.Piece.*;
 
 /**
  * Created by ctx on 09/11/16.

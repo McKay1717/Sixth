@@ -33,48 +33,19 @@ public class Grille {
 
         int piece = grille[x][y].getPiece().getPiece();
 
-        switch(piece) {
-            case Piece.PION:
-                if(x != x2 && y != y2)
-                    return  false;
+        // ATTENTION LES YEUX !!!
+        if((piece == Piece.PION && (x == x2 ^ y == y2) && ((x == x2 && testNbCasesDeplacement(x, x2, 1))) ^ (testNbCasesDeplacement(y, y2, 1))) ||
+           (piece == Piece.TOUR && (x == x2 ^ y == y2)) ||
+           (piece == Piece.CAVALIER && ((testNbCasesDeplacement(x, x2, 2) && testNbCasesDeplacement(y, y2, 1)) ^ (testNbCasesDeplacement(y, y2, 2) && testNbCasesDeplacement(x, x2, 1)))) ||
+           (piece == Piece.FOU && (x != x2 && y != y2 && ((x - x2 == y - y2) ^ (-(x - x2) == y - y2) ^ (x - x2 == -(y - y2))))) ||
+           (piece == Piece.DAME && ((x == x2 ^ y == y2) ^ (x != x2 && y != y2 && ((x - x2 == y - y2) ^ (-(x - x2) == y - y2) ^ (x - x2 == -(y - y2))))))) {
+            grille[x2][y2] = new Case(new Piece(piece));
+            grille[x][y] = null;
 
-                if(x != x2 && !testNbCasesDeplacement(x, x2, 1))
-                    return false;
-                else if(!testNbCasesDeplacement(y, y2, 1))
-                    return false;
-                break;
-            case Piece.TOUR:
-                if(x != x2 && y != y2)
-                    return  false;
-                break;
-            case Piece.CAVALIER:
-                // Si horizontal d'abord true, sinon false
-
-                boolean typeDeplacement = true;
-
-                if(!testNbCasesDeplacement(x, x2, 2))
-                    typeDeplacement = false;
-                if(!testNbCasesDeplacement(y, y2, 2))
-                    return false;
-
-                if((typeDeplacement && !testNbCasesDeplacement(y, y2, 1)) || !testNbCasesDeplacement(x, x2, 1))
-                    return false;
-            case Piece.FOU:
-                    if(x != x2 && y != y2) {
-                        if(x - x2 == y - y2);
-                    }
-                    else
-                        return false;
-                break;
-            case Piece.DAME:
-                // A completer
-                if(x != x2 && y != y2) {
-                    if(x - x2 == y - y2);
-                }
-                break;
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     private boolean testNbCasesDeplacement(int i, int j, int value) {

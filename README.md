@@ -4,7 +4,7 @@ Création d'un jeu de [Sixth](https://cdn2.trictrac.net/documents/originals/44/7
 
 ### Règles du jeu
 
-Ce jeu de réflexion basé sur le jeu d'échecs. Dans Sixth, vous commencez simple model.Piece, devenez Tour, Cavalier, puis Fou ou encore Dame pour enfin être le roi, la pièce maitresse des échecs de Makarenko.
+Ce jeu de réflexion basé sur le jeu d'échecs. Dans Sixth, vous commencez simple Pion, devenez Tour, Cavalier, puis Fou ou encore Dame pour enfin être le roi, la pièce maitresse des échecs de Makarenko.
 Ajoutez ou déplacez un ou plusieurs pions.
 Le but: être le premier à former une pile d'au moins 6 pions avec votre couleur au dessus.
 

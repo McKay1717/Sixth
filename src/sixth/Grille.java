@@ -52,4 +52,8 @@ public class Grille {
         int nbCasesDeplacement = i - j;
         return (nbCasesDeplacement == value || nbCasesDeplacement == -value);
     }
+
+    public Case getCase(int x, int y) {
+        return grille[x][y];
+    }
 }

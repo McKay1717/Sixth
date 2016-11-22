@@ -38,6 +38,10 @@ public class PieceUnitTest {
         assertEquals(blanc.getCouleur(), BLANC);
     }
 
+    /* Je pense que ça va vraiment être la merde pour les tests de déplacement,
+     * y'a beaucoup trop de possibilités (ou je suis juste con).
+     */
+
     @Test
     public void testDeplacementPion() {
         Grille grille = new Grille();
@@ -45,7 +49,67 @@ public class PieceUnitTest {
 
         grille.addPiece(piece, 2, 2);
 
+        // Mouvements valides
+
+        // BAS
         grille.deplacer(2, 2, 2, 3);
-        Assert.assertEquals(grille.getGrille()[2][3], piece);
+        Assert.assertEquals(grille.getCase(2, 3).getPiece(), piece);
+
+        // HAUT
+        grille.deplacer(2, 3, 2, 2);
+        Assert.assertEquals(grille.getCase(2, 2).getPiece(), piece);
+
+        // DROITE
+        grille.deplacer(2, 2, 3, 2);
+        Assert.assertEquals(grille.getCase(3, 2).getPiece(), piece);
+
+        // GAUCHE
+        grille.deplacer(3, 2, 2, 2);
+        Assert.assertEquals(grille.getCase(3, 2).getPiece(), piece);
+
+        // Mouvements invalides
+
+        // BAS
+        grille.deplacer(3, 2, 3, 4);
+        Assert.assertNotEquals(grille.getCase(3, 4).getPiece(), piece);
+
+        // HAUT
+        grille.deplacer(3, 2, 3, 0);
+        Assert.assertNotEquals(grille.getCase(3, 0).getPiece(), piece);
+
+        // GAUCHE
+        grille.deplacer(3, 2, 0, 2);
+        Assert.assertNotEquals(grille.getCase(0, 2).getPiece(), piece);
+
+        grille.deplacer(3, 2, 2, 2);
+
+        // DROITE
+        grille.deplacer(2, 2, 4, 2);
+        Assert.assertNotEquals(grille.getCase(4, 2).getPiece(), piece);
+    }
+
+    @Test
+    public void testDeplacementTour() {
+
+    }
+
+    @Test
+    public void testDeplacementCavalier() {
+
+    }
+
+    @Test
+    public void testDeplacementFou() {
+
+    }
+
+    @Test
+    public void testDeplacementDame() {
+
+    }
+
+    @Test
+    public void testDeplacementRoi() {
+
     }
 }

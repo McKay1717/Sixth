@@ -1,5 +1,7 @@
 package sixth;
 
+import static sixth.Piece.*;
+
 /**
  * Created by ctx on 09/11/16.
  */
@@ -27,18 +29,18 @@ public class Grille {
     // Retourne true s'il y a bien eu un déplacement, false sinon
 
     public boolean deplacer(int x, int y, int x2, int y2) {
-        if((x < 0 || y < 0 || x >= LARGEUR || y >= LARGEUR) ||
-           (x2 < 0 || y2 < 0 || x2 >= LARGEUR || y2 >= LARGEUR))
+        if ((x < 0 || y < 0 || x >= LARGEUR || y >= LARGEUR) ||
+                (x2 < 0 || y2 < 0 || x2 >= LARGEUR || y2 >= LARGEUR))
             return false;
 
         int piece = grille[x][y].getPiece().getPiece();
 
         // ATTENTION LES YEUX !!!
-        if((piece == Piece.PION && (x == x2 ^ y == y2) && ((x == x2 && testNbCasesDeplacement(x, x2, 1))) ^ (testNbCasesDeplacement(y, y2, 1))) ||
-           (piece == Piece.TOUR && (x == x2 ^ y == y2)) ||
-           (piece == Piece.CAVALIER && ((testNbCasesDeplacement(x, x2, 2) && testNbCasesDeplacement(y, y2, 1)) ^ (testNbCasesDeplacement(y, y2, 2) && testNbCasesDeplacement(x, x2, 1)))) ||
-           (piece == Piece.FOU && (x != x2 && y != y2 && ((x - x2 == y - y2) ^ (-(x - x2) == y - y2) ^ (x - x2 == -(y - y2))))) ||
-           (piece == Piece.DAME && ((x == x2 ^ y == y2) ^ (x != x2 && y != y2 && ((x - x2 == y - y2) ^ (-(x - x2) == y - y2) ^ (x - x2 == -(y - y2))))))) {
+        if ((piece == PION && (x == x2 ^ y == y2) && ((x == x2 && testNbCasesDeplacement(x, x2, 1))) ^ (testNbCasesDeplacement(y, y2, 1))) ||
+                (piece == TOUR && (x == x2 ^ y == y2)) ||
+                (piece == CAVALIER && ((testNbCasesDeplacement(x, x2, 2) && testNbCasesDeplacement(y, y2, 1)) ^ (testNbCasesDeplacement(y, y2, 2) && testNbCasesDeplacement(x, x2, 1)))) ||
+                (piece == FOU && (x != x2 && y != y2 && ((x - x2 == y - y2) ^ (-(x - x2) == y - y2) ^ (x - x2 == -(y - y2))))) ||
+                (piece == DAME && ((x == x2 ^ y == y2) ^ (x != x2 && y != y2 && ((x - x2 == y - y2) ^ (-(x - x2) == y - y2) ^ (x - x2 == -(y - y2))))))) {
             grille[x2][y2] = new Case(new Piece(piece));
             grille[x][y] = null;
 

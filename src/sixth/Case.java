@@ -1,7 +1,5 @@
 package sixth;
 
-import java.util.List;
-
 /**
  * Created by ctx on 09/11/16.
  */
@@ -12,7 +10,7 @@ public class Case {
     private Piece piece;
 
     public Case() {
-        piece = new Piece(Piece.PION);
+        piece = VIDE;
     }
 
     public Case(Piece _piece) {
@@ -20,6 +18,6 @@ public class Case {
     }
 
     public Piece getPiece() {
-        return  piece;
+        return piece;
     }
 }

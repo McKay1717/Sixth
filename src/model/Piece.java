@@ -42,4 +42,25 @@ public class Piece {
     public int getTaille() {
         return taille;
     }
+
+    public void remove(Pion pion) throws PionNonEnHautDeLaPileException {
+        if (pions.get(pions.size() - 1) != pion)
+            throw new PionNonEnHautDeLaPileException();
+
+        pions.remove(pion);
+        couleur = pions.get(pions.size() - 1).getCouleur();
+        taille--;
+    }
+
+    public void remove(List<Pion> pions) throws TailleRetireeSuperieurATaillePileException, PionDeLaListeARetireDeLaPileNonDansLaPileException, PionNonEnHautDeLaPileException {
+        if (pions.size() > this.pions.size())
+            throw new TailleRetireeSuperieurATaillePileException();
+
+        for (int i = pions.size() - 1, j = this.pions.size() - 1; i >= 0; i--, j--)
+            if (pions.get(i) != this.pions.get(j))
+                throw new PionDeLaListeARetireDeLaPileNonDansLaPileException();
+
+        for (int i = pions.size() - 1; i >= 0; i--)
+            remove(pions.get(i));
+    }
 }

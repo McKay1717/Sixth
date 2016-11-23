@@ -1,7 +1,5 @@
 package model;
 
-import static model.Piece.*;
-
 /**
  * Created by ctx on 09/11/16.
  */
@@ -27,28 +25,6 @@ public class Grille {
     }
 
     // Retourne true s'il y a bien eu un déplacement, false sinon
-
-    public boolean deplacer(int x, int y, int x2, int y2) {
-        if ((x < 0 || y < 0 || x >= LARGEUR || y >= LARGEUR) ||
-                (x2 < 0 || y2 < 0 || x2 >= LARGEUR || y2 >= LARGEUR))
-            return false;
-
-        Piece piece = grille[x][y].getPiece();
-
-        // ATTENTION LES YEUX !!!
-        if ((piece.getPiece() == PION && (x == x2 ^ y == y2) && ((x == x2 && testNbCasesDeplacement(x, x2, 1))) ^ (testNbCasesDeplacement(y, y2, 1))) ||
-                (piece.getPiece() == TOUR && (x == x2 ^ y == y2)) ||
-                (piece.getPiece() == CAVALIER && ((testNbCasesDeplacement(x, x2, 2) && testNbCasesDeplacement(y, y2, 1)) ^ (testNbCasesDeplacement(y, y2, 2) && testNbCasesDeplacement(x, x2, 1)))) ||
-                (piece.getPiece() == FOU && (x != x2 && y != y2 && ((x - x2 == y - y2) ^ (-(x - x2) == y - y2) ^ (x - x2 == -(y - y2))))) ||
-                (piece.getPiece() == DAME && ((x == x2 ^ y == y2) ^ (x != x2 && y != y2 && ((x - x2 == y - y2) ^ (-(x - x2) == y - y2) ^ (x - x2 == -(y - y2))))))) {
-            grille[x2][y2] = new Case(piece);
-            grille[x][y] = null;
-
-            return true;
-        }
-
-        return false;
-    }
 
     private boolean testNbCasesDeplacement(int i, int j, int value) {
         int nbCasesDeplacement = i - j;

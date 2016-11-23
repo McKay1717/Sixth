@@ -1,68 +1,37 @@
 package model;
 
-/**
- * Created by ctx on 09/11/16.
- */
-
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static model.Pion.BLANC;
+import static model.Pion.ROUGE;
 import static org.junit.Assert.assertEquals;
-import static model.Piece.*;
 
 public class PieceUnitTest {
-
     @Test
-    public void testPiece() {
-        Piece piece = new Piece(PION);
-        Piece tour = new Piece(TOUR);
-        Piece cavalier = new Piece(CAVALIER);
-        Piece fou = new Piece(FOU);
-        Piece dame = new Piece(DAME);
-        Piece roi = new Piece(ROI);
+    public void testCouleurPiece() {
+        Piece piece = new Piece();
+        piece.add(new Pion(ROUGE));
+        assertEquals(ROUGE, piece.getCouleur());
 
-        assertEquals(piece.getPiece(), PION);
-        assertEquals(tour.getPiece(), TOUR);
-        assertEquals(cavalier.getPiece(), CAVALIER);
-        assertEquals(fou.getPiece(), FOU);
-        assertEquals(dame.getPiece(), DAME);
-        assertEquals(roi.getPiece(), ROI);
+        List<Pion> pions = new ArrayList<Pion>();
+        pions.add(new Pion(ROUGE));
+        pions.add(new Pion(BLANC));
+        Piece piece2 = new Piece();
+        piece2.add(pions);
+        assertEquals(BLANC, piece2.getCouleur());
     }
 
     @Test
-    public void testCouleur() {
-        Piece rouge = new Piece(PION, ROUGE);
-        Piece blanc = new Piece(PION, BLANC);
+    public void testTaillePiece() {
+        List<Pion> pions = new ArrayList<Pion>();
+        pions.add(new Pion(ROUGE));
+        pions.add(new Pion(BLANC));
 
-        assertEquals(rouge.getCouleur(), ROUGE);
-        assertEquals(blanc.getCouleur(), BLANC);
-    }
-
-    /* Je pense que ça va vraiment être la merde pour les tests de déplacement,
-     * y'a beaucoup trop de possibilités (ou je suis juste con).
-     */
-
-    @Test
-    public void testDeplacementTour() {
-
-    }
-
-    @Test
-    public void testDeplacementCavalier() {
-
-    }
-
-    @Test
-    public void testDeplacementFou() {
-
-    }
-
-    @Test
-    public void testDeplacementDame() {
-
-    }
-
-    @Test
-    public void testDeplacementRoi() {
-
+        Piece piece = new Piece();
+        piece.add(pions);
+        assertEquals(2, piece.getTaille());
     }
 }

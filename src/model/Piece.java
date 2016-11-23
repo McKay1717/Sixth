@@ -1,14 +1,11 @@
 package model;
 
-/**
- * Created by ctx on 09/11/16.
- */
+import java.util.ArrayList;
+import java.util.List;
+
+import static model.Pion.SANS_COULEUR;
 
 public class Piece {
-    //Couleurs
-    public static final int ROUGE = -1;
-    public static final int BLANC = -2;
-
     //Valeurs
     public static final int PION = 1;
     public static final int TOUR = 2;
@@ -17,26 +14,32 @@ public class Piece {
     public static final int DAME = 5;
     public static final int ROI = 6;
 
-    public static final int NUM_PIECE_MIN = PION;
-    public static final int NUM_PIECE_MAX = ROI;
-
-    private int piece;
+    private List<Pion> pions;
     private int couleur;
+    private int taille;
 
-    public Piece(int piece) {
-        this.piece = piece;
+    public Piece() {
+        pions = new ArrayList<Pion>();
+        couleur = SANS_COULEUR;
+        taille = 0;
     }
 
-    public Piece(int piece, int couleur) {
-        this(piece);
-        this.couleur = couleur;
-    }
-
-    public int getPiece() {
-        return piece;
+    public void add(Pion pion) {
+        pions.add(pion);
+        couleur = pion.getCouleur();
+        taille++;
     }
 
     public int getCouleur() {
         return couleur;
+    }
+
+    public void add(List<Pion> pions) {
+        for (Pion pion : pions)
+            add(pion);
+    }
+
+    public int getTaille() {
+        return taille;
     }
 }

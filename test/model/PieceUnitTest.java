@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 
 public class PieceUnitTest {
     @Test
-    public void testCouleurPiece() {
+    public void testCouleurPiece() throws TailleMaximaleDepasseeException {
         Piece piece = new Piece();
         piece.add(new Pion(ROUGE));
         assertEquals(ROUGE, piece.getCouleur());
@@ -25,7 +25,7 @@ public class PieceUnitTest {
     }
 
     @Test
-    public void testTaillePiece() {
+    public void testTaillePiece() throws TailleMaximaleDepasseeException {
         List<Pion> pions = new ArrayList<Pion>();
         pions.add(new Pion(ROUGE));
         pions.add(new Pion(BLANC));
@@ -35,8 +35,29 @@ public class PieceUnitTest {
         assertEquals(2, piece.getTaille());
     }
 
+    @Test(expected = TailleMaximaleDepasseeException.class)
+    public void testAjoueDePionTailleMaximaleDepasseeException() throws TailleMaximaleDepasseeException {
+        List<Pion> pions = new ArrayList<Pion>();
+        for (int i = 0; i < 6; i++)
+            pions.add(new Pion(ROUGE));
+
+        Piece piece = new Piece();
+        piece.add(pions);
+        piece.add(new Pion(ROUGE));
+    }
+
+    @Test(expected = TailleMaximaleDepasseeException.class)
+    public void testAjoueDePionsTailleMaximaleDepasseeException() throws TailleMaximaleDepasseeException {
+        List<Pion> pions = new ArrayList<Pion>();
+        for (int i = 0; i < 7; i++)
+            pions.add(new Pion(ROUGE));
+
+        Piece piece = new Piece();
+        piece.add(pions);
+    }
+
     @Test
-    public void testReductionTaillePieceETChangementCouleurPiece() throws PionNonEnHautDeLaPileException {
+    public void testReductionTaillePieceETChangementCouleurPiece() throws PionNonEnHautDeLaPileException, TailleMaximaleDepasseeException {
         Pion rouge = new Pion(ROUGE);
         Pion blanc = new Pion(BLANC);
         List<Pion> pions = new ArrayList<Pion>();
@@ -51,7 +72,7 @@ public class PieceUnitTest {
     }
 
     @Test(expected = PionNonEnHautDeLaPileException.class)
-    public void testReductionTaillePiecePionNonEnHautDeLaPileException() throws PionNonEnHautDeLaPileException {
+    public void testReductionTaillePiecePionNonEnHautDeLaPileException() throws PionNonEnHautDeLaPileException, TailleMaximaleDepasseeException {
         Pion rouge = new Pion(ROUGE);
         Pion blanc = new Pion(BLANC);
         List<Pion> pions = new ArrayList<Pion>();
@@ -64,7 +85,7 @@ public class PieceUnitTest {
     }
 
     @Test
-    public void testReductionTaillePieceAvecPlusieursPions() throws PionNonEnHautDeLaPileException, TailleRetireeSuperieurATaillePileException, PionDeLaListeARetireDeLaPileNonDansLaPileException {
+    public void testReductionTaillePieceAvecPlusieursPions() throws PionNonEnHautDeLaPileException, TailleRetireeSuperieurATaillePileException, PionDeLaListeARetireDeLaPileNonDansLaPileException, TailleMaximaleDepasseeException {
         Pion pion = new Pion(ROUGE);
         Pion pion1 = new Pion(BLANC);
         Pion pion2 = new Pion(ROUGE);
@@ -86,7 +107,7 @@ public class PieceUnitTest {
     }
 
     @Test(expected = TailleRetireeSuperieurATaillePileException.class)
-    public void testReductionTaillePieceAvecPlusieursPionsTailleRetireeSuperieurATaillePileException() throws PionNonEnHautDeLaPileException, TailleRetireeSuperieurATaillePileException, PionDeLaListeARetireDeLaPileNonDansLaPileException {
+    public void testReductionTaillePieceAvecPlusieursPionsTailleRetireeSuperieurATaillePileException() throws PionNonEnHautDeLaPileException, TailleRetireeSuperieurATaillePileException, PionDeLaListeARetireDeLaPileNonDansLaPileException, TailleMaximaleDepasseeException {
         List<Pion> add = new ArrayList<Pion>();
         for (int i = 0; i < 4; i++)
             add.add(new Pion(ROUGE));
@@ -101,7 +122,7 @@ public class PieceUnitTest {
     }
 
     @Test(expected = PionDeLaListeARetireDeLaPileNonDansLaPileException.class)
-    public void testReductionTaillePieceAvecPlusieursPionsPionDeLaListeARetireDeLaPileNonDansLaPileException() throws PionNonEnHautDeLaPileException, TailleRetireeSuperieurATaillePileException, PionDeLaListeARetireDeLaPileNonDansLaPileException {
+    public void testReductionTaillePieceAvecPlusieursPionsPionDeLaListeARetireDeLaPileNonDansLaPileException() throws PionNonEnHautDeLaPileException, TailleRetireeSuperieurATaillePileException, PionDeLaListeARetireDeLaPileNonDansLaPileException, TailleMaximaleDepasseeException {
         Pion pion = new Pion(ROUGE);
         Pion pion1 = new Pion(BLANC);
         Pion pion2 = new Pion(ROUGE);

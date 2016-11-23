@@ -24,7 +24,10 @@ public class Piece {
         taille = 0;
     }
 
-    public void add(Pion pion) {
+    public void add(Pion pion) throws TailleMaximaleDepasseeException {
+        if (taille + 1 > ROI)
+            throw new TailleMaximaleDepasseeException();
+        
         pions.add(pion);
         couleur = pion.getCouleur();
         taille++;
@@ -34,7 +37,10 @@ public class Piece {
         return couleur;
     }
 
-    public void add(List<Pion> pions) {
+    public void add(List<Pion> pions) throws TailleMaximaleDepasseeException {
+        if (pions.size() + taille > ROI)
+            throw new TailleMaximaleDepasseeException();
+
         for (Pion pion : pions)
             add(pion);
     }
@@ -53,10 +59,10 @@ public class Piece {
     }
 
     public void remove(List<Pion> pions) throws TailleRetireeSuperieurATaillePileException, PionDeLaListeARetireDeLaPileNonDansLaPileException, PionNonEnHautDeLaPileException {
-        if (pions.size() > this.pions.size())
+        if (pions.size() > taille)
             throw new TailleRetireeSuperieurATaillePileException();
 
-        for (int i = pions.size() - 1, j = this.pions.size() - 1; i >= 0; i--, j--)
+        for (int i = pions.size() - 1, j = taille - 1; i >= 0; i--, j--)
             if (pions.get(i) != this.pions.get(j))
                 throw new PionDeLaListeARetireDeLaPileNonDansLaPileException();
 

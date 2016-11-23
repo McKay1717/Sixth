@@ -27,7 +27,7 @@ public class Piece {
     public void add(Pion pion) throws TailleMaximaleDepasseeException {
         if (taille + 1 > ROI)
             throw new TailleMaximaleDepasseeException();
-        
+
         pions.add(pion);
         couleur = pion.getCouleur();
         taille++;

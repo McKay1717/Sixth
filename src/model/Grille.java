@@ -20,15 +20,43 @@ public class Grille {
         grille = _grille;
     }
 
-    public void addPiece(Piece piece, int x, int y) {
+    public void poserPiece(int x, int y) {
+        Piece piece = new Piece();
         grille[x][y] = new Case(piece);
     }
 
-    // Retourne true s'il y a bien eu un déplacement, false sinon
+    public void deplacerPiece(int x, int y, int x2, int y2) {
+        if(grille[x2][y2] != null) {
+            Piece piece = grille[x][y].getPiece();
+            int taillePiece = piece.getTaille();
 
-    private boolean testNbCasesDeplacement(int i, int j, int value) {
-        int nbCasesDeplacement = i - j;
-        return (nbCasesDeplacement == value || nbCasesDeplacement == -value);
+            /*
+            * @deplacerPion : teste s'il est déplacé d'une case en diagonale
+            * @deplacerTour : teste si elle est bien déplacée orthogonalement
+            * @deplacerCavalier : teste s'il est déplacé horizontalement de 2 cases, puis verticalement d'une case OU
+            *                           s'il est déplacé verticalement de 2 cases, puis horizontalement d'une case
+            * @deplacerFou : teste s'il est bien déplacé en diagonale
+            * @deplacerDame : teste si elle effectue un déplacement de tour OU SOIT un déplacement de fou
+            */
+
+            boolean deplacerPion = ((x2 - x == 1 || x2 - x == -1) && (y2 - y == 1 || y2 - y == -1));
+            boolean deplacerTour = ((x2 != x) ^ (y2 != y));
+            boolean deplacerCavalier = (
+                                        ((x2 - x == 2 || x2 - x == -2) && (y2 - y == 1 || y2 - y == -1)) ||
+                                        ((y2 - y == 2 || y2 - y == -2) && (x2 - x == 1 || x2 - x == -1))
+                                        );
+            boolean deplacerFou = ((y - y2 == x - x2) || (y - y2 == -(x - x2)));
+            boolean deplacerDame = deplacerTour ^ deplacerFou;
+
+            if((taillePiece == Piece.PION && deplacerPion) ||
+                    (taillePiece == Piece.TOUR && deplacerTour) ||
+                    (taillePiece == Piece.CAVALIER && deplacerCavalier) ||
+                    (taillePiece == Piece.FOU && deplacerFou) ||
+                    (taillePiece == Piece.DAME && deplacerDame)) {
+                grille[x2][y2] = grille[x][y];
+                grille[x][y] = null;
+            }
+        }
     }
 
     public Case getCase(int x, int y) {

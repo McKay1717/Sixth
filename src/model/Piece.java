@@ -1,5 +1,10 @@
 package model;
 
+import exception.PionDeLaListeARetireDeLaPileNonDansLaPileException;
+import exception.PionNonEnHautDeLaPileException;
+import exception.TailleMaximaleDepasseeException;
+import exception.TailleRetireeSuperieurATaillePileException;
+
 import java.util.ArrayList;
 import java.util.List;
 

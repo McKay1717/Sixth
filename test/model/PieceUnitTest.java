@@ -1,5 +1,9 @@
 package model;
 
+import exception.PionDeLaListeARetireDeLaPileNonDansLaPileException;
+import exception.PionNonEnHautDeLaPileException;
+import exception.TailleMaximaleDepasseeException;
+import exception.TailleRetireeSuperieurATaillePileException;
 import org.junit.Test;
 
 import java.util.ArrayList;

@@ -5,6 +5,7 @@ package model;
 
 import static org.junit.Assert.*;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -13,30 +14,14 @@ import org.junit.Test;
  */
 public class JoueurUnitTest {
 
-
-
-	/**
-	 * Test method for {@link model.Joueur#getNom()}.
-	 */
-	@Test
-	public void testGetNom() {
-		fail("Not yet implemented");
-	}
-
 	/**
 	 * Test method for {@link model.Joueur#setNom(java.lang.String)}.
 	 */
 	@Test
 	public void testSetNom() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link model.Joueur#getColor()}.
-	 */
-	@Test
-	public void testGetColor() {
-		fail("Not yet implemented");
+		Joueur joueur = new Joueur("toto", Pion.BLANC);
+		joueur.setNom("toto2");
+		Assert.assertTrue(joueur.getNom() == "toto2");
 	}
 
 	/**
@@ -44,15 +29,9 @@ public class JoueurUnitTest {
 	 */
 	@Test
 	public void testSetColor() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link model.Joueur#getScore()}.
-	 */
-	@Test
-	public void testGetScore() {
-		fail("Not yet implemented");
+		Joueur joueur = new Joueur("toto", Pion.BLANC);
+		joueur.setColor(Pion.ROUGE);
+		Assert.assertTrue(joueur.getColor() == Pion.ROUGE);
 	}
 
 	/**
@@ -60,7 +39,9 @@ public class JoueurUnitTest {
 	 */
 	@Test
 	public void testSetScore() {
-		fail("Not yet implemented");
+		Joueur joueur = new Joueur("toto", Pion.BLANC);
+		joueur.setScore(50);
+		Assert.assertTrue(joueur.getScore() == 50);
 	}
 
 	/**
@@ -68,7 +49,16 @@ public class JoueurUnitTest {
 	 */
 	@Test
 	public void testEqualsObject() {
-		fail("Not yet implemented");
+		Joueur joueur = new Joueur("toto", Pion.BLANC);
+		Joueur joueur2 = new Joueur("toto", Pion.BLANC);
+		Assert.assertTrue(joueur.equals(joueur2));
+	}
+
+	@Test
+	public void testJoue() {
+		Joueur joueur = new Joueur("toto", Pion.BLANC);
+		joueur.joue();
+		Assert.assertEquals(1, joueur.getScore());
 	}
 
 }

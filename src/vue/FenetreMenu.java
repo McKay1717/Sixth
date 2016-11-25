@@ -17,7 +17,7 @@ public class FenetreMenu extends JFrame {
 
     public FenetreMenu() throws IOException {
 
-        fontPanel = new FontPanel(new ImageIcon("dataImage/font2.jpg").getImage());
+        fontPanel = new FontPanel(new ImageIcon("dataImage/font.png").getImage());
         creerWidget();
 
         setSize(400,400);                                // Fixe la taille par défaut
@@ -31,18 +31,25 @@ public class FenetreMenu extends JFrame {
 
     private void creerWidget() {
 
+
+
         JPanel pCentrageMenu = new JPanel(new BorderLayout());
-        pCentrageMenu.setLayout(new GridLayout(2,1));
+            pCentrageMenu.setLayout(new GridLayout(2,1));
+            pCentrageMenu.setOpaque(false);
 
         JPanel pButton = new JPanel();
         pButton.setLayout(new GridLayout(2,1));
+            pButton.setOpaque(false);
 
         JPanel pTitel = new JPanel();
+            pTitel.setOpaque(false);
 
         JPanel pPLay = new JPanel();
+            pPLay.setOpaque(false);
         JPanel pQuit = new JPanel();
+            pQuit.setOpaque(false);
 
-        JLabel lTitel = new JLabel("Sixth");
+        JLabel lTitel = new JLabel("");
         lTitel.setFont(new Font("FreeMono",Font.PLAIN,35));
 
         bPLay = new JButton("Play-Game");
@@ -59,12 +66,15 @@ public class FenetreMenu extends JFrame {
         pCentrageMenu.add(pTitel, BorderLayout.CENTER);
         pCentrageMenu.add(pButton, BorderLayout.CENTER);
 
+        Box boxCentrage = Box.createVerticalBox();
+        boxCentrage.add(Box.createVerticalStrut(100));
+        boxCentrage.add(pCentrageMenu);
 
 
         //bPLay.addActionListener(new EvenFMenu(this));
         bQuit.addActionListener(new EvenFMenu(this));
 
-        fontPanel.add(pCentrageMenu);
+        fontPanel.add(boxCentrage);
 
         setContentPane(fontPanel);
     }

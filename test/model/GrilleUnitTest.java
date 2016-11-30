@@ -1,7 +1,11 @@
 package model;
 
+import exception.TailleMaximaleDepasseeException;
 import org.junit.Assert;
 import org.junit.Test;
+
+import static model.Pion.BLANC;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by ctx on 09/11/16.
@@ -9,10 +13,10 @@ import org.junit.Test;
 
 public class GrilleUnitTest {
     @Test
-    public void testPoserPiece() {
+    public void testPoserPion() throws TailleMaximaleDepasseeException {
         Grille grille = new Grille();
 
-        grille.poserPiece(2, 4);
+        grille.poserPion(2, 4, new Pion(BLANC));
         Assert.assertNotEquals(grille.getCase(2, 4), null);
     }
 
@@ -21,10 +25,10 @@ public class GrilleUnitTest {
      */
 
     @Test
-    public void testDeplacerPiecePion() {
+    public void testDeplacerPiecePion() throws TailleMaximaleDepasseeException {
         Grille grille = new Grille();
 
-        grille.poserPiece(2, 3);
+        grille.poserPion(2, 3, new Pion(BLANC));
 
         // Déplacements diagonale sur case vide
 
@@ -44,5 +48,14 @@ public class GrilleUnitTest {
 
         grille.deplacerPiece(2, 3, 1, 3);
         Assert.assertEquals(grille.getCase(1, 3), null);
+    }
+
+    @Test
+    public void testFinDePartie() throws TailleMaximaleDepasseeException {
+        Grille grille = new Grille();
+        grille.poserPion(0, 0, new Pion(BLANC));
+        for (int i = 0; i < 5; i++)
+            grille.getCase(0, 0).getPiece().add(new Pion(BLANC));
+        assertTrue(grille.finDePartie());
     }
 }

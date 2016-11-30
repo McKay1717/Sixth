@@ -1,5 +1,9 @@
 package model;
 
+import exception.TailleMaximaleDepasseeException;
+
+import static model.Piece.ROI;
+
 /**
  * Created by ctx on 09/11/16.
  */
@@ -20,13 +24,14 @@ public class Grille {
         grille = _grille;
     }
 
-    public void poserPiece(int x, int y) {
+    public void poserPion(int x, int y, Pion pion) throws TailleMaximaleDepasseeException {
         Piece piece = new Piece();
+        piece.add(pion);
         grille[x][y] = new Case(piece);
     }
 
     public void deplacerPiece(int x, int y, int x2, int y2) {
-        if(grille[x2][y2] != null) {
+        if (grille[x2][y2] != null) {
             Piece piece = grille[x][y].getPiece();
             int taillePiece = piece.getTaille();
 
@@ -42,13 +47,13 @@ public class Grille {
             boolean deplacerPion = ((x2 - x == 1 || x2 - x == -1) && (y2 - y == 1 || y2 - y == -1));
             boolean deplacerTour = ((x2 != x) ^ (y2 != y));
             boolean deplacerCavalier = (
-                                        ((x2 - x == 2 || x2 - x == -2) && (y2 - y == 1 || y2 - y == -1)) ||
-                                        ((y2 - y == 2 || y2 - y == -2) && (x2 - x == 1 || x2 - x == -1))
-                                        );
+                    ((x2 - x == 2 || x2 - x == -2) && (y2 - y == 1 || y2 - y == -1)) ||
+                            ((y2 - y == 2 || y2 - y == -2) && (x2 - x == 1 || x2 - x == -1))
+            );
             boolean deplacerFou = ((y - y2 == x - x2) || (y - y2 == -(x - x2)));
             boolean deplacerDame = deplacerTour ^ deplacerFou;
 
-            if((taillePiece == Piece.PION && deplacerPion) ||
+            if ((taillePiece == Piece.PION && deplacerPion) ||
                     (taillePiece == Piece.TOUR && deplacerTour) ||
                     (taillePiece == Piece.CAVALIER && deplacerCavalier) ||
                     (taillePiece == Piece.FOU && deplacerFou) ||
@@ -61,5 +66,13 @@ public class Grille {
 
     public Case getCase(int x, int y) {
         return grille[x][y];
+    }
+
+    public boolean finDePartie() {
+        for (int i = 0; i < LARGEUR; i++)
+            for (int j = 0; j < LARGEUR; j++)
+                if (grille[i][j].getPiece().getTaille() == ROI)
+                    return true;
+        return false;
     }
 }

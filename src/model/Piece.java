@@ -29,6 +29,16 @@ public class Piece {
         taille = 0;
     }
 
+    public Piece(Pion pion) {
+        this();
+
+        try {
+            add(pion);
+        }
+        catch (TailleMaximaleDepasseeException e) {
+            e.printStackTrace();
+        }
+    }
     public void add(Pion pion) throws TailleMaximaleDepasseeException {
         if (taille + 1 > ROI)
             throw new TailleMaximaleDepasseeException();

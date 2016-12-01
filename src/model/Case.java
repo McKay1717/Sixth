@@ -24,4 +24,8 @@ public class Case {
     public void deletePiece() {
         piece = VIDE;
     }
+
+    public boolean isVide() {
+        return (piece == null);
+    }
 }

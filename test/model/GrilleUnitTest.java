@@ -4,6 +4,9 @@ import exception.TailleMaximaleDepasseeException;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.awt.*;
+import java.util.ArrayList;
+
 import static model.Pion.BLANC;
 import static org.junit.Assert.assertTrue;
 
@@ -20,42 +23,47 @@ public class GrilleUnitTest {
         Assert.assertNotEquals(grille.getCase(2, 4), null);
     }
 
-    /* Note : A compléter + on peut pas tester toutes les possibilités,
-     *        je crois qu'il va falloir utiliser des mocks
-     */
-
     @Test
     public void testDeplacerPiecePion() throws TailleMaximaleDepasseeException {
         Grille grille = new Grille();
+        ArrayList<Point> possibilites = new ArrayList<Point>();
+        Point posDepart = new Point(2, 3);
+        Pion pion = new Pion(BLANC);
+        int i, j;
 
-        grille.poserPion(2, 3, new Pion(BLANC));
+        grille.poserPion(posDepart.x, posDepart.y, pion);
 
-        // Déplacements diagonale sur case vide
+        for(i = posDepart.x - 1; i <= posDepart.x + 1; i++) {
+            if(i != posDepart.x)
+                possibilites.add(new Point(i, posDepart.y));
+        }
 
-        grille.deplacerPiece(2, 3, 1, 2);
-        Assert.assertEquals(grille.getCase(1, 2), null);
+        for(i = posDepart.y - 1; i <= posDepart.y + 1; i++) {
+            if(i != posDepart.y)
+                possibilites.add(new Point(posDepart.x, i));
+        }
 
-        grille.deplacerPiece(2, 3, 1, 4);
-        Assert.assertEquals(grille.getCase(1, 4), null);
-
-        grille.deplacerPiece(2, 3, 3, 4);
-        Assert.assertEquals(grille.getCase(3, 4), null);
-
-        grille.deplacerPiece(2, 3, 3, 2);
-        Assert.assertEquals(grille.getCase(3, 2), null);
-
-        // Déplacements orthogonaux sur case vide
-
-        grille.deplacerPiece(2, 3, 1, 3);
-        Assert.assertEquals(grille.getCase(1, 3), null);
+        for(i = 0; i < Grille.LARGEUR; i++) {
+            for(j = 0; j < Grille.LARGEUR; j++) {
+                if(possibilites.contains(new Point(i, j))) {
+                    Assert.assertTrue(grille.deplacerPiece(posDepart.x, posDepart.y, i, j));
+                    grille.deplacerPiece(i, j, posDepart.x, posDepart.y);
+                }
+                else
+                    Assert.assertFalse(grille.deplacerPiece(posDepart.x, posDepart.y, i, j));
+            }
+        }
     }
 
     @Test
     public void testFinDePartie() throws TailleMaximaleDepasseeException {
         Grille grille = new Grille();
+
         grille.poserPion(0, 0, new Pion(BLANC));
+
         for (int i = 0; i < 5; i++)
             grille.getCase(0, 0).getPiece().add(new Pion(BLANC));
+
         assertTrue(grille.finDePartie());
     }
 }

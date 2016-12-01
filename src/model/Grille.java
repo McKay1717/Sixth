@@ -18,6 +18,13 @@ public class Grille {
 
     public Grille() {
         grille = new Case[LARGEUR][LARGEUR];
+
+        for(int i = 0; i < LARGEUR; i++) {
+            for(int j = 0; j < LARGEUR; j++) {
+                if(grille[i][j] != null)
+                    System.out.println("not null value" + grille[i][j]);
+            }
+        }
     }
 
     public Grille(Case[][] _grille) {
@@ -25,13 +32,12 @@ public class Grille {
     }
 
     public void poserPion(int x, int y, Pion pion) throws TailleMaximaleDepasseeException {
-        Piece piece = new Piece();
-        piece.add(pion);
+        Piece piece = new Piece(pion);
         grille[x][y] = new Case(piece);
     }
 
-    public void deplacerPiece(int x, int y, int x2, int y2) {
-        if (grille[x2][y2] != null) {
+    public boolean deplacerPiece(int x, int y, int x2, int y2) {
+        if (grille[x][y] != null) {
             Piece piece = grille[x][y].getPiece();
             int taillePiece = piece.getTaille();
 
@@ -44,7 +50,7 @@ public class Grille {
             * @deplacerDame : teste si elle effectue un déplacement de tour OU SOIT un déplacement de fou
             */
 
-            boolean deplacerPion = ((x2 - x == 1 || x2 - x == -1) && (y2 - y == 1 || y2 - y == -1));
+            boolean deplacerPion = ((y == y2 && (x2 - x == 1 || x2 - x == -1)) ^ (x == x2 && (y2 - y == 1 || y2 - y == -1)));
             boolean deplacerTour = ((x2 != x) ^ (y2 != y));
             boolean deplacerCavalier = (
                     ((x2 - x == 2 || x2 - x == -2) && (y2 - y == 1 || y2 - y == -1)) ||
@@ -60,8 +66,12 @@ public class Grille {
                     (taillePiece == Piece.DAME && deplacerDame)) {
                 grille[x2][y2] = grille[x][y];
                 grille[x][y] = null;
+
+                return true;
             }
         }
+
+        return false;
     }
 
     public Case getCase(int x, int y) {

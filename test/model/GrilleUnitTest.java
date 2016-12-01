@@ -24,14 +24,13 @@ public class GrilleUnitTest {
     }
 
     @Test
-    public void testDeplacerPiecePion() throws TailleMaximaleDepasseeException {
+    public void testDeplacerPiecePion() {
         Grille grille = new Grille();
         ArrayList<Point> possibilites = new ArrayList<Point>();
         Point posDepart = new Point(2, 3);
-        Pion pion = new Pion(BLANC);
         int i, j;
 
-        grille.poserPion(posDepart.x, posDepart.y, pion);
+        grille.poserPion(posDepart.x, posDepart.y, new Pion(BLANC));
 
         for(i = posDepart.x - 1; i <= posDepart.x + 1; i++) {
             if(i != posDepart.x)
@@ -39,6 +38,38 @@ public class GrilleUnitTest {
         }
 
         for(i = posDepart.y - 1; i <= posDepart.y + 1; i++) {
+            if(i != posDepart.y)
+                possibilites.add(new Point(posDepart.x, i));
+        }
+
+        for(i = 0; i < Grille.LARGEUR; i++) {
+            for(j = 0; j < Grille.LARGEUR; j++) {
+                if(possibilites.contains(new Point(i, j))) {
+                    Assert.assertTrue(grille.deplacerPiece(posDepart.x, posDepart.y, i, j));
+                    grille.deplacerPiece(i, j, posDepart.x, posDepart.y);
+                }
+                else
+                    Assert.assertFalse(grille.deplacerPiece(posDepart.x, posDepart.y, i, j));
+            }
+        }
+    }
+
+    @Test
+    public void testDeplacerPieceTour() throws TailleMaximaleDepasseeException {
+        Grille grille = new Grille();
+        ArrayList<Point> possibilites = new ArrayList<Point>();
+        Point posDepart = new Point(2, 3);
+        int i, j;
+
+        grille.poserPion(posDepart.x, posDepart.y, new Pion(BLANC));
+        grille.getCase(posDepart.x, posDepart.y).getPiece().add(new Pion(BLANC));
+
+        for(i = 0; i < Grille.LARGEUR; i++) {
+            if(i != posDepart.x)
+                possibilites.add(new Point(i, posDepart.y));
+        }
+
+        for(i = 0; i < Grille.LARGEUR; i++) {
             if(i != posDepart.y)
                 possibilites.add(new Point(posDepart.x, i));
         }

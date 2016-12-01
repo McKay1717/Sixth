@@ -31,7 +31,7 @@ public class Grille {
         grille = _grille;
     }
 
-    public void poserPion(int x, int y, Pion pion) throws TailleMaximaleDepasseeException {
+    public void poserPion(int x, int y, Pion pion){
         Piece piece = new Piece(pion);
         grille[x][y] = new Case(piece);
     }
@@ -50,8 +50,9 @@ public class Grille {
             * @deplacerDame : teste si elle effectue un déplacement de tour OU SOIT un déplacement de fou
             */
 
-            boolean deplacerPion = ((y == y2 && (x2 - x == 1 || x2 - x == -1)) ^ (x == x2 && (y2 - y == 1 || y2 - y == -1)));
-            boolean deplacerTour = ((x2 != x) ^ (y2 != y));
+            boolean XEq = (x == x2), YEq = (y == y2);
+            boolean deplacerPion = ((YEq && (x2 - x == 1 || x2 - x == -1)) ^ (XEq && (y2 - y == 1 || y2 - y == -1)));
+            boolean deplacerTour = ((YEq && (x2 != x)) ^ (XEq && (y2 != y)));
             boolean deplacerCavalier = (
                     ((x2 - x == 2 || x2 - x == -2) && (y2 - y == 1 || y2 - y == -1)) ||
                             ((y2 - y == 2 || y2 - y == -2) && (x2 - x == 1 || x2 - x == -1))

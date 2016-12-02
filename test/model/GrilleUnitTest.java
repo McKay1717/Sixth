@@ -3,6 +3,7 @@ package model;
 import exception.TailleMaximaleDepasseeException;
 import org.junit.Assert;
 import org.junit.Test;
+import sun.text.CodePointIterator;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -123,27 +124,43 @@ public class GrilleUnitTest {
         }
     }
 
-    // TODO : Compléter les if
+    /* TODO : faire des vérifications */
+
     @Test
     public void testDeplacerPieceFou() throws TailleMaximaleDepasseeException {
         Grille grille = new Grille();
         ArrayList<Point> possibilites = new ArrayList<Point>();
         Point posDepart = new Point(2, 3);
-        int i, j;
+        int i, j = 0;
 
         grille.poserPion(posDepart.x, posDepart.y, new Pion(BLANC));
         grille.getCase(posDepart.x, posDepart.y).getPiece().add(new Pion(BLANC));
         grille.getCase(posDepart.x, posDepart.y).getPiece().add(new Pion(BLANC));
         grille.getCase(posDepart.x, posDepart.y).getPiece().add(new Pion(BLANC));
 
-        if(posDepart.x > posDepart.y) {
-            i = posDepart.x - posDepart.y; j = 0;
-        }
-        else if(posDepart.y > posDepart.x) {
-            i = 0; j = posDepart.y - posDepart.x;
+        if(posDepart.y > posDepart.x) {
 
+            for(i = posDepart.y - posDepart.x; i < Grille.LARGEUR; i++) {
+                possibilites.add(new Point(j, i));
+                j++;
+            }
+        }
+        else {
+            int startX = 0;
+
+            if(posDepart.x > posDepart.y)
+                startX = posDepart.x - posDepart.y;
+
+            for(i = startX; i < Grille.LARGEUR; i++) {
+                possibilites.add(new Point(i, j));
+                j++;
+            }
         }
 
+        for(Point p: possibilites) {
+            System.out.println("x = " + p.x + "; y = " + p.y);
+        }
+/*
         for(i = 0; i < Grille.LARGEUR; i++) {
             for(j = 0; j < Grille.LARGEUR; j++) {
                 if(possibilites.contains(new Point(i, j))) {
@@ -154,6 +171,7 @@ public class GrilleUnitTest {
                     Assert.assertFalse(grille.deplacerPiece(posDepart.x, posDepart.y, i, j));
             }
         }
+        */
     }
 
     @Test

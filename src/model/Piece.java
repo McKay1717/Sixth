@@ -84,4 +84,28 @@ public class Piece {
         for (int i = pions.size() - 1; i >= 0; i--)
             remove(pions.get(i));
     }
+
+    public char getLetter() {
+        char letter = 'P';
+
+        switch (taille) {
+            case TOUR:
+                letter = 'T';
+                break;
+            case CAVALIER:
+                letter = 'C';
+                break;
+            case FOU:
+                letter = 'F';
+                break;
+            case DAME:
+                letter = 'D';
+                break;
+            case ROI:
+                letter = 'R';
+                break;
+        }
+
+        return letter;
+    }
 }

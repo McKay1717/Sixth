@@ -123,6 +123,38 @@ public class GrilleUnitTest {
         }
     }
 
+    // TODO : Compléter les if
+    @Test
+    public void testDeplacerPieceFou() throws TailleMaximaleDepasseeException {
+        Grille grille = new Grille();
+        ArrayList<Point> possibilites = new ArrayList<Point>();
+        Point posDepart = new Point(2, 3);
+        int i, j;
+
+        grille.poserPion(posDepart.x, posDepart.y, new Pion(BLANC));
+        grille.getCase(posDepart.x, posDepart.y).getPiece().add(new Pion(BLANC));
+        grille.getCase(posDepart.x, posDepart.y).getPiece().add(new Pion(BLANC));
+        grille.getCase(posDepart.x, posDepart.y).getPiece().add(new Pion(BLANC));
+
+        if(posDepart.x > posDepart.y) {
+
+        }
+        else if(posDepart.y > posDepart.x) {
+
+        }
+
+        for(i = 0; i < Grille.LARGEUR; i++) {
+            for(j = 0; j < Grille.LARGEUR; j++) {
+                if(possibilites.contains(new Point(i, j))) {
+                    Assert.assertTrue(grille.deplacerPiece(posDepart.x, posDepart.y, i, j));
+                    grille.deplacerPiece(i, j, posDepart.x, posDepart.y);
+                }
+                else
+                    Assert.assertFalse(grille.deplacerPiece(posDepart.x, posDepart.y, i, j));
+            }
+        }
+    }
+
     @Test
     public void testFinDePartie() throws TailleMaximaleDepasseeException {
         Grille grille = new Grille();

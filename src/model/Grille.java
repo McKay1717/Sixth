@@ -75,7 +75,7 @@ public class Grille {
         return false;
     }
 
-    public Case[][] getCases() {
+    public Case[][] getGrille() {
         return grille;
     }
     

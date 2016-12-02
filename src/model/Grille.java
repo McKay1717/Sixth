@@ -75,6 +75,10 @@ public class Grille {
         return false;
     }
 
+    public Case[][] getCases() {
+        return grille;
+    }
+    
     public Case getCase(int x, int y) {
         return grille[x][y];
     }

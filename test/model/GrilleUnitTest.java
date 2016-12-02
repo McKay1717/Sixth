@@ -137,9 +137,10 @@ public class GrilleUnitTest {
         grille.getCase(posDepart.x, posDepart.y).getPiece().add(new Pion(BLANC));
 
         if(posDepart.x > posDepart.y) {
-
+            i = posDepart.x - posDepart.y; j = 0;
         }
         else if(posDepart.y > posDepart.x) {
+            i = 0; j = posDepart.y - posDepart.x;
 
         }
 

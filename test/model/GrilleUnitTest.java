@@ -124,8 +124,6 @@ public class GrilleUnitTest {
         }
     }
 
-    /* TODO : faire des vérifications */
-
     @Test
     public void testDeplacerPieceFou() throws TailleMaximaleDepasseeException {
         Grille grille = new Grille();
@@ -154,6 +152,25 @@ public class GrilleUnitTest {
             for(i = startX; i < Grille.LARGEUR; i++) {
                 possibilites.add(new Point(i, j));
                 j++;
+            }
+        }
+
+        if(posDepart.y > Grille.LARGEUR - posDepart.x) {
+            j = Grille.LARGEUR;
+
+            for(i = posDepart.y - (Grille.LARGEUR - posDepart.x); i < Grille.LARGEUR; i++) {
+                possibilites.add(new Point(j, i));
+                j--;
+            }
+        }
+        else {
+            int endY = posDepart.x + posDepart.y;
+
+            j = endY;
+
+            for(i = 0; i < endY; i++) {
+                possibilites.add(new Point(j, i));
+                j--;
             }
         }
 

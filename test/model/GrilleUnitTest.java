@@ -128,37 +128,34 @@ public class GrilleUnitTest {
     public void testDeplacerPieceFou() throws TailleMaximaleDepasseeException {
         Grille grille = new Grille();
         ArrayList<Point> possibilites = new ArrayList<Point>();
-        Point posDepart = new Point(2, 3);
-        int i, j = 0;
+        Point posDepart = new Point(2, 0);
+        int i, j = 0, startY = 0, endY = Grille.LARGEUR;
 
         grille.poserPion(posDepart.x, posDepart.y, new Pion(BLANC));
         grille.getCase(posDepart.x, posDepart.y).getPiece().add(new Pion(BLANC));
         grille.getCase(posDepart.x, posDepart.y).getPiece().add(new Pion(BLANC));
         grille.getCase(posDepart.x, posDepart.y).getPiece().add(new Pion(BLANC));
 
-        if(posDepart.y > posDepart.x) {
+        if(posDepart.y > posDepart.x)
+            startY = posDepart.y - posDepart.x;
+        else if(posDepart.x > posDepart.y) {
+            j = posDepart.x - posDepart.y;
+            endY = Grille.LARGEUR - j;
+        }
 
-            for(i = posDepart.y - posDepart.x; i < Grille.LARGEUR; i++) {
+        for(i = startY; i < endY; i++) {
+            if(i != posDepart.y && j != posDepart.x)
                 possibilites.add(new Point(j, i));
-                j++;
-            }
-        }
-        else {
-            int startX = 0;
 
-            if(posDepart.x > posDepart.y)
-                startX = posDepart.x - posDepart.y;
-
-            for(i = startX; i < Grille.LARGEUR; i++) {
-                possibilites.add(new Point(i, j));
-                j++;
-            }
+            j++;
         }
 
-        if(posDepart.y > Grille.LARGEUR - posDepart.x) {
-            j = Grille.LARGEUR;
+        /*final int LARGEUR = Grille.LARGEUR - 1;
 
-            for(i = posDepart.y - (Grille.LARGEUR - posDepart.x); i < Grille.LARGEUR; i++) {
+        if(posDepart.y > LARGEUR - posDepart.x) {
+            j = LARGEUR;
+
+            for(i = posDepart.y - (LARGEUR - posDepart.x); i < Grille.LARGEUR; i++) {
                 possibilites.add(new Point(j, i));
                 j--;
             }
@@ -168,12 +165,13 @@ public class GrilleUnitTest {
 
             j = endY;
 
+            System.out.println(endY);
             for(i = 0; i < endY; i++) {
                 possibilites.add(new Point(j, i));
                 j--;
             }
         }
-
+*/
         for(Point p: possibilites) {
             System.out.println("x = " + p.x + "; y = " + p.y);
         }

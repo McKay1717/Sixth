@@ -14,7 +14,7 @@ public class Grille {
     public static final int LARGEUR = 5;
     public static final int PION_MAX = 30;
 
-    private Case grille[][] = new Case[5][5];
+    private Case grille[][];
 
     public Grille() {
         grille = new Case[LARGEUR][LARGEUR];

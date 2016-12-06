@@ -1,42 +1,26 @@
 package model;
 
-import exception.TailleMaximaleDepasseeException;
-
-import static model.Piece.ROI;
-
-/**
- * Created by ctx on 09/11/16.
- */
+import exceptions.TailleMaximaleDepasseeException;
 
 public class Grille {
-    // On compte en commençant d'en haut à gauche
-
-    public static final int LARGEUR = 5;
-    public static final int PION_MAX = 30;
-
-    private Case grille[][];
+    static final int LONGUEUR = 5;
+    static final int LARGEUR = 5;
+    private Case[][] grille;
 
     public Grille() {
-        grille = new Case[LARGEUR][LARGEUR];
-
-        for(int i = 0; i < LARGEUR; i++) {
-            for(int j = 0; j < LARGEUR; j++) {
-                if(grille[i][j] != null)
-                    System.out.println("not null value" + grille[i][j]);
-            }
-        }
+        grille = new Case[LONGUEUR][LARGEUR];
+        for (int i = 0; i < LONGUEUR; i++)
+            for (int j = 0; j < LARGEUR; j++)
+                grille[i][j] = new Case();
     }
 
-    public Grille(Case[][] _grille) {
-        grille = _grille;
+    public void addPion(int x, int y, Pion pion) throws TailleMaximaleDepasseeException {
+        //TODO Vérifier si la case possède déjà ou non une pièce.
+        Piece piece = new Piece(pion.getCouleur(), pion);
+        grille[x][y].setPiece(piece);
     }
 
-    public void poserPion(int x, int y, Pion pion){
-        Piece piece = new Piece(pion);
-        grille[x][y] = new Case(piece);
-    }
-
-    public boolean deplacerPiece(int x, int y, int x2, int y2) {
+    public boolean deplacer(int x, int y, int x2, int y2) {
         if (grille[x][y] != null) {
             Piece piece = grille[x][y].getPiece();
             int taillePiece = piece.getTaille();
@@ -49,7 +33,6 @@ public class Grille {
             * @deplacerFou : teste s'il est bien déplacé en diagonale
             * @deplacerDame : teste si elle effectue un déplacement de tour OU SOIT un déplacement de fou
             */
-
             boolean XEq = (x == x2), YEq = (y == y2);
             boolean deplacerPion = ((YEq && (x2 - x == 1 || x2 - x == -1)) ^ (XEq && (y2 - y == 1 || y2 - y == -1)));
             boolean deplacerTour = ((YEq && (x2 != x)) ^ (XEq && (y2 != y)));
@@ -67,27 +50,17 @@ public class Grille {
                     (taillePiece == Piece.DAME && deplacerDame)) {
                 grille[x2][y2] = grille[x][y];
                 grille[x][y] = null;
-
                 return true;
             }
         }
-
         return false;
     }
 
-    public Case[][] getGrille() {
-        return grille;
-    }
-    
     public Case getCase(int x, int y) {
         return grille[x][y];
     }
 
-    public boolean finDePartie() {
-        for (int i = 0; i < LARGEUR; i++)
-            for (int j = 0; j < LARGEUR; j++)
-                if (grille[i][j].getPiece().getTaille() == ROI)
-                    return true;
-        return false;
+    public Piece getPiece(int x, int y) {
+        return getCase(x, y).getPiece();
     }
 }

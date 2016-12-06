@@ -1,44 +1,45 @@
 package model;
 
-import exception.PionDeLaListeARetireDeLaPileNonDansLaPileException;
-import exception.PionNonEnHautDeLaPileException;
-import exception.TailleMaximaleDepasseeException;
-import exception.TailleRetireeSuperieurATaillePileException;
+import exceptions.PionDeLaListeARetireDeLaPileNonDansLaPileException;
+import exceptions.PionNonEnHautDeLaPileException;
+import exceptions.TailleMaximaleDepasseeException;
+import exceptions.TailleRetireeSuperieurATaillePileException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static model.Pion.SANS_COULEUR;
-
 public class Piece {
-    //Valeurs
     public static final int PION = 1;
     public static final int TOUR = 2;
     public static final int CAVALIER = 3;
     public static final int FOU = 4;
     public static final int DAME = 5;
     public static final int ROI = 6;
-
-    private List<Pion> pions;
-    private int couleur;
+    private java.util.List<Pion> pions;
     private int taille;
+    private int couleur;
 
-    public Piece() {
-        pions = new ArrayList<Pion>();
-        couleur = SANS_COULEUR;
-        taille = 0;
+    public Piece(int couleur, Pion pion) throws TailleMaximaleDepasseeException {
+        pions = new ArrayList<>();
+        add(pion);
+        taille = pions.size();
+        this.couleur = couleur;
     }
 
-    public Piece(Pion pion) {
-        this();
-
-        try {
-            add(pion);
-        }
-        catch (TailleMaximaleDepasseeException e) {
-            e.printStackTrace();
-        }
+    public Piece(List<Pion> pions, int taille, int couleur) {
+        this.pions = pions;
+        this.taille = taille;
+        this.couleur = couleur;
     }
+
+    public int getCouleur() {
+        return couleur;
+    }
+
+    public int getTaille() {
+        return taille;
+    }
+
     public void add(Pion pion) throws TailleMaximaleDepasseeException {
         if (taille + 1 > ROI)
             throw new TailleMaximaleDepasseeException();
@@ -48,20 +49,12 @@ public class Piece {
         taille++;
     }
 
-    public int getCouleur() {
-        return couleur;
-    }
-
     public void add(List<Pion> pions) throws TailleMaximaleDepasseeException {
         if (pions.size() + taille > ROI)
             throw new TailleMaximaleDepasseeException();
 
         for (Pion pion : pions)
             add(pion);
-    }
-
-    public int getTaille() {
-        return taille;
     }
 
     public void remove(Pion pion) throws PionNonEnHautDeLaPileException {
@@ -83,29 +76,5 @@ public class Piece {
 
         for (int i = pions.size() - 1; i >= 0; i--)
             remove(pions.get(i));
-    }
-
-    public char getLetter() {
-        char letter = 'P';
-
-        switch (taille) {
-            case TOUR:
-                letter = 'T';
-                break;
-            case CAVALIER:
-                letter = 'C';
-                break;
-            case FOU:
-                letter = 'F';
-                break;
-            case DAME:
-                letter = 'D';
-                break;
-            case ROI:
-                letter = 'R';
-                break;
-        }
-
-        return letter;
     }
 }

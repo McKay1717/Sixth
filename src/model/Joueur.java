@@ -1,98 +1,41 @@
 package model;
 
+import java.util.Stack;
+
 public class Joueur {
+    private static final int NB_PIONS = 15;
+    private int couleur;
+    private Stack<Pion> pions;
+    private int nb_coups;
+    private String nom;
 
-	private String nom = "";
-	private int color = Pion.SANS_COULEUR; // -1 Rouge -2 Blanc
-	private int score;
-	public static final int MAX_PION = 15;
+    public Joueur(int couleur, String nom) {
+        this.couleur = couleur;
+        this.nom = nom;
+        nb_coups = 0;
+        pions = new Stack<Pion>();
+        for (int i = 0; i < NB_PIONS; i++) {
+            pions.push(new Pion(couleur, this));
+        }
+    }
 
-	public Joueur(String nom, int color) {
-		super();
-		this.nom = nom;
-		this.color = color;
-	}
+    public int getCouleur() {
+        return couleur;
+    }
 
-	public void joue() {
-		score += 1;
-	}
+    public Stack<Pion> getPions() {
+        return pions;
+    }
 
-	/**
-	 * @return the nom
-	 */
-	public String getNom() {
-		return nom;
-	}
+    public int getNb_coups() {
+        return nb_coups;
+    }
 
-	/**
-	 * @param nom
-	 *            the nom to set
-	 */
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
+    public String getNom() {
+        return nom;
+    }
 
-	/**
-	 * @return the color
-	 */
-	public int getColor() {
-		return color;
-	}
-
-	/**
-	 * @param color
-	 *            the color to set
-	 */
-	public void setColor(int color) {
-		this.color = color;
-	}
-
-	/**
-	 * @return the score
-	 */
-	public int getScore() {
-		return score;
-	}
-
-	/**
-	 * @param score
-	 *            the score to set
-	 */
-	public void setScore(int score) {
-		this.score = score;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (!(obj instanceof Joueur)) {
-			return false;
-		}
-		Joueur other = (Joueur) obj;
-		if (color != other.color) {
-			return false;
-		}
-		if (nom == null) {
-			if (other.nom != null) {
-				return false;
-			}
-		} else if (!nom.equals(other.nom)) {
-			return false;
-		}
-		if (score != other.score) {
-			return false;
-		}
-		return true;
-	}
-
+    public void joue() {
+        nb_coups++;
+    }
 }

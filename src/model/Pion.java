@@ -1,18 +1,19 @@
 package model;
 
 public class Pion {
-    //Couleurs
-    public static final int SANS_COULEUR = 0;
-    public static final int ROUGE = -1;
-    public static final int BLANC = -2;
-
     private int couleur;
+    private Joueur joueur;
 
-    public Pion(int couleur) {
+    public Pion(int couleur, Joueur joueur) {
         this.couleur = couleur;
+        this.joueur = joueur;
     }
 
     public int getCouleur() {
         return couleur;
+    }
+
+    public Joueur getJoueur() {
+        return joueur;
     }
 }

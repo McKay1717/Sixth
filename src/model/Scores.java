@@ -3,11 +3,11 @@ package model;
 import java.io.*;
 
 public class Scores implements Serializable {
-    public static final int NB_SCORES_SAUVEGARDES = 5;
-    public Joueur joueur;
-    public int nbCoups;
+    private static final int NB_SCORES_SAUVEGARDES = 5;
+    private Joueur joueur;
+    private int nbCoups;
 
-    public Scores(Joueur joueur, int nbCoups) {
+    private Scores(Joueur joueur, int nbCoups) {
         this.joueur = joueur;
         this.nbCoups = nbCoups;
     }

@@ -18,9 +18,10 @@ public class FenetreMenu extends JFrame {
     public FenetreMenu() throws IOException {
 
         fontPanel = new FontPanel(new ImageIcon("dataImage/font.png").getImage());
+
         creerWidget();
 
-        setSize(400,400);                                // Fixe la taille par défaut
+        setSize(1000,1000);                                // Fixe la taille par défaut
         setLocationRelativeTo(null);                     //position de la fenetre sur l'ordi
         setVisible(true);                                // Affiche la fenetre
         setTitle("Menu Sixth");                          //donne un titre au jFrame
@@ -31,7 +32,8 @@ public class FenetreMenu extends JFrame {
 
     private void creerWidget() {
 
-
+        JPanel pPrinc = new JPanel();
+            pPrinc.setOpaque(false);
 
         JPanel pCentrageMenu = new JPanel(new BorderLayout());
             pCentrageMenu.setLayout(new GridLayout(2,1));
@@ -53,6 +55,7 @@ public class FenetreMenu extends JFrame {
         lTitel.setFont(new Font("FreeMono",Font.PLAIN,35));
 
         bPLay = new JButton("Play-Game");
+          //  bPLay.
         bQuit = new JButton("Quitter");
 
         //construction de Frame
@@ -71,7 +74,7 @@ public class FenetreMenu extends JFrame {
         boxCentrage.add(pCentrageMenu);
 
 
-        //bPLay.addActionListener(new EvenFMenu(this));
+        bPLay.addActionListener(new EvenFMenu(this));
         bQuit.addActionListener(new EvenFMenu(this));
 
         fontPanel.add(boxCentrage);

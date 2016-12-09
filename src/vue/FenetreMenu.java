@@ -40,7 +40,7 @@ public class FenetreMenu extends JFrame {
             pCentrageMenu.setOpaque(false);
 
         JPanel pButton = new JPanel();
-        pButton.setLayout(new GridLayout(2,1));
+            pButton.setLayout(new GridLayout(2,1));
             pButton.setOpaque(false);
 
         JPanel pTitel = new JPanel();
@@ -51,33 +51,35 @@ public class FenetreMenu extends JFrame {
         JPanel pQuit = new JPanel();
             pQuit.setOpaque(false);
 
-        JLabel lTitel = new JLabel("");
-        lTitel.setFont(new Font("FreeMono",Font.PLAIN,35));
+        //JLabel lTitel = new JLabel("Sixth");
+         //   lTitel.setFont(new Font("FreeMono",Font.PLAIN,35));
 
-        bPLay = new JButton("Play-Game");
-          //  bPLay.
+        bPLay = new JButton("Play");
+            bPLay.setPreferredSize(new Dimension(200,80));
+            bPLay.setFont(new Font("FreeMono",Font.PLAIN,35));
         bQuit = new JButton("Quitter");
-
+            bQuit.setPreferredSize(new Dimension(200,80));
+            bQuit.setFont(new Font("FreeMono",Font.PLAIN,35));
         //construction de Frame
-        pTitel.add(lTitel);
-        pPLay.add(bPLay);
-        pQuit.add(bQuit);
+        //pTitel.add(lTitel);
+        pPLay.add(bPLay, BorderLayout.CENTER);
+        pQuit.add(bQuit, BorderLayout.CENTER);
 
-        pButton.add(pPLay);
-        pButton.add(pQuit);
+        pButton.add(pPLay, BorderLayout.CENTER);
+        pButton.add(pQuit, BorderLayout.CENTER);
 
         pCentrageMenu.add(pTitel, BorderLayout.CENTER);
         pCentrageMenu.add(pButton, BorderLayout.CENTER);
 
         Box boxCentrage = Box.createVerticalBox();
-        boxCentrage.add(Box.createVerticalStrut(100));
-        boxCentrage.add(pCentrageMenu);
+        boxCentrage.add(Box.createVerticalStrut(250));
+        boxCentrage.add(pCentrageMenu, BorderLayout.CENTER);
 
 
         bPLay.addActionListener(new EvenFMenu(this));
         bQuit.addActionListener(new EvenFMenu(this));
 
-        fontPanel.add(boxCentrage);
+        fontPanel.add(boxCentrage, BorderLayout.CENTER);
 
         setContentPane(fontPanel);
     }

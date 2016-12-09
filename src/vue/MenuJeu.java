@@ -4,12 +4,12 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Menu extends JMenuBar {
+public class MenuJeu extends JMenuBar {
     private List<JMenu> jMenus;
     private List<List<JMenuItem>> jMenuItems;
     private JFrame fenetre;
 
-    public Menu(JFrame fenetre) {
+    public MenuJeu(JFrame fenetre) {
         this.fenetre = fenetre;
         initMenu();
     }

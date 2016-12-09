@@ -24,7 +24,7 @@ public class FenetreMenu extends JFrame {
         setSize(1000,1000);                                // Fixe la taille par défaut
         setLocationRelativeTo(null);                     //position de la fenetre sur l'ordi
         setVisible(true);                                // Affiche la fenetre
-        setTitle("Menu Sixth");                          //donne un titre au jFrame
+        setTitle("MenuJeu Sixth");                          //donne un titre au jFrame
         //setIconImage(...)                              //associer une icon a la fenetre
         setResizable(false);                             //empaiche la redimention du JFrame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // Gestion de la fermeture

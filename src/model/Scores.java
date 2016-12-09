@@ -2,7 +2,7 @@ package model;
 
 import java.io.*;
 
-public class Scores {
+public class Scores implements Serializable {
     public static final int NB_SCORES_SAUVEGARDES = 5;
     public Joueur joueur;
     public int nbCoups;

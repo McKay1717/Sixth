@@ -9,8 +9,6 @@ public class FenetreGrille extends JFrame {
 
     private Grille grille;
     private GrillePanel grillePanel;
-
-
     public FenetreGrille() {
 
         creerWidget();
@@ -27,10 +25,13 @@ public class FenetreGrille extends JFrame {
     private void creerWidget() {
         JPanel pFram = new JPanel();
 
-        JPanel pPrinc = new JPanel();
-            pPrinc.setLayout(new GridLayout(2,1));
 
 
+        JPanel pPilePiece = new JPanel(new GridLayout(2,1));
+        JButton bPileBlanc = new JButton("Blanc");
+            bPileBlanc.setForeground(Color.WHITE);
+        JButton bPileRouge = new JButton("Rouge");
+            bPileRouge.setForeground(Color.RED);
         //affichage de la grille
         grille = new Grille();
         grillePanel = new GrillePanel(grille);
@@ -46,8 +47,15 @@ public class FenetreGrille extends JFrame {
 //        gbd.ipady = 500;
 //        contp.add(grillePanel, gbd);
 
+        pPilePiece.add(bPileBlanc);
+
+
+        pPilePiece.add(bPileRouge);
+
+
+
         pGrille.add(grillePanel);
-        pFram.add(pPrinc,BorderLayout.WEST);
+        pFram.add(pPilePiece,BorderLayout.WEST);
         pFram.add(pGrille,BorderLayout.EAST);
 
         setContentPane(pFram);

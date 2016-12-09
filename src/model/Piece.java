@@ -77,4 +77,23 @@ public class Piece {
         for (int i = pions.size() - 1; i >= 0; i--)
             remove(pions.get(i));
     }
+
+    public String toString() {
+        switch (getTaille()) {
+            case PION:
+                return "P";
+            case TOUR:
+                return "T";
+            case CAVALIER:
+                return "C";
+            case FOU:
+                return "F";
+            case DAME:
+                return "D";
+            case ROI:
+                return "R";
+            default:
+                return null;
+        }
+    }
 }

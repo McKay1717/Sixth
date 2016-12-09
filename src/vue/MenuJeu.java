@@ -37,5 +37,10 @@ public class MenuJeu extends JMenuBar {
                 jMenus.get(i).add(jMenuItem);
             i++;
         }
+
+        for (JMenu jMenu : jMenus)
+            add(jMenu);
+
+        fenetre.setJMenuBar(this);
     }
 }

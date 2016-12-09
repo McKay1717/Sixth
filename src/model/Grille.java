@@ -40,7 +40,7 @@ public class Grille {
                     ((x2 - x == 2 || x2 - x == -2) && (y2 - y == 1 || y2 - y == -1)) ||
                             ((y2 - y == 2 || y2 - y == -2) && (x2 - x == 1 || x2 - x == -1))
             );
-            boolean deplacerFou = ((y - y2 == x - x2) || (y - y2 == -(x - x2)));
+            boolean deplacerFou = ((y - y2 == x - x2) ^ (y - y2 == -(x - x2)));
             boolean deplacerDame = deplacerTour ^ deplacerFou;
 
             if ((taillePiece == Piece.PION && deplacerPion) ||

@@ -93,7 +93,7 @@ public class Piece {
             case ROI:
                 return "R";
             default:
-                return null;
+                return "";
         }
     }
 }

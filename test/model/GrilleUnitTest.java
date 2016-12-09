@@ -37,15 +37,17 @@ public class GrilleUnitTest {
 
         grille.addPion(posDepart.x, posDepart.y, new Pion(joueur.getCouleur(), joueur));
 
-        for (i = posDepart.x - 1; i <= posDepart.x + 1; i++)
+        for (i = posDepart.x - 1; i <= posDepart.x + 1; i++) {
             if (i != posDepart.x)
                 possibilites.add(new Point(i, posDepart.y));
+        }
 
-        for (i = posDepart.y - 1; i <= posDepart.y + 1; i++)
+        for (i = posDepart.y - 1; i <= posDepart.y + 1; i++) {
             if (i != posDepart.y)
                 possibilites.add(new Point(posDepart.x, i));
+        }
 
-        for (i = 0; i < LONGUEUR; i++)
+        for (i = 0; i < LONGUEUR; i++) {
             for (j = 0; j < LARGEUR; j++) {
                 if (possibilites.contains(new Point(i, j))) {
                     assertTrue(grille.deplacer(posDepart.x, posDepart.y, i, j));
@@ -53,6 +55,7 @@ public class GrilleUnitTest {
                 } else
                     assertFalse(grille.deplacer(posDepart.x, posDepart.y, i, j));
             }
+        }
     }
 
     @Test
@@ -64,22 +67,26 @@ public class GrilleUnitTest {
         grille.addPion(posDepart.x, posDepart.y, new Pion(joueur.getCouleur(), joueur));
         grille.getCase(posDepart.x, posDepart.y).getPiece().add(new Pion(joueur.getCouleur(), joueur));
 
-        for (i = 0; i < LONGUEUR; i++)
+        for (i = 0; i < LONGUEUR; i++) {
             if (i != posDepart.x)
                 possibilites.add(new Point(i, posDepart.y));
+        }
 
-        for (i = 0; i < LARGEUR; i++)
+        for (i = 0; i < LARGEUR; i++) {
             if (i != posDepart.y)
                 possibilites.add(new Point(posDepart.x, i));
+        }
 
-        for (i = 0; i < LONGUEUR; i++)
+        for (i = 0; i < LONGUEUR; i++) {
             for (j = 0; j < LARGEUR; j++) {
                 if (possibilites.contains(new Point(i, j))) {
                     assertTrue(grille.deplacer(posDepart.x, posDepart.y, i, j));
                     grille.deplacer(i, j, posDepart.x, posDepart.y);
-                } else
+                }
+                else
                     assertFalse(grille.deplacer(posDepart.x, posDepart.y, i, j));
             }
+        }
     }
 
     @Test
@@ -92,24 +99,30 @@ public class GrilleUnitTest {
         grille.getCase(posDepart.x, posDepart.y).getPiece().add(new Pion(joueur.getCouleur(), joueur));
         grille.getCase(posDepart.x, posDepart.y).getPiece().add(new Pion(joueur.getCouleur(), joueur));
 
-        for (i = posDepart.x - 2; i <= posDepart.x + 2; i += 2)
-            for (j = posDepart.y - 1; j <= posDepart.y + 1; j++)
+        for (i = posDepart.x - 2; i <= posDepart.x + 2; i += 2) {
+            for (j = posDepart.y - 1; j <= posDepart.y + 1; j++) {
                 if (i != posDepart.x && j != posDepart.y)
                     possibilites.add(new Point(i, j));
+            }
+        }
 
-        for (i = posDepart.y - 2; i <= posDepart.y + 2; i += 2)
-            for (j = posDepart.x - 1; j <= posDepart.x + 1; j++)
+        for (i = posDepart.y - 2; i <= posDepart.y + 2; i += 2) {
+            for (j = posDepart.x - 1; j <= posDepart.x + 1; j++) {
                 if (i != posDepart.y && j != posDepart.x)
                     possibilites.add(new Point(j, i));
+            }
+        }
 
-        for (i = 0; i < LONGUEUR; i++)
+        for (i = 0; i < LONGUEUR; i++) {
             for (j = 0; j < LARGEUR; j++) {
                 if (possibilites.contains(new Point(i, j))) {
                     assertTrue(grille.deplacer(posDepart.x, posDepart.y, i, j));
                     grille.deplacer(i, j, posDepart.x, posDepart.y);
-                } else
+                }
+                else
                     assertFalse(grille.deplacer(posDepart.x, posDepart.y, i, j));
             }
+        }
     }
 
     @Test
@@ -185,15 +198,15 @@ public class GrilleUnitTest {
 
         // Déplacements orthogonaux
 
-        for (i = posDepart.x - 2; i <= posDepart.x + 2; i += 2)
-            for (j = posDepart.y - 1; j <= posDepart.y + 1; j++)
-                if (i != posDepart.x && j != posDepart.y)
-                    possibilites.add(new Point(i, j));
+        for (i = 0; i < LONGUEUR; i++) {
+            if (i != posDepart.x)
+                possibilites.add(new Point(i, posDepart.y));
+        }
 
-        for (i = posDepart.y - 2; i <= posDepart.y + 2; i += 2)
-            for (j = posDepart.x - 1; j <= posDepart.x + 1; j++)
-                if (i != posDepart.y && j != posDepart.x)
-                    possibilites.add(new Point(j, i));
+        for (i = 0; i < LARGEUR; i++) {
+            if (i != posDepart.y)
+                possibilites.add(new Point(posDepart.x, i));
+        }
 
         // Déplacements diagonaux
 
@@ -233,7 +246,7 @@ public class GrilleUnitTest {
             j--;
         }
 
-        for (i = 0; i < LONGUEUR; i++)
+        for (i = 0; i < LONGUEUR; i++) {
             for (j = 0; j < LARGEUR; j++) {
                 if (possibilites.contains(new Point(i, j))) {
                     assertTrue(grille.deplacer(posDepart.x, posDepart.y, i, j));
@@ -242,5 +255,6 @@ public class GrilleUnitTest {
                 else
                     assertFalse(grille.deplacer(posDepart.x, posDepart.y, i, j));
             }
+        }
     }
 }

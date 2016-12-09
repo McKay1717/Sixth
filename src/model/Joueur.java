@@ -35,6 +35,10 @@ public class Joueur {
         return nom;
     }
 
+    public int getNbPionsRestants() {
+        return pions.size();
+    }
+
     public void joue() {
         nb_coups++;
     }

@@ -28,6 +28,10 @@ public class Scores {
         return scores;
     }
 
+    public int getCouleur() {
+        return joueur.getCouleur();
+    }
+
     public String getNomJoueur() {
         return joueur.getNom();
     }

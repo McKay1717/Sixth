@@ -1,8 +1,12 @@
 package model;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Scores implements Serializable {
+import static java.util.Collections.sort;
+
+public class Scores implements Serializable, Comparable<Scores> {
     private static final int NB_SCORES_SAUVEGARDES = 5;
     private Joueur joueur;
     private int nbCoups;
@@ -12,18 +16,23 @@ public class Scores implements Serializable {
         this.nbCoups = nbCoups;
     }
 
-    public static void saveScores(Joueur joueur, int nbCoups) throws IOException {
-        Scores scores = new Scores(joueur, nbCoups);
+    public static void saveScores(Joueur joueur, int nbCoups) throws IOException, ClassNotFoundException {
+        List<Scores> scores = readScores();
+        scores.add(new Scores(joueur, nbCoups));
+        sort(scores);
+        while (scores.size() > NB_SCORES_SAUVEGARDES)
+            scores.remove(scores.get(scores.size() - 1));
         ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File("Resources/scores"))));
-        oos.writeObject(scores);
+        for (Scores score : scores)
+            oos.writeObject(score);
         oos.close();
     }
 
-    public static Scores[] readScores() throws IOException, ClassNotFoundException {
-        Scores[] scores = new Scores[NB_SCORES_SAUVEGARDES];
+    public static List<Scores> readScores() throws IOException, ClassNotFoundException {
+        List<Scores> scores = new ArrayList<>();
         ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(new File("Ressources/scores"))));
         for (int i = 0; i < NB_SCORES_SAUVEGARDES; i++)
-            scores[i] = (Scores) ois.readObject();
+            scores.add((Scores) ois.readObject());
         ois.close();
         return scores;
     }
@@ -38,5 +47,12 @@ public class Scores implements Serializable {
 
     public int getNbCoups() {
         return nbCoups;
+    }
+
+    @Override
+    public int compareTo(Scores scores) {
+        if (nbCoups < scores.nbCoups)
+            return 0;
+        return 1;
     }
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import static java.util.Collections.sort;
 
 public class Scores implements Serializable, Comparable<Scores> {
+    private static final String FILE_SCORES = "Ressources/scores";
     private static final int NB_SCORES_SAUVEGARDES = 5;
     private Joueur joueur;
     private int nbCoups;
@@ -22,7 +23,7 @@ public class Scores implements Serializable, Comparable<Scores> {
         sort(scores);
         while (scores.size() > NB_SCORES_SAUVEGARDES)
             scores.remove(scores.get(scores.size() - 1));
-        ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File("Resources/scores"))));
+        ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File(FILE_SCORES))));
         for (Scores score : scores)
             oos.writeObject(score);
         oos.close();
@@ -30,7 +31,7 @@ public class Scores implements Serializable, Comparable<Scores> {
 
     public static List<Scores> readScores() throws IOException, ClassNotFoundException {
         List<Scores> scores = new ArrayList<>();
-        ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(new File("Ressources/scores"))));
+        ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(new File(FILE_SCORES))));
         for (int i = 0; i < NB_SCORES_SAUVEGARDES; i++)
             scores.add((Scores) ois.readObject());
         ois.close();

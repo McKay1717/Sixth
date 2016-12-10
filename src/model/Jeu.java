@@ -2,13 +2,16 @@ package model;
 
 import exceptions.TailleMaximaleDepasseeException;
 
+import java.io.*;
+
 import static model.Grille.LARGEUR;
 import static model.Grille.LONGUEUR;
 import static model.Piece.ROI;
 
-public class Jeu {
+public class Jeu implements Serializable {
     public static final int BLANC = -1;
     public static final int ROUGE = -2;
+    private static final String FILE_SAVE_PARTIE = "Ressources/save";
     private static final int NB_JOUEURS = 2;
     private static final int COULEUR_PREMIER_JOUEUR = BLANC;
     private Joueur[] joueurs;
@@ -44,5 +47,18 @@ public class Jeu {
 
     public Piece getPiece(int x, int y) {
         return grille.getPiece(x, y);
+    }
+
+    public void savePartie() throws IOException {
+        ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File(FILE_SAVE_PARTIE))));
+        oos.writeObject(this);
+        oos.close();
+    }
+
+    public Jeu loadPartie() throws IOException, ClassNotFoundException {
+        ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(new File(FILE_SAVE_PARTIE))));
+        Jeu save = (Jeu) ois.readObject();
+        ois.close();
+        return save;
     }
 }

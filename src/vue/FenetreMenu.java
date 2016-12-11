@@ -19,7 +19,9 @@ public class FenetreMenu extends JFrame {
 
         fontPanel = new FontPanel(new ImageIcon("dataImage/font.png").getImage());
 
+
         creerWidget();
+
 
         setSize(1000,1000);                                // Fixe la taille par défaut
         setLocationRelativeTo(null);                     //position de la fenetre sur l'ordi
@@ -54,9 +56,10 @@ public class FenetreMenu extends JFrame {
         //JLabel lTitel = new JLabel("Sixth");
          //   lTitel.setFont(new Font("FreeMono",Font.PLAIN,35));
 
-        bPLay = new JButton("Play");
+        bPLay = new JButton("Jouer");
             bPLay.setPreferredSize(new Dimension(200,80));
             bPLay.setFont(new Font("FreeMono",Font.PLAIN,35));
+
         bQuit = new JButton("Quitter");
             bQuit.setPreferredSize(new Dimension(200,80));
             bQuit.setFont(new Font("FreeMono",Font.PLAIN,35));
@@ -70,6 +73,8 @@ public class FenetreMenu extends JFrame {
 
         pCentrageMenu.add(pTitel, BorderLayout.CENTER);
         pCentrageMenu.add(pButton, BorderLayout.CENTER);
+
+
 
         Box boxCentrage = Box.createVerticalBox();
         boxCentrage.add(Box.createVerticalStrut(250));

@@ -5,10 +5,8 @@ import model.Grille;
 import javax.management.loading.PrivateClassLoader;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
-/**
- * Created by ctx on 02/12/16.
- */
 public class GrillePanel extends JPanel{
     private static final int TAILLE_GRILLE = 5;
     private Grille grille;
@@ -18,25 +16,39 @@ public class GrillePanel extends JPanel{
         super();
         this.grille = grille;
 
-        initAtribut();
+        try {
+            initAtribut();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         creerWidget();
+
+        setBackground(Color.GREEN);
     }
 
-    private void initAtribut() {
+    private void initAtribut() throws IOException {
         grillButton = new JButton[TAILLE_GRILLE][TAILLE_GRILLE];
+
+         //FontButton fontWood = new FontButton(new ImageIcon("dataImage/texture-planche").getImage());
 
         for (int i = 0 ; i < TAILLE_GRILLE ; i++) {
             for (int j = 0; j < TAILLE_GRILLE; j++) {
 
                 if (String.valueOf(grille.getPiece(i,j)) != null)
-                    grillButton[i][j] = new JButton(String.valueOf(grille.getPiece(i, j)));
-                 else
+                    if (i%2 == 0)
+                        if (j%2 == 0)
+                            grillButton[i][j] = new FontButton( String.valueOf(grille.getPiece(i, j)), new ImageIcon("dataImage/texture-planche.jpg").getImage(), (600/5)*2, (600/5)*2);
+                        else
+                            grillButton[i][j] = new FontButton( String.valueOf(grille.getPiece(i, j)), new ImageIcon("dataImage/texture-bois.jpg").getImage(), (600/5)*2, (600/5)*2);
+                    else
+                        if (j%2 == 1)
+                            grillButton[i][j] = new FontButton( String.valueOf(grille.getPiece(i, j)), new ImageIcon("dataImage/texture-planche.jpg").getImage(), (600/5)*2, (600/5)*2);
+                        else
+                            grillButton[i][j] = new FontButton( String.valueOf(grille.getPiece(i, j)), new ImageIcon("dataImage/texture-bois.jpg").getImage(), (600/5)*2, (600/5)*2);
+                else
                     grillButton[i][j] = null ;
-
-
             }
         }
-
     }
 
     private void creerWidget() {
@@ -44,6 +56,7 @@ public class GrillePanel extends JPanel{
         for (int i = 0 ; i < TAILLE_GRILLE ; i++)
             for (int j = 0 ; j < TAILLE_GRILLE  ; j++) {
                 pGrille.add(grillButton[i][j]);
+                pGrille.setPreferredSize(new Dimension(600,600));
             }
 
 

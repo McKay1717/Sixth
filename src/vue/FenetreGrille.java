@@ -1,19 +1,32 @@
 package vue;
 
 import model.Grille;
+import model.Joueur;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.awt.print.Printable;
+import java.io.IOException;
 
 public class FenetreGrille extends JFrame {
 
     private Grille grille;
     private GrillePanel grillePanel;
-    public FenetreGrille() {
+    private FontPanel fontPanel;
+
+    private Joueur joueurR ;
+    private Joueur joueurB ;
+
+    public FenetreGrille(Joueur R, Joueur B) throws IOException {
+        joueurB = B;
+        joueurR = R;
+
+        fontPanel = new FontPanel(new ImageIcon("dataImage/textureGazon.jpg").getImage());
 
         creerWidget();
 
-        setSize(800,600);                                // Fixe la taille par défaut
+        setSize(1000,750);                                // Fixe la taille par défaut
         setLocationRelativeTo(null);                     //position de la fenetre sur l'ordi
         setTitle("Sixth");                       //donne un titre au jFrame
         setResizable(false);                             //empaiche la redimention du JFrame
@@ -22,43 +35,70 @@ public class FenetreGrille extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // Gestion de la fermeture
     }
 
-    private void creerWidget() {
+    private void creerWidget() throws IOException {
         JPanel pFram = new JPanel();
+            pFram.setOpaque(false);
+
+        JPanel pPrinc = new JPanel();
+            pPrinc.setOpaque(false);
 
 
-
+        //affichage de la pile
         JPanel pPilePiece = new JPanel(new GridLayout(2,1));
-        JButton bPileBlanc = new JButton("Blanc");
-            bPileBlanc.setForeground(Color.WHITE);
-        JButton bPileRouge = new JButton("Rouge");
-            bPileRouge.setForeground(Color.RED);
+            pPilePiece.setOpaque(false);
+
+            Dimension d = new Dimension(75, 75);
+
+            FontButton bPileBlanc = new FontButton(String.valueOf(joueurB.getNbPionsRestants()), new ImageIcon("dataImage/rond-blanc.png").getImage(), 75, 75 );
+                bPileBlanc.setPreferredSize(d);
+                //bPileBlanc.setBackground(Color.WHITE);
+
+                JPanel pPileBlanc = new JPanel();
+                    pPileBlanc.add(bPileBlanc);
+                    pPileBlanc.setOpaque(false);
+
+
+            FontButton bPileRouge = new FontButton(String.valueOf(joueurR.getNbPionsRestants()), new ImageIcon("dataImage/rond-rouge.png").getImage(), 75, 75);
+                bPileRouge.setPreferredSize(d);
+                //bPileRouge.setBackground(Color.RED);
+                bPileRouge.setForeground(Color.WHITE);
+
+                JPanel pPileRouge = new JPanel();
+                    pPileRouge.add(bPileRouge);
+                    pPileRouge.setOpaque(false);
+
         //affichage de la grille
         grille = new Grille();
         grillePanel = new GrillePanel(grille);
         //grille.addMouseListener((new EventSouris(grille,this)); //getion des events
 
+
+        //---Disposition des panels
+        pPilePiece.add(pPileBlanc);
+        pPilePiece.add(pPileRouge);
+
         JPanel pGrille = new JPanel();
+            pGrille.setOpaque(false);
+            pGrille.add(grillePanel);
 
-//        //disposition des panels
-//        Container contp = getContentPane();
-//        contp.setLayout(new GridBagLayout());
-//        GridBagConstraints gbd = new GridBagConstraints();
-//        gbd.ipadx = 500;
-//        gbd.ipady = 500;
-//        contp.add(grillePanel, gbd);
+        pPrinc.add(pPilePiece, BorderLayout.WEST);
+        pPrinc.add(pGrille, BorderLayout.EAST);
 
-        pPilePiece.add(bPileBlanc);
+        pFram.add(pPrinc);
 
+        Box boxCentrage = Box.createVerticalBox();
+        boxCentrage.add(Box.createVerticalStrut(0));
+        boxCentrage.add(pFram, BorderLayout.CENTER);
 
-        pPilePiece.add(bPileRouge);
+        //Ecouteur lisner
 
 
 
-        pGrille.add(grillePanel);
-        pFram.add(pPilePiece,BorderLayout.WEST);
-        pFram.add(pGrille,BorderLayout.EAST);
+        //affiche back ground
+        fontPanel.add(boxCentrage, BorderLayout.CENTER);
 
-        setContentPane(pFram);
+
+        setContentPane(fontPanel);
     }
 
     public GrillePanel getGrille() {

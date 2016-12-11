@@ -49,7 +49,10 @@ public class FenetreGrille extends JFrame {
 
             Dimension d = new Dimension(75, 75);
 
-            FontButton bPileBlanc = new FontButton(String.valueOf(joueurB.getNbPionsRestants()), new ImageIcon("dataImage/rond-blanc.png").getImage(), 75, 75 );
+            FontButton bPileBlanc = new FontButton(
+                    String.valueOf(joueurB.getNbPionsRestants()),
+                    new ImageIcon("dataImage/pieceBlanc/rond-blanc"+joueurB.getNbPionsRestants()+".png").getImage(),
+                    75, 75 );
                 bPileBlanc.setPreferredSize(d);
                 //bPileBlanc.setBackground(Color.WHITE);
 
@@ -58,7 +61,10 @@ public class FenetreGrille extends JFrame {
                     pPileBlanc.setOpaque(false);
 
 
-            FontButton bPileRouge = new FontButton(String.valueOf(joueurR.getNbPionsRestants()), new ImageIcon("dataImage/rond-rouge.png").getImage(), 75, 75);
+            FontButton bPileRouge = new FontButton(
+                    String.valueOf(joueurR.getNbPionsRestants()),
+                    new ImageIcon("dataImage/pieceRouge/rond-rouge"+joueurR.getNbPionsRestants()+".png").getImage(),
+                    75, 75);
                 bPileRouge.setPreferredSize(d);
                 //bPileRouge.setBackground(Color.RED);
                 bPileRouge.setForeground(Color.WHITE);

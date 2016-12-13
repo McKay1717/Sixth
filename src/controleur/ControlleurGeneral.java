@@ -12,9 +12,9 @@ import java.io.IOException;
 public class ControlleurGeneral {
     public JFrame fenetre;
     public EvenFMenu evenFMenu;
+    public Jeu jeu;
     MenuJeu menuJeu;
     EventMenuJeu eventMenuJeu;
-
     Joueur R;
     Joueur B;
 
@@ -42,8 +42,9 @@ public class ControlleurGeneral {
         }
         R = new Joueur(Jeu.ROUGE, "toto");
         B = new Joueur(Jeu.BLANC, "toto");
+        jeu = new Jeu();
         try {
-            fenetre = new FenetreGrille(R, B);
+            fenetre = new FenetreGrille(R, B, jeu);
             ((FenetreGrille) fenetre).setJMenuBar(menuJeu);
             createMenuJeu();
         } catch (IOException e) {
@@ -54,5 +55,9 @@ public class ControlleurGeneral {
     public void createMenuJeu() {
         menuJeu = new MenuJeu(fenetre);
         eventMenuJeu = new EventMenuJeu(menuJeu, this);
+    }
+
+    public void saveJeu() throws IOException {
+        jeu.savePartie();
     }
 }

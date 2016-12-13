@@ -1,13 +1,11 @@
 package vue;
 
 import model.Grille;
+import model.Jeu;
 import model.Joueur;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentEvent;
-import java.awt.image.BufferedImage;
-import java.awt.print.Printable;
 import java.io.IOException;
 
 public class FenetreGrille extends JFrame {
@@ -20,10 +18,11 @@ public class FenetreGrille extends JFrame {
     private int fWidth;
     private int fLength;
 
-    private Joueur joueurR ;
-    private Joueur joueurB ;
+    private Joueur joueurR;
+    private Joueur joueurB;
+    private Jeu jeu;
 
-    public FenetreGrille(Joueur R, Joueur B) throws IOException {
+    public FenetreGrille(Joueur R, Joueur B, Jeu jeu) throws IOException {
         joueurB = B;
         joueurR = R;
         fWidth = 1000;
@@ -35,7 +34,7 @@ public class FenetreGrille extends JFrame {
 
         creerWidget();
 
-        setSize(fWidth,fLength);                                // Fixe la taille par défaut
+        setSize(fWidth, fLength);                                // Fixe la taille par défaut
         setLocationRelativeTo(null);                     //position de la fenetre sur l'ordi
         setTitle("Sixth");                       //donne un titre au jFrame
         //setResizable(false);                             //empaiche la redimention du JFrame
@@ -47,41 +46,41 @@ public class FenetreGrille extends JFrame {
 
     private void creerWidget() throws IOException {
         JPanel pFram = new JPanel();
-            pFram.setOpaque(false);
+        pFram.setOpaque(false);
 
         JPanel pPrinc = new JPanel();
-            pPrinc.setOpaque(false);
+        pPrinc.setOpaque(false);
 
 
         //affichage de la pile
-        JPanel pPilePiece = new JPanel(new GridLayout(2,1));
-            pPilePiece.setOpaque(false);
+        JPanel pPilePiece = new JPanel(new GridLayout(2, 1));
+        pPilePiece.setOpaque(false);
 
-            Dimension d = new Dimension(75, 75);
+        Dimension d = new Dimension(75, 75);
 
-            FontButton bPileBlanc = new FontButton(
-                    String.valueOf(joueurB.getNbPionsRestants()),
-                    new ImageIcon("dataImage/pieceBlanc/rond-blanc"+joueurB.getNbPionsRestants()+".png").getImage(),
-                    75, 75 );
-                bPileBlanc.setPreferredSize(d);
-                //bPileBlanc.setBackground(Color.WHITE);
+        FontButton bPileBlanc = new FontButton(
+                String.valueOf(joueurB.getNbPionsRestants()),
+                new ImageIcon("dataImage/pieceBlanc/rond-blanc" + joueurB.getNbPionsRestants() + ".png").getImage(),
+                75, 75);
+        bPileBlanc.setPreferredSize(d);
+        //bPileBlanc.setBackground(Color.WHITE);
 
-                JPanel pPileBlanc = new JPanel();
-                    pPileBlanc.add(bPileBlanc);
-                    pPileBlanc.setOpaque(false);
+        JPanel pPileBlanc = new JPanel();
+        pPileBlanc.add(bPileBlanc);
+        pPileBlanc.setOpaque(false);
 
 
-            FontButton bPileRouge = new FontButton(
-                    String.valueOf(joueurR.getNbPionsRestants()),
-                    new ImageIcon("dataImage/pieceRouge/rond-rouge"+joueurR.getNbPionsRestants()+".png").getImage(),
-                    75, 75);
-                bPileRouge.setPreferredSize(d);
-                //bPileRouge.setBackground(Color.RED);
-                bPileRouge.setForeground(Color.WHITE);
+        FontButton bPileRouge = new FontButton(
+                String.valueOf(joueurR.getNbPionsRestants()),
+                new ImageIcon("dataImage/pieceRouge/rond-rouge" + joueurR.getNbPionsRestants() + ".png").getImage(),
+                75, 75);
+        bPileRouge.setPreferredSize(d);
+        //bPileRouge.setBackground(Color.RED);
+        bPileRouge.setForeground(Color.WHITE);
 
-                JPanel pPileRouge = new JPanel();
-                    pPileRouge.add(bPileRouge);
-                    pPileRouge.setOpaque(false);
+        JPanel pPileRouge = new JPanel();
+        pPileRouge.add(bPileRouge);
+        pPileRouge.setOpaque(false);
 
         //affichage de la grille
         grille = new Grille();
@@ -94,8 +93,8 @@ public class FenetreGrille extends JFrame {
         pPilePiece.add(pPileRouge);
 
         JPanel pGrille = new JPanel();
-            pGrille.setOpaque(false);
-            pGrille.add(grillePanel);
+        pGrille.setOpaque(false);
+        pGrille.add(grillePanel);
 
         pPrinc.add(pPilePiece, BorderLayout.WEST);
         pPrinc.add(pGrille, BorderLayout.EAST);
@@ -107,7 +106,6 @@ public class FenetreGrille extends JFrame {
         boxCentrage.add(pFram, BorderLayout.CENTER);
 
         //Ecouteur lisner
-
 
 
         //affiche back ground

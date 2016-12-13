@@ -46,6 +46,7 @@ public class EventMenuJeu implements ActionListener {
         afficheScores(fenetre);
     }
 
-    public void saveJeu() {
+    public void saveJeu() throws IOException {
+        controlleurGeneral.saveJeu();
     }
 }

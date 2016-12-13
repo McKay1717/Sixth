@@ -1,9 +1,11 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Stack;
 
-public class Joueur {
+public class Joueur implements Serializable {
     private static final int NB_PIONS = 15;
+    private static long serialVersionUID = 1L;
     private int couleur;
     private Stack<Pion> pions;
     private int nb_coups;

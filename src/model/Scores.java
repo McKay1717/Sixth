@@ -9,31 +9,47 @@ import static java.util.Collections.sort;
 public class Scores implements Serializable, Comparable<Scores> {
     private static final String FILE_SCORES = "Ressources/scores";
     private static final int NB_SCORES_SAUVEGARDES = 5;
+    private static long serialVersionUID = 1L;
     private Joueur joueur;
     private int nbCoups;
 
-    private Scores(Joueur joueur, int nbCoups) {
+    public Scores(Joueur joueur, int nbCoups) {
         this.joueur = joueur;
         this.nbCoups = nbCoups;
     }
 
     public static void saveScores(Joueur joueur, int nbCoups) throws IOException, ClassNotFoundException {
         List<Scores> scores = readScores();
-        scores.add(new Scores(joueur, nbCoups));
-        sort(scores);
-        while (scores.size() > NB_SCORES_SAUVEGARDES)
-            scores.remove(scores.get(scores.size() - 1));
         ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File(FILE_SCORES))));
-        for (Scores score : scores)
-            oos.writeObject(score);
+        if (scores != null) {
+            scores.add(new Scores(joueur, nbCoups));
+            sort(scores);
+            while (scores.size() > NB_SCORES_SAUVEGARDES)
+                scores.remove(scores.get(scores.size() - 1));
+            for (Scores score : scores)
+                oos.writeObject(score);
+        } else
+            oos.writeObject(new Scores(joueur, nbCoups));
         oos.close();
     }
 
     public static List<Scores> readScores() throws IOException, ClassNotFoundException {
         List<Scores> scores = new ArrayList<>();
         ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(new File(FILE_SCORES))));
-        for (int i = 0; i < NB_SCORES_SAUVEGARDES; i++)
-            scores.add((Scores) ois.readObject());
+        boolean score_lu = false;
+        for (int i = 0; i < NB_SCORES_SAUVEGARDES; i++) {
+            Scores line = (Scores) ois.readObject();
+            if (line != null) {
+                scores.add((Scores) ois.readObject());
+                score_lu = true;
+            } else if (score_lu) {
+                ois.close();
+                return scores;
+            } else {
+                ois.close();
+                return null;
+            }
+        }
         ois.close();
         return scores;
     }

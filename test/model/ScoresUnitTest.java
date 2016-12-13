@@ -13,10 +13,13 @@ import static model.Scores.saveScores;
 import static org.junit.Assert.assertEquals;
 
 public class ScoresUnitTest {
+    Joueur init = new Joueur(ROUGE, "Init");
+    int nbCoupsinit = 5;
+
     @Before
     public void initRessourcesScores() throws IOException {
         ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File("Ressources/scores"))));
-        oos.writeObject(new Scores(new Joueur(ROUGE, "Init"), 4));
+        oos.writeObject(new Scores(init, nbCoupsinit));
         oos.close();
     }
 
@@ -27,10 +30,18 @@ public class ScoresUnitTest {
         saveScores(joueur, nbCoups);
 
         List<Scores> scores = readScores();
+        int i = 0;
         for (Scores score : scores) {
-            assertEquals(joueur.getCouleur(), score.getCouleur());
-            assertEquals(joueur.getNom(), score.getNomJoueur());
-            assertEquals(nbCoups, score.getNbCoups());
+            if (i == 0) {
+                assertEquals(init.getCouleur(), score.getCouleur());
+                assertEquals(init.getNom(), score.getNomJoueur());
+                assertEquals(nbCoupsinit, score.getNbCoups());
+            } else {
+                assertEquals(joueur.getCouleur(), score.getCouleur());
+                assertEquals(joueur.getNom(), score.getNomJoueur());
+                assertEquals(nbCoups, score.getNbCoups());
+            }
+            i++;
         }
     }
 }

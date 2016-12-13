@@ -38,9 +38,17 @@ public class Scores implements Serializable, Comparable<Scores> {
         ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(new File(FILE_SCORES))));
         boolean score_lu = false;
         for (int i = 0; i < NB_SCORES_SAUVEGARDES; i++) {
-            Scores line = (Scores) ois.readObject();
+            Object line = null;
+            try {
+                line = ois.readObject();
+            } catch (EOFException e) {
+                ois.close();
+                if (score_lu)
+                    return scores;
+                return null;
+            }
             if (line != null) {
-                scores.add((Scores) ois.readObject());
+                scores.add((Scores) line);
                 score_lu = true;
             } else if (score_lu) {
                 ois.close();

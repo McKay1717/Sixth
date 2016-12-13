@@ -13,6 +13,7 @@ public class MenuJeu extends JMenuBar {
     public MenuJeu(JFrame fenetre) {
         this.fenetre = fenetre;
         initMenu();
+        creerMenu();
     }
 
     private void initMenu() {

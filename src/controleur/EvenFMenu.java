@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class EvenFMenu implements ActionListener {
 
-    private FenetreMenu fenetreMenu ;
+    private FenetreMenu fenetreMenu;
 
     public EvenFMenu(FenetreMenu fenetreMenu) {
         this.fenetreMenu = fenetreMenu;
@@ -20,21 +20,19 @@ public class EvenFMenu implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        if (actionEvent.getSource().equals(fenetreMenu.getbPLay())){
+        if (actionEvent.getSource().equals(fenetreMenu.getbPLay())) {
             fenetreMenu.setVisible(false);
-            Joueur R = new Joueur(Jeu.ROUGE,"toto");
-            Joueur B = new Joueur(Jeu.BLANC,"toto");
+            Joueur R = new Joueur(Jeu.ROUGE, "toto");
+            Joueur B = new Joueur(Jeu.BLANC, "toto");
             FenetreGrille fenetreGrille = null;
             try {
-                fenetreGrille = new FenetreGrille(R,B);
+                fenetreGrille = new FenetreGrille(R, B);
             } catch (IOException e) {
                 e.printStackTrace();
             }
             MenuJeu menuBar = new MenuJeu(fenetreGrille);
-            EventMenuJeu eventMenu = new EventMenuJeu();
-        }
-        else
-        if (actionEvent.getSource().equals(fenetreMenu.getbQuit())){
+            EventMenuJeu eventMenu = new EventMenuJeu(menuBar, fenetreGrille);
+        } else if (actionEvent.getSource().equals(fenetreMenu.getbQuit())) {
             System.exit(0);
         }
     }

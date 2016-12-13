@@ -1,22 +1,19 @@
-import vue.FenetreMenu;
+import controleur.ControlleurGeneral;
 
 import java.io.IOException;
 
+import static javax.swing.SwingUtilities.invokeLater;
+
 public class GameAppli {
     public static void main(String[] args) {
-
-        javax.swing.SwingUtilities.invokeLater( new Runnable() {
-
+        invokeLater(new Runnable() {
             public void run() {
-
                 try {
-                    FenetreMenu f = new FenetreMenu();
+                    new ControlleurGeneral();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
             }
-
         });
     }
 }

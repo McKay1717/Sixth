@@ -1,7 +1,6 @@
 package controleur;
 
 
-import vue.FenetreMenu;
 import vue.MenuJeu;
 
 import javax.swing.*;
@@ -10,12 +9,12 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class EventMenuJeu implements ActionListener {
+    private ControlleurGeneral controlleurGeneral;
     private MenuJeu menuJeu;
-    private JFrame fenetre;
 
-    public EventMenuJeu(MenuJeu menuJeu, JFrame fenetre) {
+    public EventMenuJeu(MenuJeu menuJeu, ControlleurGeneral controlleurGeneral) {
         this.menuJeu = menuJeu;
-        this.fenetre = fenetre;
+        this.controlleurGeneral = controlleurGeneral;
         menuJeu.setEventMenuJeu(this);
     }
 
@@ -31,6 +30,6 @@ public class EventMenuJeu implements ActionListener {
     }
 
     public void accueil() throws IOException {
-        fenetre = new FenetreMenu();
+        controlleurGeneral.createFenetreMenu();
     }
 }

@@ -1,29 +1,28 @@
 package vue;
 
-import controleur.EvenFMenu;
-
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class FenetreMenu extends JFrame {
 
     //Image backGround;
 
-    private JButton bPLay ;
-    private JButton bQuit ;
+    private JButton bPLay;
+    private JButton bQuit;
 
     private FontPanel fontPanel;
 
     public FenetreMenu() throws IOException {
 
         fontPanel = new FontPanel(new ImageIcon("dataImage/font.png").getImage());
-
-
         creerWidget();
+        initFenetre();
+    }
 
-
-        setSize(1000,1000);                                // Fixe la taille par défaut
+    public void initFenetre() {
+        setSize(1000, 1000);                                // Fixe la taille par défaut
         setLocationRelativeTo(null);                     //position de la fenetre sur l'ordi
         setVisible(true);                                // Affiche la fenetre
         setTitle("MenuJeu Sixth");                          //donne un titre au jFrame
@@ -32,37 +31,37 @@ public class FenetreMenu extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // Gestion de la fermeture
     }
 
-    private void creerWidget() {
+    public void creerWidget() {
 
         JPanel pPrinc = new JPanel();
-            pPrinc.setOpaque(false);
+        pPrinc.setOpaque(false);
 
         JPanel pCentrageMenu = new JPanel(new BorderLayout());
-            pCentrageMenu.setLayout(new GridLayout(2,1));
-            pCentrageMenu.setOpaque(false);
+        pCentrageMenu.setLayout(new GridLayout(2, 1));
+        pCentrageMenu.setOpaque(false);
 
         JPanel pButton = new JPanel();
-            pButton.setLayout(new GridLayout(2,1));
-            pButton.setOpaque(false);
+        pButton.setLayout(new GridLayout(2, 1));
+        pButton.setOpaque(false);
 
         JPanel pTitel = new JPanel();
-            pTitel.setOpaque(false);
+        pTitel.setOpaque(false);
 
         JPanel pPLay = new JPanel();
-            pPLay.setOpaque(false);
+        pPLay.setOpaque(false);
         JPanel pQuit = new JPanel();
-            pQuit.setOpaque(false);
+        pQuit.setOpaque(false);
 
         //JLabel lTitel = new JLabel("Sixth");
-         //   lTitel.setFont(new Font("FreeMono",Font.PLAIN,35));
+        //   lTitel.setFont(new Font("FreeMono",Font.PLAIN,35));
 
         bPLay = new JButton("Jouer");
-            bPLay.setPreferredSize(new Dimension(200,80));
-            bPLay.setFont(new Font("FreeMono",Font.PLAIN,35));
+        bPLay.setPreferredSize(new Dimension(200, 80));
+        bPLay.setFont(new Font("FreeMono", Font.PLAIN, 35));
 
         bQuit = new JButton("Quitter");
-            bQuit.setPreferredSize(new Dimension(200,80));
-            bQuit.setFont(new Font("FreeMono",Font.PLAIN,35));
+        bQuit.setPreferredSize(new Dimension(200, 80));
+        bQuit.setFont(new Font("FreeMono", Font.PLAIN, 35));
         //construction de Frame
         //pTitel.add(lTitel);
         pPLay.add(bPLay, BorderLayout.CENTER);
@@ -75,14 +74,10 @@ public class FenetreMenu extends JFrame {
         pCentrageMenu.add(pButton, BorderLayout.CENTER);
 
 
-
         Box boxCentrage = Box.createVerticalBox();
         boxCentrage.add(Box.createVerticalStrut(250));
         boxCentrage.add(pCentrageMenu, BorderLayout.CENTER);
 
-
-        bPLay.addActionListener(new EvenFMenu(this));
-        bQuit.addActionListener(new EvenFMenu(this));
 
         fontPanel.add(boxCentrage, BorderLayout.CENTER);
 
@@ -99,5 +94,10 @@ public class FenetreMenu extends JFrame {
 
     public FontPanel getFontPanel() {
         return fontPanel;
+    }
+
+    public void addEvenFMenu(ActionListener actionListener) {
+        bPLay.addActionListener(actionListener);
+        bQuit.addActionListener(actionListener);
     }
 }

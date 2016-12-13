@@ -1,31 +1,21 @@
 package vue;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import java.io.IOException;
 
-
-public class FontPanel extends JPanel implements ComponentListener {
-    //image
-    protected Image imagefond;
+/**
+ * Created by ctx on 13/12/16.
+ */
+public class BoutonFmenu extends JButton implements ComponentListener {
 
     protected int width;
     protected int height;
 
-    private Dimension size = new Dimension(width, height);
-
-    public FontPanel(Image imagefond, int width, int height) throws IOException{
-        super();
-        this.imagefond = imagefond;
+    public BoutonFmenu(String str, int width, int height) {
+        super(str);
         this.width = width;
         this.height = height;
-
-    }
-
-    public void paintComponent(Graphics g){
-        g.drawImage(imagefond, 0, 0, width, height-50, null);
     }
 
     @Override

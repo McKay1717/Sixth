@@ -9,14 +9,17 @@ public class FenetreMenu extends JFrame {
 
     //Image backGround;
 
-    private JButton bPLay;
-    private JButton bQuit;
+    private BoutonFmenu bPLay;
+    private BoutonFmenu bQuit;
 
     private FontPanel fontPanel;
 
     public FenetreMenu() throws IOException {
 
-        fontPanel = new FontPanel(new ImageIcon("dataImage/font.png").getImage());
+        fontPanel = new FontPanel(new ImageIcon("dataImage/font.png").getImage(), 1000, 1000);
+
+        addComponentListener(fontPanel);
+
         creerWidget();
         initFenetre();
     }
@@ -27,7 +30,7 @@ public class FenetreMenu extends JFrame {
         setVisible(true);                                // Affiche la fenetre
         setTitle("MenuJeu Sixth");                          //donne un titre au jFrame
         //setIconImage(...)                              //associer une icon a la fenetre
-        setResizable(false);                             //empaiche la redimention du JFrame
+        //setResizable(false);                             //empaiche la redimention du JFrame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // Gestion de la fermeture
     }
 
@@ -55,13 +58,16 @@ public class FenetreMenu extends JFrame {
         //JLabel lTitel = new JLabel("Sixth");
         //   lTitel.setFont(new Font("FreeMono",Font.PLAIN,35));
 
-        bPLay = new JButton("Jouer");
-        bPLay.setPreferredSize(new Dimension(200, 80));
+        bPLay = new BoutonFmenu("Jouer",200,80);
+        //bPLay.setPreferredSize(new Dimension(200, 80));
         bPLay.setFont(new Font("FreeMono", Font.PLAIN, 35));
+        addComponentListener(bPLay);
 
-        bQuit = new JButton("Quitter");
-        bQuit.setPreferredSize(new Dimension(200, 80));
+        bQuit = new BoutonFmenu("Quitter",200,80);
+        //bQuit.setPreferredSize(new Dimension(200, 80));
         bQuit.setFont(new Font("FreeMono", Font.PLAIN, 35));
+        addComponentListener(bQuit);
+
         //construction de Frame
         //pTitel.add(lTitel);
         pPLay.add(bPLay, BorderLayout.CENTER);
@@ -75,7 +81,7 @@ public class FenetreMenu extends JFrame {
 
 
         Box boxCentrage = Box.createVerticalBox();
-        boxCentrage.add(Box.createVerticalStrut(250));
+        boxCentrage.add(Box.createVerticalStrut(0));
         boxCentrage.add(pCentrageMenu, BorderLayout.CENTER);
 
 

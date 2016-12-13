@@ -5,15 +5,20 @@ import model.Joueur;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentEvent;
 import java.awt.image.BufferedImage;
 import java.awt.print.Printable;
 import java.io.IOException;
 
 public class FenetreGrille extends JFrame {
 
+
     private Grille grille;
     private GrillePanel grillePanel;
     private FontPanel fontPanel;
+
+    private int fWidth;
+    private int fLength;
 
     private Joueur joueurR ;
     private Joueur joueurB ;
@@ -21,15 +26,20 @@ public class FenetreGrille extends JFrame {
     public FenetreGrille(Joueur R, Joueur B) throws IOException {
         joueurB = B;
         joueurR = R;
+        fWidth = 1000;
+        fLength = 700;
 
-        fontPanel = new FontPanel(new ImageIcon("dataImage/textureGazon.jpg").getImage());
+        fontPanel = new FontPanel(new ImageIcon("dataImage/textureGazon.jpg").getImage(), fWidth, fLength);
+
+        addComponentListener(fontPanel);
 
         creerWidget();
 
-        setSize(1000,750);                                // Fixe la taille par défaut
+        setSize(fWidth,fLength);                                // Fixe la taille par défaut
         setLocationRelativeTo(null);                     //position de la fenetre sur l'ordi
         setTitle("Sixth");                       //donne un titre au jFrame
-        setResizable(false);                             //empaiche la redimention du JFrame
+        //setResizable(false);                             //empaiche la redimention du JFrame
+        setMinimumSize(new Dimension(750, 700));
         //setIconImage(...)                              //associer une icon a la fenetre
         setVisible(true);                                // Affiche la fenetre
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // Gestion de la fermeture

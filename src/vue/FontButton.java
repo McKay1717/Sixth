@@ -9,16 +9,16 @@ public class FontButton extends JButton {
     protected Image imagefond;
 
     protected int width;
-    protected int length;
+    protected int height;
 
-    public FontButton(String str, Image imagefond, int width, int length) throws IOException {
+    public FontButton(String str, Image imagefond, int width, int height) throws IOException {
         super(str);
         this.width = width;
-        this.length = length;
+        this.height = height;
         this.imagefond = imagefond;
     }
 
     public void paintComponent(Graphics g){
-        g.drawImage(imagefond, 0, 0, width, length, null);
+        g.drawImage(imagefond, 0, 0, width, height, null);
     }
 }

@@ -30,6 +30,11 @@ public class MenuJeu extends JMenuBar {
         jMenus.add(new JMenu("Scores"));
         jMenuItems.add(new ArrayList<>());
         jMenuItems.get(jMenus.size() - 1).add(new JMenuItem("Meilleurs scores"));
+
+        //Partie
+        jMenus.add(new JMenu("Partie"));
+        jMenuItems.add(new ArrayList<>());
+        jMenuItems.get(jMenus.size() - 1).add(new JMenuItem("Sauvegarder la partie"));
     }
 
     private void creerMenu() {

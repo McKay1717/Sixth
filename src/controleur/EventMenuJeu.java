@@ -31,6 +31,8 @@ public class EventMenuJeu implements ActionListener {
                 exit(0);
             else if (((JMenuItem) e.getSource()).getText().equals("Meilleurs scores"))
                 afficheMeilleursScores();
+            else if (((JMenuItem) e.getSource()).getText().equals("Sauvegarder la partie"))
+                saveJeu();
         } catch (IOException | ClassNotFoundException e1) {
             e1.printStackTrace();
         }
@@ -42,5 +44,8 @@ public class EventMenuJeu implements ActionListener {
 
     public void afficheMeilleursScores() throws IOException, ClassNotFoundException {
         afficheScores(fenetre);
+    }
+
+    public void saveJeu() {
     }
 }

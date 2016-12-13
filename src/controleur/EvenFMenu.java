@@ -31,7 +31,7 @@ public class EvenFMenu implements ActionListener {
                 e.printStackTrace();
             }
             MenuJeu menuBar = new MenuJeu(fenetreGrille);
-            EventMenuScore eventMenu = new EventMenuScore();
+            EventMenuJeu eventMenu = new EventMenuJeu();
         }
         else
         if (actionEvent.getSource().equals(fenetreMenu.getbQuit())){

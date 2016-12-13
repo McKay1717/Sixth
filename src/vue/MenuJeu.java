@@ -1,6 +1,7 @@
 package vue;
 
 import javax.swing.*;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,5 +43,11 @@ public class MenuJeu extends JMenuBar {
             add(jMenu);
 
         fenetre.setJMenuBar(this);
+    }
+
+    public void setEventMenuJeu(ActionListener actionListener) {
+        for (List<JMenuItem> ljMenuItem : jMenuItems)
+            for (JMenuItem jMenuItem : ljMenuItem)
+                jMenuItem.addActionListener(actionListener);
     }
 }

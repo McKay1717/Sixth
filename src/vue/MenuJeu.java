@@ -31,12 +31,12 @@ public class MenuJeu extends JMenuBar {
         jMenuItems.add(new ArrayList<>());
         jMenuItems.get(jMenus.size() - 1).add(new JMenuItem("Meilleurs scores"));
 
-        if (fenetre instanceof FenetreGrille) {
-            //Partie
-            jMenus.add(new JMenu("Partie"));
-            jMenuItems.add(new ArrayList<>());
+        //Partie
+        jMenus.add(new JMenu("Partie"));
+        jMenuItems.add(new ArrayList<>());
+        jMenuItems.get(jMenus.size() - 1).add(new JMenuItem("Charger la dernière partie sauvegardée"));
+        if (fenetre instanceof FenetreGrille)
             jMenuItems.get(jMenus.size() - 1).add(new JMenuItem("Sauvegarder la partie"));
-        }
     }
 
     private void creerMenu() {

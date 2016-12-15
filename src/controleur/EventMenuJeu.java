@@ -1,6 +1,7 @@
 package controleur;
 
 
+import model.Jeu;
 import vue.MenuJeu;
 
 import javax.swing.*;
@@ -8,7 +9,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import static controleur.ControlleurGeneral.NOM_FENETRE_CHARGEMENT_PARTIE;
 import static java.lang.System.exit;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
+import static javax.swing.JOptionPane.showMessageDialog;
+import static model.Jeu.loadPartie;
 import static vue.VueScores.afficheScores;
 
 public class EventMenuJeu implements ActionListener {
@@ -31,6 +36,8 @@ public class EventMenuJeu implements ActionListener {
                 exit(0);
             else if (((JMenuItem) e.getSource()).getText().equals("Meilleurs scores"))
                 afficheMeilleursScores();
+            else if (((JMenuItem) e.getSource()).getText().equals("Charger la dernière partie sauvegardée"))
+                loadJeu();
             else if (((JMenuItem) e.getSource()).getText().equals("Sauvegarder la partie"))
                 saveJeu();
         } catch (IOException | ClassNotFoundException e1) {
@@ -44,6 +51,14 @@ public class EventMenuJeu implements ActionListener {
 
     public void afficheMeilleursScores() throws IOException, ClassNotFoundException {
         afficheScores(fenetre);
+    }
+
+    public void loadJeu() throws IOException, ClassNotFoundException {
+        Jeu jeu = loadPartie();
+        if (jeu == null)
+            showMessageDialog(fenetre, "Aucune partie enregistrée", NOM_FENETRE_CHARGEMENT_PARTIE, INFORMATION_MESSAGE);
+        else
+            controlleurGeneral.createFenetreGrille(jeu);
     }
 
     public void saveJeu() throws IOException {

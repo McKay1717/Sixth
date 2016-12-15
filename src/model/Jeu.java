@@ -23,7 +23,12 @@ public class Jeu implements Serializable {
     }
 
     public static Jeu loadPartie() throws IOException, ClassNotFoundException {
-        ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(new File(FILE_SAVE_PARTIE))));
+        ObjectInputStream ois;
+        try {
+            ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(new File(FILE_SAVE_PARTIE))));
+        } catch (EOFException e) {
+            return null;
+        }
         Jeu save = (Jeu) ois.readObject();
         ois.close();
         return save;
@@ -60,5 +65,19 @@ public class Jeu implements Serializable {
         ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File(FILE_SAVE_PARTIE))));
         oos.writeObject(this);
         oos.close();
+    }
+
+    public Joueur[] getJoueurs() {
+        if (joueurs[0].getCouleur() == ROUGE)
+            return joueurs;
+        Joueur joueur = joueurs[0];
+        joueurs[0] = joueurs[1];
+        joueurs[1] = joueur;
+        return joueurs;
+    }
+
+    public void setJoueurs(Joueur rouge, Joueur blanc) {
+        joueurs[0] = rouge;
+        joueurs[1] = blanc;
     }
 }

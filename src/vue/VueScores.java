@@ -13,10 +13,12 @@ import static model.Jeu.ROUGE;
 import static model.Scores.readScores;
 
 public class VueScores {
+    public static final String NOM_FENETRE = "Meilleurs scores";
+
     public static void afficheScores(JFrame jFrame) throws IOException, ClassNotFoundException {
         List<Scores> scores = readScores();
         if (scores.size() == 0) {
-            showMessageDialog(jFrame, "Aucun score enregistré.", "Meilleurs scores", INFORMATION_MESSAGE);
+            showMessageDialog(jFrame, "Aucun score enregistré", NOM_FENETRE, INFORMATION_MESSAGE);
             return;
         }
 
@@ -33,6 +35,6 @@ public class VueScores {
             }
             message += " — " + score.getNbCoups() + "\n";
         }
-        showMessageDialog(jFrame, message, "Meilleurs scores", INFORMATION_MESSAGE);
+        showMessageDialog(jFrame, message, NOM_FENETRE, INFORMATION_MESSAGE);
     }
 }

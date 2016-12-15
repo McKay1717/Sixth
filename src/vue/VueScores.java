@@ -15,6 +15,11 @@ import static model.Scores.readScores;
 public class VueScores {
     public static void afficheScores(JFrame jFrame) throws IOException, ClassNotFoundException {
         List<Scores> scores = readScores();
+        if (scores.size() == 0) {
+            showMessageDialog(jFrame, "Aucun score enregistré.", "Meilleurs scores", INFORMATION_MESSAGE);
+            return;
+        }
+
         String message = "";
         for (Scores score : scores) {
             message += score.getNomJoueur() + " — ";

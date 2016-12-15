@@ -13,7 +13,7 @@ public class Scores implements Serializable, Comparable<Scores> {
     private Joueur joueur;
     private int nbCoups;
 
-    public Scores(Joueur joueur, int nbCoups) {
+    private Scores(Joueur joueur, int nbCoups) {
         this.joueur = joueur;
         this.nbCoups = nbCoups;
     }
@@ -35,27 +35,26 @@ public class Scores implements Serializable, Comparable<Scores> {
 
     public static List<Scores> readScores() throws IOException, ClassNotFoundException {
         List<Scores> scores = new ArrayList<>();
-        ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(new File(FILE_SCORES))));
-        boolean score_lu = false;
+        ObjectInputStream ois;
+        try {
+            ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(new File(FILE_SCORES))));
+        } catch (EOFException e) {
+            return scores;
+        }
+
         for (int i = 0; i < NB_SCORES_SAUVEGARDES; i++) {
             Object line = null;
             try {
                 line = ois.readObject();
             } catch (EOFException e) {
                 ois.close();
-                if (score_lu)
-                    return scores;
-                return null;
+                return scores;
             }
             if (line != null) {
                 scores.add((Scores) line);
-                score_lu = true;
-            } else if (score_lu) {
-                ois.close();
-                return scores;
             } else {
                 ois.close();
-                return null;
+                return scores;
             }
         }
         ois.close();

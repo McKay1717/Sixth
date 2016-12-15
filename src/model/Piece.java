@@ -5,10 +5,11 @@ import exceptions.PionNonEnHautDeLaPileException;
 import exceptions.TailleMaximaleDepasseeException;
 import exceptions.TailleRetireeSuperieurATaillePileException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Piece {
+public class Piece implements Serializable {
     public static final int PION = 1;
     public static final int TOUR = 2;
     public static final int CAVALIER = 3;

@@ -1,6 +1,8 @@
 package model;
 
-public class Case {
+import java.io.Serializable;
+
+public class Case implements Serializable {
     protected static final Piece VIDE = null;
     private Piece piece;
 

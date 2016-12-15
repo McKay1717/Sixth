@@ -2,7 +2,9 @@ package model;
 
 import exceptions.TailleMaximaleDepasseeException;
 
-public class Grille {
+import java.io.Serializable;
+
+public class Grille implements Serializable {
     static final int LONGUEUR = 5;
     static final int LARGEUR = 5;
     private Case[][] grille;

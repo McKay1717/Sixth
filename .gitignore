@@ -1,6 +1,5 @@
-
-Supprimerait .idea/
-Supprimerait Sixth.iml
-Supprimerait out/
+.idea/
+Sixth.iml
+out/
 /Ressources/save
 /Ressources/scores

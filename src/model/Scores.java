@@ -21,15 +21,12 @@ public class Scores implements Serializable, Comparable<Scores> {
     public static void saveScores(Joueur joueur, int nbCoups) throws IOException, ClassNotFoundException {
         List<Scores> scores = readScores();
         ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File(FILE_SCORES))));
-        if (scores != null) {
-            scores.add(new Scores(joueur, nbCoups));
-            sort(scores);
-            while (scores.size() > NB_SCORES_SAUVEGARDES)
-                scores.remove(scores.get(scores.size() - 1));
-            for (Scores score : scores)
-                oos.writeObject(score);
-        } else
-            oos.writeObject(new Scores(joueur, nbCoups));
+        scores.add(new Scores(joueur, nbCoups));
+        sort(scores);
+        while (scores.size() > NB_SCORES_SAUVEGARDES)
+            scores.remove(scores.get(scores.size() - 1));
+        for (Scores score : scores)
+            oos.writeObject(score);
         oos.close();
     }
 
@@ -50,9 +47,9 @@ public class Scores implements Serializable, Comparable<Scores> {
                 ois.close();
                 return scores;
             }
-            if (line != null) {
+            if (line != null)
                 scores.add((Scores) line);
-            } else {
+            else {
                 ois.close();
                 return scores;
             }

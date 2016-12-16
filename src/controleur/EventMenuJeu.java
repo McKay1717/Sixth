@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.List;
 
 import static controleur.ControlleurGeneral.NOM_FENETRE_CHARGEMENT_PARTIE;
 import static java.lang.System.exit;
@@ -54,11 +55,11 @@ public class EventMenuJeu implements ActionListener {
     }
 
     public void loadJeu() throws IOException, ClassNotFoundException {
-        Jeu jeu = loadPartie();
-        if (jeu == null)
+        List<Jeu> jeu = loadPartie();
+        if (jeu.size() == 0)
             showMessageDialog(fenetre, "Aucune partie enregistrée", NOM_FENETRE_CHARGEMENT_PARTIE, INFORMATION_MESSAGE);
-        else
-            controlleurGeneral.createFenetreGrille(jeu);
+//        else
+//            controlleurGeneral.createFenetreGrille(jeu);
     }
 
     public void saveJeu() throws IOException {

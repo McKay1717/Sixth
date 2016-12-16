@@ -3,7 +3,10 @@ package model;
 import exceptions.TailleMaximaleDepasseeException;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
+import static java.util.Collections.reverse;
 import static model.Grille.LARGEUR;
 import static model.Grille.LONGUEUR;
 import static model.Piece.ROI;
@@ -11,6 +14,7 @@ import static model.Piece.ROI;
 public class Jeu implements Serializable {
     public static final int BLANC = -1;
     public static final int ROUGE = -2;
+    private static final int NB_PARTIES_SAUVEGARDEES = 4096;
     private static final String FILE_SAVE_PARTIE = "Ressources/save";
     private static final int NB_JOUEURS = 2;
     private static final int COULEUR_PREMIER_JOUEUR = BLANC;
@@ -22,14 +26,30 @@ public class Jeu implements Serializable {
         joueurs = new Joueur[NB_JOUEURS];
     }
 
-    public static Jeu loadPartie() throws IOException, ClassNotFoundException {
+    public static List<Jeu> loadPartie() throws IOException, ClassNotFoundException {
+        List<Jeu> save = new ArrayList<>();
         ObjectInputStream ois;
         try {
             ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(new File(FILE_SAVE_PARTIE))));
         } catch (EOFException e) {
-            return null;
+            return save;
         }
-        Jeu save = (Jeu) ois.readObject();
+
+        for (int i = 0; i < NB_PARTIES_SAUVEGARDEES; i++) {
+            Object line = null;
+            try {
+                line = ois.readObject();
+            } catch (EOFException e) {
+                ois.close();
+                return save;
+            }
+            if (line != null)
+                save.add((Jeu) line);
+            else {
+                ois.close();
+                return save;
+            }
+        }
         ois.close();
         return save;
     }
@@ -61,9 +81,15 @@ public class Jeu implements Serializable {
         return grille.getPiece(x, y);
     }
 
-    public void savePartie() throws IOException {
+    public void savePartie() throws IOException, ClassNotFoundException {
+        List<Jeu> save = loadPartie();
         ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File(FILE_SAVE_PARTIE))));
-        oos.writeObject(this);
+        save.add(this);
+        reverse(save);
+        while (save.size() > NB_PARTIES_SAUVEGARDEES)
+            save.remove(save.get(save.size() - 1));
+        for (Jeu jeu : save)
+            oos.writeObject(jeu);
         oos.close();
     }
 

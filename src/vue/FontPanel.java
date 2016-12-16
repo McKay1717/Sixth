@@ -11,6 +11,8 @@ public class FontPanel extends JPanel implements ComponentListener {
     //image
     protected Image imagefond;
 
+    public int centerBox = 200;
+
     protected int width;
     protected int height;
 
@@ -32,6 +34,7 @@ public class FontPanel extends JPanel implements ComponentListener {
     public void componentResized(ComponentEvent componentEvent) {
         width = componentEvent.getComponent().getWidth();
         height = componentEvent.getComponent().getHeight();
+        centerBox = componentEvent.getComponent().getHeight()/5;
     }
 
     @Override
@@ -47,5 +50,15 @@ public class FontPanel extends JPanel implements ComponentListener {
     @Override
     public void componentHidden(ComponentEvent componentEvent) {
 
+    }
+
+
+    public void setCenterBox(int centerBox) {
+        this.centerBox = centerBox;
+    }
+
+    public int getCenterBox() {
+
+        return centerBox;
     }
 }

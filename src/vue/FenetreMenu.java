@@ -3,6 +3,8 @@ package vue;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.io.IOException;
 
 public class FenetreMenu extends JFrame {
@@ -27,6 +29,9 @@ public class FenetreMenu extends JFrame {
     public void initFenetre() {
         setSize(1000, 1000);                                // Fixe la taille par défaut
         setLocationRelativeTo(null);                     //position de la fenetre sur l'ordi
+
+        setMaximizedBounds(new Rectangle(500, 500, 1000, 1000));
+        setMinimumSize(new Dimension(500,500));
         setVisible(true);                                // Affiche la fenetre
         setTitle("MenuJeu Sixth");                          //donne un titre au jFrame
         //setIconImage(...)                              //associer une icon a la fenetre
@@ -50,42 +55,43 @@ public class FenetreMenu extends JFrame {
         JPanel pTitel = new JPanel();
         pTitel.setOpaque(false);
 
-        JPanel pPLay = new JPanel();
+        JPanel pPLay = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pPLay.setOpaque(false);
-        JPanel pQuit = new JPanel();
+        JPanel pQuit = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pQuit.setOpaque(false);
 
         //JLabel lTitel = new JLabel("Sixth");
         //   lTitel.setFont(new Font("FreeMono",Font.PLAIN,35));
 
-        bPLay = new BoutonFmenu("Jouer",200,80);
+        bPLay = new BoutonFmenu("Jouer", 175, 70);
         //bPLay.setPreferredSize(new Dimension(200, 80));
-        bPLay.setFont(new Font("FreeMono", Font.PLAIN, 35));
+        bPLay.setFont(new Font("FreeMono", Font.PLAIN, 30));
         addComponentListener(bPLay);
 
-        bQuit = new BoutonFmenu("Quitter",200,80);
+        bQuit = new BoutonFmenu("Quitter",175, 70);
         //bQuit.setPreferredSize(new Dimension(200, 80));
-        bQuit.setFont(new Font("FreeMono", Font.PLAIN, 35));
+        bQuit.setFont(new Font("FreeMono", Font.PLAIN, 30));
         addComponentListener(bQuit);
 
         //construction de Frame
         //pTitel.add(lTitel);
-        pPLay.add(bPLay, BorderLayout.CENTER);
-        pQuit.add(bQuit, BorderLayout.CENTER);
+        pPLay.add(bPLay);
+        pQuit.add(bQuit);
 
-        pButton.add(pPLay, BorderLayout.CENTER);
-        pButton.add(pQuit, BorderLayout.CENTER);
+        pButton.add(pPLay);
+        pButton.add(pQuit);
 
         pCentrageMenu.add(pTitel, BorderLayout.CENTER);
         pCentrageMenu.add(pButton, BorderLayout.CENTER);
 
 
         Box boxCentrage = Box.createVerticalBox();
-        boxCentrage.add(Box.createVerticalStrut(0));
+        boxCentrage.add(Box.createVerticalStrut(50));
         boxCentrage.add(pCentrageMenu, BorderLayout.CENTER);
 
 
-        fontPanel.add(boxCentrage, BorderLayout.CENTER);
+        pPrinc.add(boxCentrage, BorderLayout.CENTER);
+        fontPanel.add(pPrinc, BorderLayout.CENTER);
 
         setContentPane(fontPanel);
     }

@@ -16,7 +16,7 @@ public class FenetreGrille extends JFrame {
     private FontPanel fontPanel;
 
     private int fWidth;
-    private int fLength;
+    private int fHeight;
 
     private Joueur joueurR;
     private Joueur joueurB;
@@ -26,15 +26,17 @@ public class FenetreGrille extends JFrame {
         joueurB = B;
         joueurR = R;
         fWidth = 1000;
-        fLength = 700;
+        fHeight = 700;
 
-        fontPanel = new FontPanel(new ImageIcon("dataImage/textureGazon.jpg").getImage(), fWidth, fLength);
+        fontPanel = new FontPanel(new ImageIcon("dataImage/textureGazon.jpg").getImage(), fWidth, fHeight);
 
         addComponentListener(fontPanel);
 
         creerWidget();
 
-        setSize(fWidth, fLength);                                // Fixe la taille par défaut
+
+        setMaximizedBounds(new Rectangle(20, 20, 1100, 750));
+        setSize(fWidth, fHeight);                                // Fixe la taille par défaut
         setLocationRelativeTo(null);                     //position de la fenetre sur l'ordi
         setTitle("Sixth");                       //donne un titre au jFrame
         //setResizable(false);                             //empaiche la redimention du JFrame

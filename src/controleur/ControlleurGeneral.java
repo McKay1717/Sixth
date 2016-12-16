@@ -82,7 +82,7 @@ public class ControlleurGeneral {
         eventMenuJeu = new EventMenuJeu(menuJeu, this);
     }
 
-    public void saveJeu() throws IOException {
+    public void saveJeu() throws IOException, ClassNotFoundException {
         jeu.savePartie();
     }
 }

@@ -62,7 +62,7 @@ public class EventMenuJeu implements ActionListener {
 //            controlleurGeneral.createFenetreGrille(jeu);
     }
 
-    public void saveJeu() throws IOException {
+    public void saveJeu() throws IOException, ClassNotFoundException {
         controlleurGeneral.saveJeu();
     }
 }

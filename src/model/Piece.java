@@ -16,6 +16,7 @@ public class Piece implements Serializable {
     public static final int FOU = 4;
     public static final int DAME = 5;
     public static final int ROI = 6;
+    private static final long serialVersionUID = 1L;
     private java.util.List<Pion> pions;
     private int taille;
     private int couleur;

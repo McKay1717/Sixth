@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Case implements Serializable {
     protected static final Piece VIDE = null;
+    private static final long serialVersionUID = 1L;
     private Piece piece;
 
     public Case() {

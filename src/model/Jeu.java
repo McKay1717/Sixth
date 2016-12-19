@@ -3,9 +3,13 @@ package model;
 import exceptions.TailleMaximaleDepasseeException;
 
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import static java.util.Calendar.*;
 import static java.util.Collections.reverse;
 import static model.Grille.LARGEUR;
 import static model.Grille.LONGUEUR;
@@ -18,12 +22,16 @@ public class Jeu implements Serializable {
     private static final String FILE_SAVE_PARTIE = "Ressources/save";
     private static final int NB_JOUEURS = 2;
     private static final int COULEUR_PREMIER_JOUEUR = BLANC;
+    private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("HH:mm:ss");
+    private static final long serialVersionUID = 1L;
     private Joueur[] joueurs;
     private Grille grille;
+    private Date date;
 
-    public Jeu() {
+    public Jeu() throws ParseException {
         grille = new Grille();
         joueurs = new Joueur[NB_JOUEURS];
+        date = SIMPLE_DATE_FORMAT.parse(Integer.toString(getInstance().get(HOUR)) + Integer.toString(getInstance().get(MINUTE)) + Integer.toString(getInstance().get(SECOND)));
     }
 
     public static List<Jeu> loadPartie() throws IOException, ClassNotFoundException {
@@ -42,6 +50,10 @@ public class Jeu implements Serializable {
         }
         ois.close();
         return save;
+    }
+
+    public String getDate() {
+        return SIMPLE_DATE_FORMAT.format(date);
     }
 
     public void deplacer(int x, int y, int x2, int y2) {

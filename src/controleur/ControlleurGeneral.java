@@ -8,9 +8,9 @@ import vue.MenuJeu;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.text.ParseException;
 
-import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
-import static javax.swing.JOptionPane.showMessageDialog;
+import static javax.swing.JOptionPane.*;
 
 public class ControlleurGeneral {
     public static final String NOM_FENETRE_CHARGEMENT_PARTIE = "Chargement de partie";
@@ -46,14 +46,16 @@ public class ControlleurGeneral {
         }
         R = new Joueur(Jeu.ROUGE, "toto");
         B = new Joueur(Jeu.BLANC, "toto");
-        jeu = new Jeu();
-        jeu.setJoueurs(R, B);
         try {
+            jeu = new Jeu();
+            jeu.setJoueurs(R, B);
             fenetre = new FenetreGrille(R, B, jeu);
             createMenuJeu();
             ((FenetreGrille) fenetre).setJMenuBar(menuJeu);
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (ParseException e) {
+            showMessageDialog(fenetre, e.getMessage(), "Jeu — dateParse", ERROR_MESSAGE);
         }
     }
 

@@ -7,6 +7,7 @@ import java.io.Serializable;
 public class Grille implements Serializable {
     static final int LONGUEUR = 5;
     static final int LARGEUR = 5;
+    private static final long serialVersionUID = 1L;
     private Case[][] grille;
 
     public Grille() {

@@ -55,11 +55,15 @@ public class EventMenuJeu implements ActionListener {
     }
 
     public void loadJeu() throws IOException, ClassNotFoundException {
-        List<Jeu> jeu = loadPartie();
-        if (jeu.size() == 0)
+        List<Jeu> jeux = loadPartie();
+        if (jeux.size() == 0)
             showMessageDialog(fenetre, "Aucune partie enregistrée", NOM_FENETRE_CHARGEMENT_PARTIE, INFORMATION_MESSAGE);
-//        else
-//            controlleurGeneral.createFenetreGrille(jeu);
+        else {
+            String contenu = "";
+            for (Jeu jeu : jeux)
+                contenu += jeu.getDate() + "\n";
+            showMessageDialog(fenetre, contenu, NOM_FENETRE_CHARGEMENT_PARTIE, INFORMATION_MESSAGE);
+        }
     }
 
     public void saveJeu() throws IOException, ClassNotFoundException {

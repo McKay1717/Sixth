@@ -3,12 +3,14 @@ package model;
 import exceptions.TailleMaximaleDepasseeException;
 import org.junit.Test;
 
+import java.text.ParseException;
+
 import static model.Jeu.BLANC;
 import static org.junit.Assert.assertTrue;
 
 public class JeuUnitTest {
     @Test
-    public void testFinDePartie() throws TailleMaximaleDepasseeException {
+    public void testFinDePartie() throws TailleMaximaleDepasseeException, ParseException {
         Jeu jeu = new Jeu();
         Joueur joueur = new Joueur(BLANC, "Toto");
         jeu.addPion(0, 0, new Pion(joueur.getCouleur(), joueur));

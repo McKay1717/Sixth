@@ -9,7 +9,6 @@ import static java.util.Collections.sort;
 public class Scores implements Serializable, Comparable<Scores> {
     private static final String FILE_SCORES = "Ressources/scores";
     private static final int NB_SCORES_SAUVEGARDES = 5;
-    private static long serialVersionUID = 1L;
     private Joueur joueur;
     private int nbCoups;
 

@@ -3,7 +3,6 @@ package model;
 import java.io.Serializable;
 
 public class Pion implements Serializable {
-    private static long serialVersionUID = 1L;
     private int couleur;
     private Joueur joueur;
 

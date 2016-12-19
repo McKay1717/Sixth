@@ -28,27 +28,17 @@ public class Jeu implements Serializable {
 
     public static List<Jeu> loadPartie() throws IOException, ClassNotFoundException {
         List<Jeu> save = new ArrayList<>();
-        ObjectInputStream ois;
+        ObjectInputStream ois = null;
         try {
             ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(new File(FILE_SAVE_PARTIE))));
         } catch (EOFException e) {
             return save;
         }
-
-        for (int i = 0; i < NB_PARTIES_SAUVEGARDEES; i++) {
+        try {
             Object line = null;
-            try {
-                line = ois.readObject();
-            } catch (EOFException e) {
-                ois.close();
-                return save;
-            }
-            if (line != null)
+            while ((line = ois.readObject()) != null)
                 save.add((Jeu) line);
-            else {
-                ois.close();
-                return save;
-            }
+        } catch (EOFException ignored) {
         }
         ois.close();
         return save;
@@ -86,7 +76,7 @@ public class Jeu implements Serializable {
         ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File(FILE_SAVE_PARTIE))));
         save.add(this);
         reverse(save);
-        while (save.size() > NB_PARTIES_SAUVEGARDEES)
+        while (save.size() > 0)
             save.remove(save.get(save.size() - 1));
         for (Jeu jeu : save)
             oos.writeObject(jeu);

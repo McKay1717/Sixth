@@ -31,7 +31,7 @@ public class Jeu implements Serializable {
     public Jeu() throws ParseException {
         grille = new Grille();
         joueurs = new Joueur[NB_JOUEURS];
-        date = SIMPLE_DATE_FORMAT.parse(Integer.toString(getInstance().get(HOUR)) + Integer.toString(getInstance().get(MINUTE)) + Integer.toString(getInstance().get(SECOND)));
+        date = SIMPLE_DATE_FORMAT.parse(Integer.toString(getInstance().get(HOUR)) + ":" + Integer.toString(getInstance().get(MINUTE)) + ":" + Integer.toString(getInstance().get(SECOND)));
     }
 
     public static List<Jeu> loadPartie() throws IOException, ClassNotFoundException {
@@ -88,8 +88,6 @@ public class Jeu implements Serializable {
         ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File(FILE_SAVE_PARTIE))));
         save.add(this);
         reverse(save);
-        while (save.size() > 0)
-            save.remove(save.get(save.size() - 1));
         for (Jeu jeu : save)
             oos.writeObject(jeu);
         oos.close();

@@ -60,13 +60,15 @@ public class EventMenuJeu implements ActionListener {
             showMessageDialog(fenetre, "Aucune partie enregistrée", NOM_FENETRE_CHARGEMENT_PARTIE, INFORMATION_MESSAGE);
         else {
             String contenu = "";
-            for (Jeu jeu : jeux)
-                contenu += jeu.getDate() + "\n";
+            for (Jeu jeu : jeux) {
+                contenu += jeu.getJoueurs()[0].getNom() + " – " + jeu.getJoueurs()[1].getNom() + " — " + jeu.getDate() + "\n";
+            }
             showMessageDialog(fenetre, contenu, NOM_FENETRE_CHARGEMENT_PARTIE, INFORMATION_MESSAGE);
         }
     }
 
     public void saveJeu() throws IOException, ClassNotFoundException {
         controlleurGeneral.saveJeu();
+        showMessageDialog(fenetre, "Partie sauvegardée", "Sauvegarde", INFORMATION_MESSAGE);
     }
 }

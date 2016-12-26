@@ -2,11 +2,13 @@ package controleur;
 
 import model.Jeu;
 import model.Joueur;
+import vue.FenetreChgPartie;
 import vue.FenetreGrille;
 import vue.FenetreMenu;
 import vue.MenuJeu;
 
 import javax.swing.*;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.text.ParseException;
 
@@ -15,7 +17,7 @@ import static javax.swing.JOptionPane.*;
 public class ControlleurGeneral {
     public static final String NOM_FENETRE_CHARGEMENT_PARTIE = "Chargement de partie";
     public JFrame fenetre;
-    public EvenFMenu evenFMenu;
+    public ActionListener event;
     public Jeu jeu;
     MenuJeu menuJeu;
     EventMenuJeu eventMenuJeu;
@@ -33,13 +35,18 @@ public class ControlleurGeneral {
             fenetre.removeAll();
         }
         fenetre = new FenetreMenu();
-        evenFMenu = new EvenFMenu((FenetreMenu) fenetre, this);
-        ((FenetreMenu) fenetre).addEvenFMenu(evenFMenu);
+        event = new EvenFMenu((FenetreMenu) fenetre, this);
+        ((FenetreMenu) fenetre).addEvenFMenu(event);
         createMenuJeu();
     }
 
+    public void aucunePartieACharger() throws IOException {
+        createFenetreMenu();
+        showMessageDialog(fenetre, "Partie supprimée", NOM_FENETRE_CHARGEMENT_PARTIE, INFORMATION_MESSAGE);
+    }
+
     public void createFenetreGrille() {
-        evenFMenu = null;
+        event = null;
         if (fenetre != null) {
             fenetre.setVisible(false);
             fenetre.removeAll();
@@ -60,7 +67,7 @@ public class ControlleurGeneral {
     }
 
     public void createFenetreGrille(Jeu jeu) {
-        evenFMenu = null;
+        event = null;
         if (fenetre != null) {
             fenetre.setVisible(false);
             fenetre.removeAll();
@@ -77,6 +84,27 @@ public class ControlleurGeneral {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void createFenetreChgPartie() {
+        event = null;
+        if (fenetre != null) {
+            fenetre.setVisible(false);
+            fenetre.removeAll();
+        }
+        try {
+            fenetre = new FenetreChgPartie();
+            createMenuJeu();
+            ((FenetreChgPartie) fenetre).setJMenuBar(menuJeu);
+            event = new EventFenetreChgPartie(this, (FenetreChgPartie) fenetre);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deletePartie() {
+        createFenetreChgPartie();
+        showMessageDialog(fenetre, "Partie supprimée", NOM_FENETRE_CHARGEMENT_PARTIE, INFORMATION_MESSAGE);
     }
 
     public void createMenuJeu() {

@@ -43,13 +43,20 @@ public class Jeu implements Serializable {
             return save;
         }
         try {
-            Object line = null;
+            java.lang.Object line = null;
             while ((line = ois.readObject()) != null)
                 save.add((Jeu) line);
         } catch (EOFException ignored) {
         }
         ois.close();
         return save;
+    }
+
+    public static void saveParties(List<Jeu> jeux) throws IOException {
+        ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File(FILE_SAVE_PARTIE))));
+        for (Jeu jeu : jeux)
+            oos.writeObject(jeu);
+        oos.close();
     }
 
     public String getDate() {

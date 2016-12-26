@@ -37,7 +37,7 @@ public class EventMenuJeu implements ActionListener {
                 exit(0);
             else if (((JMenuItem) e.getSource()).getText().equals("Meilleurs scores"))
                 afficheMeilleursScores();
-            else if (((JMenuItem) e.getSource()).getText().equals("Charger la dernière partie sauvegardée"))
+            else if (((JMenuItem) e.getSource()).getText().equals("Charger une partie"))
                 loadJeu();
             else if (((JMenuItem) e.getSource()).getText().equals("Sauvegarder la partie"))
                 saveJeu();
@@ -59,11 +59,11 @@ public class EventMenuJeu implements ActionListener {
         if (jeux.size() == 0)
             showMessageDialog(fenetre, "Aucune partie enregistrée", NOM_FENETRE_CHARGEMENT_PARTIE, INFORMATION_MESSAGE);
         else {
-            String contenu = "";
-            for (Jeu jeu : jeux) {
-                contenu += jeu.getJoueurs()[0].getNom() + " – " + jeu.getJoueurs()[1].getNom() + " — " + jeu.getDate() + "\n";
-            }
-            showMessageDialog(fenetre, contenu, NOM_FENETRE_CHARGEMENT_PARTIE, INFORMATION_MESSAGE);
+//            String contenu = "";
+//            for (Jeu jeu : jeux)
+//                contenu += jeu.getJoueurs()[0].getNom() + " – " + jeu.getJoueurs()[1].getNom() + " — " + jeu.getDate() + "\n";
+//            showMessageDialog(fenetre, contenu, NOM_FENETRE_CHARGEMENT_PARTIE, INFORMATION_MESSAGE);
+            controlleurGeneral.createFenetreChgPartie();
         }
     }
 

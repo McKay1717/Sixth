@@ -45,14 +45,14 @@ public class ControlleurGeneral {
         showMessageDialog(fenetre, "Partie supprimée", NOM_FENETRE_CHARGEMENT_PARTIE, INFORMATION_MESSAGE);
     }
 
-    public void createFenetreGrille() {
+    public void createFenetreGrille(String joueur_rouge, String joueur_blanc) {
         event = null;
         if (fenetre != null) {
             fenetre.setVisible(false);
             fenetre.removeAll();
         }
-        R = new Joueur(Jeu.ROUGE, "toto");
-        B = new Joueur(Jeu.BLANC, "toto");
+        R = new Joueur(Jeu.ROUGE, joueur_rouge);
+        B = new Joueur(Jeu.BLANC, joueur_blanc);
         try {
             jeu = new Jeu();
             jeu.setJoueurs(R, B);

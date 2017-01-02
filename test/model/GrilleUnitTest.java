@@ -133,36 +133,58 @@ public class GrilleUnitTest {
 
     @Test
     public void testDeplacerPieceCavalier() throws TailleMaximaleDepasseeException {
-        ArrayList<Point> possibilites = new ArrayList<Point>();
-        Point posDepart = new Point(4, 0);
         int i, j;
 
-        grille.addPion(posDepart.x, posDepart.y, new Pion(joueur.getCouleur(), joueur));
-        grille.getCase(posDepart.x, posDepart.y).getPiece().add(new Pion(joueur.getCouleur(), joueur));
-        grille.getCase(posDepart.x, posDepart.y).getPiece().add(new Pion(joueur.getCouleur(), joueur));
+        for(i = 0; i < LONGUEUR; i++) {
+            for(j = 0; j < LARGEUR; j++) {
+                ArrayList<Point> possibilites = new ArrayList<Point>();
+                Point posDepart = new Point(i, j);
+                int debutX, finX, debutY, finY, k, l;
 
-        for (i = posDepart.x - 2; i <= posDepart.x + 2; i += 2) {
-            for (j = posDepart.y - 1; j <= posDepart.y + 1; j++) {
-                if (i != posDepart.x && j != posDepart.y)
-                    possibilites.add(new Point(i, j));
-            }
-        }
+                grille.addPion(posDepart.x, posDepart.y, new Pion(joueur.getCouleur(), joueur));
+                grille.getCase(posDepart.x, posDepart.y).getPiece().add(new Pion(joueur.getCouleur(), joueur));
+                grille.getCase(posDepart.x, posDepart.y).getPiece().add(new Pion(joueur.getCouleur(), joueur));
 
-        for (i = posDepart.y - 2; i <= posDepart.y + 2; i += 2) {
-            for (j = posDepart.x - 1; j <= posDepart.x + 1; j++) {
-                if (i != posDepart.y && j != posDepart.x)
-                    possibilites.add(new Point(j, i));
-            }
-        }
+                debutX = ((posDepart.x > 1) ? posDepart.x - 2 : posDepart.x);
+                finX = ((posDepart.x < LONGUEUR - 2) ? posDepart.x + 2 : posDepart.x);
+                debutY = ((posDepart.y > 0) ? posDepart.y - 1 : posDepart.y);
+                finY = ((posDepart.y < LARGEUR - 1) ? posDepart.y + 1 : posDepart.y);
 
-        for (i = 0; i < LONGUEUR; i++) {
-            for (j = 0; j < LARGEUR; j++) {
-                if (possibilites.contains(new Point(i, j))) {
-                    assertTrue(grille.deplacer(posDepart.x, posDepart.y, i, j));
-                    grille.deplacer(i, j, posDepart.x, posDepart.y);
+                for (k = debutX; k <= finX; k += 2) {
+                    for (l = debutY; l <= finY; l++) {
+                        if (k != posDepart.x && l != posDepart.y)
+                            possibilites.add(new Point(k, l));
+                    }
                 }
-                else
-                    assertFalse(grille.deplacer(posDepart.x, posDepart.y, i, j));
+
+                debutY = ((posDepart.y > 1) ? posDepart.y - 2 : posDepart.y);
+                finY = ((posDepart.y < LARGEUR - 2) ? posDepart.y + 2 : posDepart.y);
+                debutX = ((posDepart.x > 0) ? posDepart.x - 1 : posDepart.x);
+                finX = ((posDepart.x < LONGUEUR - 1) ? posDepart.x + 1 : posDepart.x);
+
+                for (k = debutY; k <= finY; k += 2) {
+                    for (l = debutX; l <= finX; l++) {
+                        if (k != posDepart.y && l != posDepart.x)
+                            possibilites.add(new Point(l, k));
+                    }
+                }
+
+                for (k = 0; k < LONGUEUR; k++) {
+                    for (l = 0; l < LARGEUR; l++) {
+                        if (possibilites.contains(new Point(k, l))) {
+                            grille.addPion(k, l, new Pion(joueur.getCouleur(), joueur));
+                            assertTrue(grille.deplacer(posDepart.x, posDepart.y, k, l));
+                            grille.getCase(k, l).deletePiece();
+                            grille.addPion(posDepart.x, posDepart.y, new Pion(joueur.getCouleur(), joueur));
+                            grille.getCase(posDepart.x, posDepart.y).getPiece().add(new Pion(joueur.getCouleur(), joueur));
+                            grille.getCase(posDepart.x, posDepart.y).getPiece().add(new Pion(joueur.getCouleur(), joueur));
+                        }
+                        else
+                            assertFalse(grille.deplacer(posDepart.x, posDepart.y, k, l));
+                    }
+                }
+
+                grille.getCase(posDepart.x, posDepart.y).deletePiece();
             }
         }
     }

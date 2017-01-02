@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import static model.Grille.LARGEUR;
 import static model.Grille.LONGUEUR;
@@ -31,29 +32,51 @@ public class GrilleUnitTest {
 
     @Test
     public void testDeplacerPiecePion() throws TailleMaximaleDepasseeException {
-        ArrayList<Point> possibilites = new ArrayList<Point>();
-        Point posDepart = new Point(2, 3);
         int i, j;
 
-        grille.addPion(posDepart.x, posDepart.y, new Pion(joueur.getCouleur(), joueur));
+        // Parcours de toutes les cases
 
-        for (i = posDepart.x - 1; i <= posDepart.x + 1; i++) {
-            if (i != posDepart.x)
-                possibilites.add(new Point(i, posDepart.y));
-        }
+        for(i = 0; i < LONGUEUR; i++) {
+            for(j = 0; j < LARGEUR; j++) {
+                ArrayList<Point> possibilites = new ArrayList<Point>();
+                Point posDepart = new Point(i, j);
+                int debut, fin, k, l;
 
-        for (i = posDepart.y - 1; i <= posDepart.y + 1; i++) {
-            if (i != posDepart.y)
-                possibilites.add(new Point(posDepart.x, i));
-        }
+                grille.addPion(posDepart.x, posDepart.y, new Pion(joueur.getCouleur(), joueur));
 
-        for (i = 0; i < LONGUEUR; i++) {
-            for (j = 0; j < LARGEUR; j++) {
-                if (possibilites.contains(new Point(i, j))) {
-                    assertTrue(grille.deplacer(posDepart.x, posDepart.y, i, j));
-                    grille.deplacer(i, j, posDepart.x, posDepart.y);
-                } else
-                    assertFalse(grille.deplacer(posDepart.x, posDepart.y, i, j));
+                debut = ((posDepart.x == 0) ? posDepart.x : posDepart.x - 1);
+                fin = ((posDepart.x == LARGEUR - 1) ? posDepart.x : posDepart.x + 1);
+
+                for (k = debut; k <= fin; k++) {
+                    if (k != posDepart.x) {
+                        possibilites.add(new Point(k, posDepart.y));
+                    }
+                }
+
+                debut = ((posDepart.y == 0) ? posDepart.y : posDepart.y - 1);
+                fin = ((posDepart.y == LONGUEUR - 1) ? posDepart.y : posDepart.y + 1);
+
+                for (k = debut; k <= fin; k++) {
+                    if (k != posDepart.y) {
+                        possibilites.add(new Point(posDepart.x, k));
+                    }
+                }
+
+                for(k = 0; k < LONGUEUR; k++) {
+                    for(l = 0; l < LARGEUR; l++) {
+                        if (possibilites.contains(new Point(k, l))) {
+                            grille.addPion(k, l, new Pion(joueur.getCouleur(), joueur));
+                            assertTrue(grille.deplacer(posDepart.x, posDepart.y, k, l));
+                            grille.getCase(k, l).deletePiece();
+                            grille.addPion(posDepart.x, posDepart.y, new Pion(joueur.getCouleur(), joueur));
+                            System.out.println("k = " + k + "; l = " + l + "; posDepart.x = " + posDepart.x + "; posDepart.y = " + posDepart.y);
+                        }
+                        else
+                            assertFalse(grille.deplacer(posDepart.x, posDepart.y, i, j));
+                    }
+                }
+
+                grille.getCase(posDepart.x, posDepart.y).deletePiece();
             }
         }
     }

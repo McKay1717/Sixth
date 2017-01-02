@@ -22,4 +22,8 @@ public class Case implements Serializable {
     public void deletePiece() {
         piece = VIDE;
     }
+
+    public boolean isVide() {
+        return (piece == VIDE);
+    }
 }

@@ -80,6 +80,10 @@ public class Piece implements Serializable {
             remove(pions.get(i));
     }
 
+    public List<Pion> getPions() {
+        return pions;
+    }
+
     public String toString() {
         switch (getTaille()) {
             case PION:

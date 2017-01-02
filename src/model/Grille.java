@@ -51,10 +51,21 @@ public class Grille implements Serializable {
                     (taillePiece == Piece.CAVALIER && deplacerCavalier) ||
                     (taillePiece == Piece.FOU && deplacerFou) ||
                     (taillePiece == Piece.DAME && deplacerDame)) {
-                grille[x2][y2] = grille[x][y];
-                grille[x][y] = null;
-                return true;
+
+                if(!grille[x2][y2].isVide()) {
+                    try {
+                        grille[x2][y2].getPiece().add(grille[x][y].getPiece().getPions());
+                        grille[x][y].deletePiece();
+                        return true;
+                    }
+                    catch(TailleMaximaleDepasseeException e) {
+                        e.getMessage();
+                    }
+
+                    return true;
+                }
             }
+
         }
         return false;
     }

@@ -3,6 +3,7 @@ package model;
 import exceptions.TailleMaximaleDepasseeException;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Grille implements Serializable {
     static final int LONGUEUR = 5;
@@ -67,6 +68,25 @@ public class Grille implements Serializable {
             }
 
         }
+        return false;
+    }
+
+    // Déplace une pièce tout en la découpant
+
+    public boolean deplacer(int x, int y, int x2, int y2, int decoupe) {
+        if(getCase(x, y).getPiece().getTaille() - 1 > decoupe) {
+            List<Pion> tasBas = grille[x][y].getPiece().getPions(1, decoupe);
+            List<Pion> tasHaut = grille[x][y].getPiece().getPions(decoupe + 1, grille[x][y].getPiece().getTaille());
+            Pion pion = tasHaut.get(tasHaut.size() - 1);
+
+            grille[x][y].setPiece(new Piece(tasHaut, tasHaut.size(), pion.getCouleur()));
+
+            if(!deplacer(x, y, x2, y2)) return false;
+
+            pion = tasBas.get(tasBas.size() - 1);
+            grille[x][y].setPiece(new Piece(tasBas, tasBas.size(), pion.getCouleur()));
+        }
+
         return false;
     }
 

@@ -22,7 +22,7 @@ public class Piece implements Serializable {
     private int couleur;
 
     public Piece(int couleur, Pion pion) throws TailleMaximaleDepasseeException {
-        pions = new ArrayList<>();
+        pions = new ArrayList<Pion>();
         add(pion);
         taille = pions.size();
         this.couleur = couleur;
@@ -40,6 +40,22 @@ public class Piece implements Serializable {
 
     public int getTaille() {
         return taille;
+    }
+
+    public Pion getPion(int i) { return pions.get(i); }
+
+    public List<Pion> getPions() {
+        return pions;
+    }
+
+    public List<Pion> getPions(int debut, int fin) {
+        List<Pion> pions = new ArrayList<Pion>();
+
+        for(int i = debut - 1; i < fin; i++) {
+            pions.add(pions.get(i));
+        }
+
+        return pions;
     }
 
     public void add(Pion pion) throws TailleMaximaleDepasseeException {
@@ -78,10 +94,6 @@ public class Piece implements Serializable {
 
         for (int i = pions.size() - 1; i >= 0; i--)
             remove(pions.get(i));
-    }
-
-    public List<Pion> getPions() {
-        return pions;
     }
 
     public String toString() {

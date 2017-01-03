@@ -39,6 +39,19 @@ public class GrilleUnitTest {
     }
 
     @Test
+    public void testDeplacerPieceDecoupe() throws TailleMaximaleDepasseeException {
+        grille.addPion(2, 2, new Pion(joueur.getCouleur(), joueur));
+        grille.addPion(2, 3, new Pion(joueur.getCouleur(), joueur));
+
+        assertFalse(grille.deplacer(2, 2, 2, 3, 2));
+
+        grille.getCase(2, 2).getPiece().add(new Pion(joueur.getCouleur(), joueur));
+
+        assertFalse(grille.deplacer(2, 2, 2, 3, 3));
+        assertTrue(grille.deplacer(2, 2, 2, 3, 1));
+    }
+
+    @Test
     public void testDeplacerPiecePion() throws TailleMaximaleDepasseeException {
         int i, j;
 

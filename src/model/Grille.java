@@ -20,7 +20,7 @@ public class Grille implements Serializable {
 
     public void addPion(int x, int y, Pion pion) throws TailleMaximaleDepasseeException {
         //TODO Vérifier si la case possède déjà ou non une pièce.
-        Piece piece = new Piece(pion.getCouleur(), pion);
+        Piece piece = new Piece(pion);
         grille[x][y].setPiece(piece);
     }
 
@@ -79,12 +79,12 @@ public class Grille implements Serializable {
             List<Pion> tasHaut = grille[x][y].getPiece().getPions(decoupe + 1, grille[x][y].getPiece().getTaille());
             Pion pion = tasHaut.get(tasHaut.size() - 1);
 
-            grille[x][y].setPiece(new Piece(tasHaut, tasHaut.size(), pion.getCouleur()));
+            grille[x][y].setPiece(new Piece(tasHaut, tasHaut.size()));
 
             if(!deplacer(x, y, x2, y2)) return false;
 
             pion = tasBas.get(tasBas.size() - 1);
-            grille[x][y].setPiece(new Piece(tasBas, tasBas.size(), pion.getCouleur()));
+            grille[x][y].setPiece(new Piece(tasBas, tasBas.size()));
         }
 
         return false;

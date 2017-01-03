@@ -19,23 +19,20 @@ public class Piece implements Serializable {
     private static final long serialVersionUID = 1L;
     private java.util.List<Pion> pions;
     private int taille;
-    private int couleur;
 
-    public Piece(int couleur, Pion pion) throws TailleMaximaleDepasseeException {
+    public Piece(Pion pion) throws TailleMaximaleDepasseeException {
         pions = new ArrayList<Pion>();
         add(pion);
         taille = pions.size();
-        this.couleur = couleur;
     }
 
-    public Piece(List<Pion> pions, int taille, int couleur) {
+    public Piece(List<Pion> pions, int taille) {
         this.pions = pions;
         this.taille = taille;
-        this.couleur = couleur;
     }
 
     public int getCouleur() {
-        return couleur;
+        return pions.get(taille - 1).getCouleur();
     }
 
     public int getTaille() {
@@ -63,7 +60,6 @@ public class Piece implements Serializable {
             throw new TailleMaximaleDepasseeException();
 
         pions.add(pion);
-        couleur = pion.getCouleur();
         taille++;
     }
 
@@ -80,7 +76,6 @@ public class Piece implements Serializable {
             throw new PionNonEnHautDeLaPileException();
 
         pions.remove(pion);
-        couleur = pions.get(pions.size() - 1).getCouleur();
         taille--;
     }
 

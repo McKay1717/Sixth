@@ -90,7 +90,6 @@ public class GrilleUnitTest {
                             assertTrue(grille.deplacer(posDepart.x, posDepart.y, k, l));
                             grille.getCase(k, l).deletePiece();
                             grille.addPion(posDepart.x, posDepart.y, new Pion(joueur.getCouleur(), joueur));
-                            System.out.println("k = " + k + "; l = " + l + "; posDepart.x = " + posDepart.x + "; posDepart.y = " + posDepart.y);
                         }
                         else
                             assertFalse(grille.deplacer(posDepart.x, posDepart.y, i, j));

@@ -16,7 +16,7 @@ public class CaseUnitTest {
     @Before
     public void setUp() throws TailleMaximaleDepasseeException {
         joueur = new Joueur(ROUGE, "Toto");
-        piece = new Piece(joueur.getCouleur(), new Pion(joueur.getCouleur(), joueur));
+        piece = new Piece(new Pion(joueur.getCouleur(), joueur));
         _case = new Case();
         _case.setPiece(piece);
     }

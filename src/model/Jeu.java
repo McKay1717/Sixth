@@ -18,12 +18,14 @@ import static model.Piece.ROI;
 public class Jeu implements Serializable {
     public static final int BLANC = -1;
     public static final int ROUGE = -2;
+    public static final int PAS_DECOUPE = 0;
     private static final int NB_PARTIES_SAUVEGARDEES = 4096;
-    private static final String FILE_SAVE_PARTIE = "Ressources/save";
     private static final int NB_JOUEURS = 2;
     private static final int COULEUR_PREMIER_JOUEUR = BLANC;
-    private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("HH:mm:ss");
     private static final long serialVersionUID = 1L;
+    private static final String FILE_SAVE_PARTIE = "Ressources/save";
+    private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("HH:mm:ss");
+
     private Joueur[] joueurs;
     private Grille grille;
     private Date date;
@@ -63,8 +65,11 @@ public class Jeu implements Serializable {
         return SIMPLE_DATE_FORMAT.format(date);
     }
 
-    public void deplacer(int x, int y, int x2, int y2) {
-        grille.deplacer(x, y, x2, y2);
+    public void deplacer(int x, int y, int x2, int y2, int decoupe, int couleurJoueur) {
+        if(decoupe != PAS_DECOUPE)
+            grille.deplacer(x, y, x2, y2, decoupe, couleurJoueur);
+        else
+            grille.deplacer(x, y, x2, y2, couleurJoueur);
     }
 
     public void saveScores() {

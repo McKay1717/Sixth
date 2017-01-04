@@ -26,9 +26,9 @@ public class Piece implements Serializable {
         taille = pions.size();
     }
 
-    public Piece(List<Pion> pions, int taille) {
+    public Piece(List<Pion> pions) {
         this.pions = pions;
-        this.taille = taille;
+        this.taille = pions.size();
     }
 
     public int getCouleur() {
@@ -49,7 +49,7 @@ public class Piece implements Serializable {
         List<Pion> pions = new ArrayList<Pion>();
 
         for(int i = debut - 1; i < fin; i++) {
-            pions.add(pions.get(i));
+            pions.add(this.pions.get(i));
         }
 
         return pions;

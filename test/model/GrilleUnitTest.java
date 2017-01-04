@@ -11,6 +11,7 @@ import java.util.Locale;
 import static model.Grille.LARGEUR;
 import static model.Grille.LONGUEUR;
 import static model.Jeu.BLANC;
+import static model.Jeu.ROUGE;
 import static org.junit.Assert.*;
 
 public class GrilleUnitTest {
@@ -35,7 +36,7 @@ public class GrilleUnitTest {
         Pion pion = new Pion(joueur.getCouleur(), joueur);
         grille.addPion(2, 4, pion);
 
-        assertFalse(grille.deplacer(2, 4, 3, 4));
+        assertFalse(grille.deplacer(2, 4, 3, 4, joueur.getCouleur()));
     }
 
     @Test
@@ -43,12 +44,23 @@ public class GrilleUnitTest {
         grille.addPion(2, 2, new Pion(joueur.getCouleur(), joueur));
         grille.addPion(2, 3, new Pion(joueur.getCouleur(), joueur));
 
-        assertFalse(grille.deplacer(2, 2, 2, 3, 2));
+        // Un seul pion, on ne peut pas découper
+        assertFalse(grille.deplacer(2, 2, 2, 3, 1, joueur.getCouleur()));
 
         grille.getCase(2, 2).getPiece().add(new Pion(joueur.getCouleur(), joueur));
 
-        assertFalse(grille.deplacer(2, 2, 2, 3, 3));
-        assertTrue(grille.deplacer(2, 2, 2, 3, 1));
+        // Pas la même couleur, on ne peut pas découper
+        assertFalse(grille.deplacer(2, 2, 2, 3, 1, ROUGE));
+
+        // Trop bas, trop haut, on ne peut pas découper
+        assertFalse(grille.deplacer(2, 2, 2, 3, 0, joueur.getCouleur()));
+        assertFalse(grille.deplacer(2, 2, 2, 3, 3, joueur.getCouleur()));
+
+        // Identique, on ne peut pas découper
+        assertFalse(grille.deplacer(2, 2, 2, 3, 2, joueur.getCouleur()));
+
+        // Sinon, on peut enfin découper, mais cela ne garantis pas un déplacement
+        assertTrue(grille.deplacer(2, 2, 2, 3, 1, joueur.getCouleur()));
     }
 
     @Test
@@ -87,12 +99,12 @@ public class GrilleUnitTest {
                     for(l = 0; l < LARGEUR; l++) {
                         if (possibilites.contains(new Point(k, l))) {
                             grille.addPion(k, l, new Pion(joueur.getCouleur(), joueur));
-                            assertTrue(grille.deplacer(posDepart.x, posDepart.y, k, l));
+                            assertTrue(grille.deplacer(posDepart.x, posDepart.y, k, l, joueur.getCouleur()));
                             grille.getCase(k, l).deletePiece();
                             grille.addPion(posDepart.x, posDepart.y, new Pion(joueur.getCouleur(), joueur));
                         }
                         else
-                            assertFalse(grille.deplacer(posDepart.x, posDepart.y, i, j));
+                            assertFalse(grille.deplacer(posDepart.x, posDepart.y, i, j, joueur.getCouleur()));
                     }
                 }
 
@@ -128,13 +140,13 @@ public class GrilleUnitTest {
                     for (l = 0; l < LARGEUR; l++) {
                         if (possibilites.contains(new Point(k, l))) {
                             grille.addPion(k, l, new Pion(joueur.getCouleur(), joueur));
-                            assertTrue(grille.deplacer(posDepart.x, posDepart.y, k, l));
+                            assertTrue(grille.deplacer(posDepart.x, posDepart.y, k, l, joueur.getCouleur()));
                             grille.getCase(k, l).deletePiece();
                             grille.addPion(posDepart.x, posDepart.y, new Pion(joueur.getCouleur(), joueur));
                             grille.getCase(posDepart.x, posDepart.y).getPiece().add(new Pion(joueur.getCouleur(), joueur));
                         }
                         else
-                            assertFalse(grille.deplacer(posDepart.x, posDepart.y, k, l));
+                            assertFalse(grille.deplacer(posDepart.x, posDepart.y, k, l, joueur.getCouleur()));
                     }
                 }
 
@@ -185,14 +197,14 @@ public class GrilleUnitTest {
                     for (l = 0; l < LARGEUR; l++) {
                         if (possibilites.contains(new Point(k, l))) {
                             grille.addPion(k, l, new Pion(joueur.getCouleur(), joueur));
-                            assertTrue(grille.deplacer(posDepart.x, posDepart.y, k, l));
+                            assertTrue(grille.deplacer(posDepart.x, posDepart.y, k, l, joueur.getCouleur()));
                             grille.getCase(k, l).deletePiece();
                             grille.addPion(posDepart.x, posDepart.y, new Pion(joueur.getCouleur(), joueur));
                             grille.getCase(posDepart.x, posDepart.y).getPiece().add(new Pion(joueur.getCouleur(), joueur));
                             grille.getCase(posDepart.x, posDepart.y).getPiece().add(new Pion(joueur.getCouleur(), joueur));
                         }
                         else
-                            assertFalse(grille.deplacer(posDepart.x, posDepart.y, k, l));
+                            assertFalse(grille.deplacer(posDepart.x, posDepart.y, k, l, joueur.getCouleur()));
                     }
                 }
 
@@ -254,7 +266,7 @@ public class GrilleUnitTest {
                     for(l = 0; l < Grille.LARGEUR; l++) {
                         if(possibilites.contains(new Point(k, l))) {
                             grille.addPion(k, l, new Pion(joueur.getCouleur(), joueur));
-                            assertTrue(grille.deplacer(posDepart.x, posDepart.y, k, l));
+                            assertTrue(grille.deplacer(posDepart.x, posDepart.y, k, l, joueur.getCouleur()));
                             grille.getCase(k, l).deletePiece();
                             grille.addPion(posDepart.x, posDepart.y, new Pion(joueur.getCouleur(), joueur));
                             grille.getCase(posDepart.x, posDepart.y).getPiece().add(new Pion(joueur.getCouleur(), joueur));
@@ -262,7 +274,7 @@ public class GrilleUnitTest {
                             grille.getCase(posDepart.x, posDepart.y).getPiece().add(new Pion(joueur.getCouleur(), joueur));
                         }
                         else
-                            assertFalse(grille.deplacer(posDepart.x, posDepart.y, k, l));
+                            assertFalse(grille.deplacer(posDepart.x, posDepart.y, k, l, joueur.getCouleur()));
                     }
                 }
 
@@ -341,7 +353,7 @@ public class GrilleUnitTest {
                     for (l = 0; l < LARGEUR; l++) {
                         if (possibilites.contains(new Point(k, l))) {
                             grille.addPion(k, l, new Pion(joueur.getCouleur(), joueur));
-                            assertTrue(grille.deplacer(posDepart.x, posDepart.y, k, l));
+                            assertTrue(grille.deplacer(posDepart.x, posDepart.y, k, l, joueur.getCouleur()));
                             grille.getCase(k, l).deletePiece();
                             grille.addPion(posDepart.x, posDepart.y, new Pion(joueur.getCouleur(), joueur));
                             grille.getCase(posDepart.x, posDepart.y).getPiece().add(new Pion(joueur.getCouleur(), joueur));
@@ -350,7 +362,7 @@ public class GrilleUnitTest {
                             grille.getCase(posDepart.x, posDepart.y).getPiece().add(new Pion(joueur.getCouleur(), joueur));
                         }
                         else
-                            assertFalse(grille.deplacer(posDepart.x, posDepart.y, i, j));
+                            assertFalse(grille.deplacer(posDepart.x, posDepart.y, i, j, joueur.getCouleur()));
                     }
                 }
 

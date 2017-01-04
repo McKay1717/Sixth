@@ -25,7 +25,7 @@ public class PieceUnitTest {
         pions = new ArrayList<>();
         for (int i = 0; i < 4; i++)
             pions.add(new Pion(joueur.getCouleur(), joueur));
-        piece = new Piece(pions, pions.size());
+        piece = new Piece(pions);
     }
 
     @Test

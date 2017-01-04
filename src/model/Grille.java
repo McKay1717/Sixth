@@ -24,10 +24,9 @@ public class Grille implements Serializable {
         grille[x][y].setPiece(piece);
     }
 
-    public boolean deplacer(int x, int y, int x2, int y2) {
-        if (grille[x][y] != null) {
-            Piece piece = grille[x][y].getPiece();
-            int taillePiece = piece.getTaille();
+    private boolean deplacer(int x, int y, int x2, int y2) {
+        Piece piece = grille[x][y].getPiece();
+        int taillePiece = piece.getTaille();
 
             /*
             * @deplacerPion : teste s'il est déplacé d'une case en diagonale
@@ -37,54 +36,66 @@ public class Grille implements Serializable {
             * @deplacerFou : teste s'il est bien déplacé en diagonale
             * @deplacerDame : teste si elle effectue un déplacement de tour OU SOIT un déplacement de fou
             */
-            boolean XEq = (x == x2), YEq = (y == y2);
-            boolean deplacerPion = ((YEq && (x2 - x == 1 || x2 - x == -1)) ^ (XEq && (y2 - y == 1 || y2 - y == -1)));
-            boolean deplacerTour = ((YEq && (x2 != x)) ^ (XEq && (y2 != y)));
-            boolean deplacerCavalier = (
-                    ((x2 - x == 2 || x2 - x == -2) && (y2 - y == 1 || y2 - y == -1)) ||
-                            ((y2 - y == 2 || y2 - y == -2) && (x2 - x == 1 || x2 - x == -1))
-            );
-            boolean deplacerFou = ((y - y2 == x - x2) ^ (y - y2 == -(x - x2)));
-            boolean deplacerDame = deplacerTour ^ deplacerFou;
 
-            if ((taillePiece == Piece.PION && deplacerPion) ||
-                    (taillePiece == Piece.TOUR && deplacerTour) ||
-                    (taillePiece == Piece.CAVALIER && deplacerCavalier) ||
-                    (taillePiece == Piece.FOU && deplacerFou) ||
-                    (taillePiece == Piece.DAME && deplacerDame)) {
+        boolean XEq = (x == x2), YEq = (y == y2);
+        boolean deplacerPion = ((YEq && (x2 - x == 1 || x2 - x == -1)) ^ (XEq && (y2 - y == 1 || y2 - y == -1)));
+        boolean deplacerTour = ((YEq && (x2 != x)) ^ (XEq && (y2 != y)));
+        boolean deplacerCavalier = (
+                ((x2 - x == 2 || x2 - x == -2) && (y2 - y == 1 || y2 - y == -1)) ||
+                        ((y2 - y == 2 || y2 - y == -2) && (x2 - x == 1 || x2 - x == -1))
+        );
+        boolean deplacerFou = ((y - y2 == x - x2) ^ (y - y2 == -(x - x2)));
+        boolean deplacerDame = deplacerTour ^ deplacerFou;
 
-                if(!grille[x2][y2].isVide()) {
-                    try {
-                        grille[x2][y2].getPiece().add(grille[x][y].getPiece().getPions());
-                        grille[x][y].deletePiece();
-                        return true;
-                    }
-                    catch(TailleMaximaleDepasseeException e) {
-                        e.getMessage();
-                    }
+        if ((taillePiece == Piece.PION && deplacerPion) ||
+                (taillePiece == Piece.TOUR && deplacerTour) ||
+                (taillePiece == Piece.CAVALIER && deplacerCavalier) ||
+                (taillePiece == Piece.FOU && deplacerFou) ||
+                (taillePiece == Piece.DAME && deplacerDame)) {
 
+            if (!grille[x2][y2].isVide()) {
+                try {
+                    grille[x2][y2].getPiece().add(grille[x][y].getPiece().getPions());
+                    grille[x][y].deletePiece();
                     return true;
+                } catch (TailleMaximaleDepasseeException e) {
+                    e.getMessage();
                 }
-            }
 
+                return true;
+            }
         }
+
+        return false;
+    }
+
+    private boolean deplacerCondBase(int x, int y, int x2, int y2, int couleurJoueur) {
+        return (grille[x][y] != null && grille[x][y].getPiece().getCouleur() == couleurJoueur &&
+                x2 >= 0 && x2 < LONGUEUR && y2 >= 0 && y2 < LARGEUR);
+    }
+
+    public boolean deplacer(int x, int y, int x2, int y2, int couleurJoueur) {
+        if(deplacerCondBase(x, y, x2, y2, couleurJoueur))
+            return deplacer(x, y, x2, y2);
+
         return false;
     }
 
     // Déplace une pièce tout en la découpant
 
-    public boolean deplacer(int x, int y, int x2, int y2, int decoupe) {
-        if(getCase(x, y).getPiece().getTaille() - 1 > decoupe) {
+    public boolean deplacer(int x, int y, int x2, int y2, int decoupe, int couleurJoueur) {
+        if (deplacerCondBase(x, y, x2, y2, couleurJoueur) && grille[x][y].getPiece().getTaille() > 1 &&
+                decoupe >= 1 && decoupe < grille[x][y].getPiece().getTaille()) {
             List<Pion> tasBas = grille[x][y].getPiece().getPions(1, decoupe);
             List<Pion> tasHaut = grille[x][y].getPiece().getPions(decoupe + 1, grille[x][y].getPiece().getTaille());
-            Pion pion = tasHaut.get(tasHaut.size() - 1);
 
-            grille[x][y].setPiece(new Piece(tasHaut, tasHaut.size()));
+            grille[x][y].setPiece(new Piece(tasHaut));
 
-            if(!deplacer(x, y, x2, y2)) return false;
+            if (!deplacer(x, y, x2, y2, couleurJoueur))
+                return false;
 
-            pion = tasBas.get(tasBas.size() - 1);
-            grille[x][y].setPiece(new Piece(tasBas, tasBas.size()));
+            grille[x][y].setPiece(new Piece(tasBas));
+            return true;
         }
 
         return false;

@@ -29,11 +29,13 @@ public class Jeu implements Serializable {
     private Joueur[] joueurs;
     private Grille grille;
     private Date date;
+    private int tourJoueur;
 
     public Jeu() throws ParseException {
         grille = new Grille();
         joueurs = new Joueur[NB_JOUEURS];
         date = SIMPLE_DATE_FORMAT.parse(Integer.toString(getInstance().get(HOUR)) + ":" + Integer.toString(getInstance().get(MINUTE)) + ":" + Integer.toString(getInstance().get(SECOND)));
+        tourJoueur = COULEUR_PREMIER_JOUEUR;
     }
 
     public static List<Jeu> loadPartie() throws IOException, ClassNotFoundException {
@@ -65,18 +67,40 @@ public class Jeu implements Serializable {
         return SIMPLE_DATE_FORMAT.format(date);
     }
 
-    public void deplacer(int x, int y, int x2, int y2, int decoupe, int couleurJoueur) {
-        if(decoupe != PAS_DECOUPE)
-            grille.deplacer(x, y, x2, y2, decoupe, couleurJoueur);
+    private void changerJoueur() {
+        if(tourJoueur == BLANC)
+            tourJoueur = ROUGE;
         else
-            grille.deplacer(x, y, x2, y2, couleurJoueur);
+            tourJoueur = BLANC;
+    }
+
+    public boolean deplacer(int x, int y, int x2, int y2, int decoupe, int couleurJoueur) {
+        if(couleurJoueur != tourJoueur)
+            return false;
+
+        boolean deplacement = false;
+
+        if(decoupe != PAS_DECOUPE)
+            deplacement = grille.deplacer(x, y, x2, y2, decoupe, couleurJoueur);
+        else
+            deplacement = grille.deplacer(x, y, x2, y2, couleurJoueur);
+
+        if(deplacement)
+            changerJoueur();
+
+        return deplacement;
     }
 
     public void saveScores() {
     }
 
-    public void addPion(int x, int y, Pion pion) throws TailleMaximaleDepasseeException {
+    public boolean addPion(int x, int y, Pion pion) throws TailleMaximaleDepasseeException {
+        if(pion.getCouleur() != tourJoueur)
+            return false;
+
         grille.addPion(x, y, pion);
+        changerJoueur();
+        return true;
     }
 
     public boolean finDePartie() {

@@ -16,27 +16,34 @@ import static org.junit.Assert.*;
 
 public class GrilleUnitTest {
     Grille grille;
-    Joueur joueur;
+    Joueur joueur, joueur2;
 
     @Before
     public void setUp() {
         joueur = new Joueur(BLANC, "Toto");
+        joueur2 = new Joueur(ROUGE, "Titi");
         grille = new Grille();
     }
 
     @Test
     public void testAddPion() throws TailleMaximaleDepasseeException {
-        Pion pion = new Pion(joueur.getCouleur(), joueur);
-        grille.addPion(2, 4, pion);
-        assertNotEquals(grille.getCase(2, 4), null);
+        assertTrue(grille.addPion(2, 4, new Pion(joueur.getCouleur(), joueur)));
+        assertFalse(grille.addPion(2, 4, new Pion(joueur.getCouleur(), joueur)));
     }
 
     @Test
     public void testDeplacerPieceCaseVide() throws TailleMaximaleDepasseeException {
-        Pion pion = new Pion(joueur.getCouleur(), joueur);
-        grille.addPion(2, 4, pion);
-
+        grille.addPion(2, 4, new Pion(joueur.getCouleur(), joueur));
         assertFalse(grille.deplacer(2, 4, 3, 4, joueur.getCouleur()));
+    }
+
+    @Test
+    public void testCoupInverse() throws TailleMaximaleDepasseeException {
+        grille.addPion(2, 2, new Pion(joueur.getCouleur(), joueur));
+        grille.addPion(2, 3, new Pion(joueur2.getCouleur(), joueur2));
+
+        grille.deplacer(2, 2, 2, 3, joueur.getCouleur());
+        assertFalse(grille.deplacer(2, 3, 2, 2, joueur2.getCouleur()));
     }
 
     @Test
@@ -50,7 +57,7 @@ public class GrilleUnitTest {
         grille.getCase(2, 2).getPiece().add(new Pion(joueur.getCouleur(), joueur));
 
         // Pas la même couleur, on ne peut pas découper
-        assertFalse(grille.deplacer(2, 2, 2, 3, 1, ROUGE));
+        assertFalse(grille.deplacer(2, 2, 2, 3, 1, joueur2.getCouleur()));
 
         // Trop bas, trop haut, on ne peut pas découper
         assertFalse(grille.deplacer(2, 2, 2, 3, 0, joueur.getCouleur()));

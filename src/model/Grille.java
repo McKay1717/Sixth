@@ -18,10 +18,13 @@ public class Grille implements Serializable {
                 grille[i][j] = new Case();
     }
 
-    public void addPion(int x, int y, Pion pion) throws TailleMaximaleDepasseeException {
-        //TODO Vérifier si la case possède déjà ou non une pièce.
-        Piece piece = new Piece(pion);
-        grille[x][y].setPiece(piece);
+    public boolean addPion(int x, int y, Pion pion) throws TailleMaximaleDepasseeException {
+        if(grille[x][y].isVide()) {
+            grille[x][y].setPiece(new Piece(pion));
+            return true;
+        }
+
+        return false;
     }
 
     private boolean deplacer(int x, int y, int x2, int y2) {

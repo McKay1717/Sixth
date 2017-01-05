@@ -30,6 +30,7 @@ public class Jeu implements Serializable {
     private Grille grille;
     private Date date;
     private int tourJoueur;
+    private int nbTour;
 
     public Jeu() throws ParseException {
         grille = new Grille();
@@ -88,6 +89,8 @@ public class Jeu implements Serializable {
         if(deplacement)
             changerJoueur();
 
+        nbTour++;
+
         return deplacement;
     }
 
@@ -100,6 +103,8 @@ public class Jeu implements Serializable {
 
         grille.addPion(x, y, pion);
         changerJoueur();
+        nbTour++;
+
         return true;
     }
 
@@ -141,5 +146,9 @@ public class Jeu implements Serializable {
     public void setJoueurs(Joueur rouge, Joueur blanc) {
         joueurs[0] = rouge;
         joueurs[1] = blanc;
+    }
+
+    public int getNbTour() {
+        return nbTour;
     }
 }

@@ -151,4 +151,13 @@ public class Jeu implements Serializable {
     public int getNbTour() {
         return nbTour;
     }
+
+    public Grille getGrille() {
+        return grille;
+    }
+
+    public int getTourJoueur() {
+        return tourJoueur;
+    }
+
 }

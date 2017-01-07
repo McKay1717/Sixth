@@ -1,5 +1,7 @@
 package vue;
 
+import controleur.EventJeuAjouPionGrille;
+import controleur.EventJeuPilePion;
 import model.Grille;
 import model.Jeu;
 import model.Joueur;
@@ -18,15 +20,23 @@ public class FenetreGrille extends JFrame {
     private int fWidth;
     private int fHeight;
 
-    private Joueur joueurR;
-    private Joueur joueurB;
+    public Joueur joueurR;
+    public Joueur joueurB;
     private Jeu jeu;
+    public int tourActuel;
+    public int nbPionRRestant;
+    public int nbPionBRestant;
 
     public FenetreGrille(Joueur R, Joueur B, Jeu jeu) throws IOException {
         joueurB = B;
         joueurR = R;
         fWidth = 1000;
         fHeight = 700;
+
+        tourActuel = jeu.getTourJoueur();
+
+        nbPionBRestant = joueurB.getNbPionsRestants();
+        nbPionRRestant = joueurR.getNbPionsRestants();
 
         fontPanel = new FontPanel(new ImageIcon("dataImage/textureGazon.jpg").getImage(), fWidth, fHeight);
 
@@ -55,14 +65,14 @@ public class FenetreGrille extends JFrame {
 
 
         //affichage de la pile
-        JPanel pPilePiece = new JPanel(new GridLayout(2, 1));
+        JPanel pPilePiece = new JPanel(new GridLayout(3, 1));
         pPilePiece.setOpaque(false);
 
         Dimension d = new Dimension(75, 75);
 
         FontButton bPileBlanc = new FontButton(
-                String.valueOf(joueurB.getNbPionsRestants()),
-                new ImageIcon("dataImage/pieceBlanc/rond-blanc" + joueurB.getNbPionsRestants() + ".png").getImage(),
+                String.valueOf(nbPionBRestant),
+                new ImageIcon("dataImage/pieceBlanc/rond-blanc" + nbPionBRestant + ".png").getImage(),
                 75, 75);
         bPileBlanc.setPreferredSize(d);
         //bPileBlanc.setBackground(Color.WHITE);
@@ -73,8 +83,8 @@ public class FenetreGrille extends JFrame {
 
 
         FontButton bPileRouge = new FontButton(
-                String.valueOf(joueurR.getNbPionsRestants()),
-                new ImageIcon("dataImage/pieceRouge/rond-rouge" + joueurR.getNbPionsRestants() + ".png").getImage(),
+                String.valueOf(nbPionRRestant),
+                new ImageIcon("dataImage/pieceRouge/rond-rouge" + nbPionRRestant + ".png").getImage(),
                 75, 75);
         bPileRouge.setPreferredSize(d);
         //bPileRouge.setBackground(Color.RED);
@@ -87,10 +97,44 @@ public class FenetreGrille extends JFrame {
         //affichage de la grille
         grille = new Grille();
         grillePanel = new GrillePanel(grille);
-        //grille.addMouseListener((new EventSouris(grille,this)); //getion des events
 
+
+        //gestion des tours
+
+        JLabel lTourActuelle = null;
+
+        if (tourActuel == -1){
+
+            //listener
+            bPileBlanc.addActionListener(new EventJeuPilePion(this, jeu, joueurB));
+
+            //grille.addMouseListener((new EventSouris(grille,this)); //getion des events
+
+
+
+            //affichage tour actuelle
+            lTourActuelle = new JLabel("TOUR DE " + joueurB.getNom());
+            lTourActuelle.setForeground(Color.WHITE);
+
+        }else {
+
+            //listener
+            bPileRouge.addActionListener(new EventJeuPilePion(this, jeu, joueurR));
+            //grille.addMouseListener((new EventSouris(grille,this)); //getion des events
+
+
+
+            //affichage tour actuelle
+            lTourActuelle = new JLabel("TOUR DE " + joueurR.getNom());
+            lTourActuelle.setForeground(Color.RED);
+        }
+
+
+        Font f = new Font("Serif", Font.PLAIN, 36);
+        lTourActuelle.setFont(f);
 
         //---Disposition des panels
+        pPilePiece.add(lTourActuelle);
         pPilePiece.add(pPileBlanc);
         pPilePiece.add(pPileRouge);
 

@@ -10,7 +10,10 @@ import java.io.IOException;
 public class GrillePanel extends JPanel{
     private static final int TAILLE_GRILLE = 5;
     private Grille grille;
-    private JButton[][] grillButton;
+
+
+
+    private FontButton[][] grillButton;
 
     public GrillePanel(Grille grille) {
         super();
@@ -27,7 +30,7 @@ public class GrillePanel extends JPanel{
     }
 
     private void initAtribut() throws IOException {
-        grillButton = new JButton[TAILLE_GRILLE][TAILLE_GRILLE];
+        grillButton = new FontButton[TAILLE_GRILLE][TAILLE_GRILLE];
 
          //FontButton fontWood = new FontButton(new ImageIcon("dataImage/texture-planche").getImage());
 
@@ -35,18 +38,26 @@ public class GrillePanel extends JPanel{
             for (int j = 0; j < TAILLE_GRILLE; j++) {
 
                 if (String.valueOf(grille.getPiece(i,j)) != null)
-                    if (i%2 == 0)
-                        if (j%2 == 0)
+                    if (i%2 == 0){
+                        if (j%2 == 0) {
                             grillButton[i][j] = new FontButton( String.valueOf(grille.getPiece(i, j)), new ImageIcon("dataImage/texture-planche.jpg").getImage(), (600/5)*2, (600/5)*2);
-                        else
+
+                        }else {
                             grillButton[i][j] = new FontButton( String.valueOf(grille.getPiece(i, j)), new ImageIcon("dataImage/texture-bois.jpg").getImage(), (600/5)*2, (600/5)*2);
-                    else
-                        if (j%2 == 1)
+
+                        }
+                    }else{
+                        if (j % 2 == 1) {
                             grillButton[i][j] = new FontButton( String.valueOf(grille.getPiece(i, j)), new ImageIcon("dataImage/texture-planche.jpg").getImage(), (600/5)*2, (600/5)*2);
-                        else
+
+                        } else {
                             grillButton[i][j] = new FontButton( String.valueOf(grille.getPiece(i, j)), new ImageIcon("dataImage/texture-bois.jpg").getImage(), (600/5)*2, (600/5)*2);
-                else
-                    grillButton[i][j] = null ;
+
+                        }
+                    }else{
+                        grillButton[i][j] = null ;
+
+                    }
             }
         }
     }
@@ -62,4 +73,9 @@ public class GrillePanel extends JPanel{
 
         add(pGrille);
     }
+
+    public FontButton[][] getGrillButton() {
+        return grillButton;
+    }
+
 }

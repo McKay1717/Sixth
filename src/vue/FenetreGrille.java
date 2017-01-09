@@ -83,7 +83,9 @@ public class FenetreGrille extends JFrame {
 
         affichePiles();
 
+        lTourActuelle = new JLabel("");
         tourJoueur();
+
 
         Font f = new Font("Serif", Font.PLAIN, 36);
         lTourActuelle.setFont(f);
@@ -114,11 +116,11 @@ public class FenetreGrille extends JFrame {
 
     public void tourJoueur() throws IOException {
         if (jeu.getTourJoueur() == BLANC) {
-            lTourActuelle = new JLabel("TOUR DE " + joueurB.getNom());
+            lTourActuelle.setText("TOUR DE " + joueurB.getNom());
             lTourActuelle.setForeground(Color.WHITE);
             System.out.println("Miaou");
         } else {
-            lTourActuelle = new JLabel("TOUR DE " + joueurR.getNom());
+            lTourActuelle.setText("TOUR DE " + joueurR.getNom());
             lTourActuelle.setForeground(Color.RED);
         }
     }

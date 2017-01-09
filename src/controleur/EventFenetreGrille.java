@@ -29,6 +29,14 @@ public class EventFenetreGrille implements ActionListener {
             for (int i = 0; i < LONGUEUR; i++)
                 for (int j = 0; j < LARGEUR; j++) {
                     if (e.getSource().equals(fenetreGrille.getGrille().getGrillButton()[i][j])) {
+                        try {
+                            jeu.addPion(i, j, jeu.getJoueur(jeu.getTourJoueur()).getPion());
+                            fenetreGrille.tourJoueur();
+                            fenetreGrille.repaint();
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+
                         if (jeu.getTourJoueur() == BLANC) {
                             fenetreGrille.getGrille().getGrillButton()[i][j].setImagefond(new ImageIcon("dataImage/pieceBlanc/rond-blanc.png").getImage());
                             fenetreGrille.getGrille().getGrillButton()[i][j].setHeight(600 / 5);
@@ -39,15 +47,10 @@ public class EventFenetreGrille implements ActionListener {
                             fenetreGrille.getGrille().getGrillButton()[i][j].setWidth(600 / 5);
                         }
 
-                        try {
-                            jeu.addPion(i, j, jeu.getJoueur(jeu.getTourJoueur()).getPion());
-                            fenetreGrille.tourJoueur();
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                        }
+                        suspendPion = false;
+                        return;
                     }
                 }
-            suspendPion = false;
         } else if (e.getSource().equals(fenetreGrille.bPileBlanc) && jeu.getTourJoueur() == BLANC)
             suspendPion = true;
         else if (e.getSource().equals(fenetreGrille.bPileRouge) && jeu.getTourJoueur() == ROUGE)

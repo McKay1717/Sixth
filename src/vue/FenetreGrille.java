@@ -20,10 +20,10 @@ public class FenetreGrille extends JFrame {
     public int tourActuel;
     public int nbPionRRestant;
     public int nbPionBRestant;
-    JPanel pPileBlanc;
-    JPanel pPileRouge;
     public FontButton bPileBlanc;
     public FontButton bPileRouge;
+    JPanel pPileBlanc;
+    JPanel pPileRouge;
     Dimension d;
     private Grille grille;
     private GrillePanel grillePanel;
@@ -32,6 +32,7 @@ public class FenetreGrille extends JFrame {
     private int fWidth;
     private int fHeight;
     private Jeu jeu;
+    private JLabel lTourActuelle;
 
     public FenetreGrille(Joueur R, Joueur B, Jeu jeu, ControlleurGeneral controlleurGeneral) throws IOException {
         joueurB = B;
@@ -83,17 +84,9 @@ public class FenetreGrille extends JFrame {
         grille = new Grille();
         grillePanel = new GrillePanel(grille);
 
-        JLabel lTourActuelle = null;
-
         affichePiles();
 
-        if (tourActuel == BLANC) {
-            lTourActuelle = new JLabel("TOUR DE " + joueurB.getNom());
-            lTourActuelle.setForeground(Color.WHITE);
-        } else {
-            lTourActuelle = new JLabel("TOUR DE " + joueurR.getNom());
-            lTourActuelle.setForeground(Color.RED);
-        }
+        tourJoueur();
 
         Font f = new Font("Serif", Font.PLAIN, 36);
         lTourActuelle.setFont(f);
@@ -120,6 +113,18 @@ public class FenetreGrille extends JFrame {
         fontPanel.add(boxCentrage, BorderLayout.CENTER);
 
         setContentPane(fontPanel);
+    }
+
+    public void tourJoueur() {
+        if (tourActuel == BLANC) {
+            lTourActuelle = new JLabel("TOUR DE " + joueurB.getNom());
+            lTourActuelle.setForeground(Color.WHITE);
+        } else {
+            lTourActuelle = new JLabel("TOUR DE " + joueurR.getNom());
+            lTourActuelle.setForeground(Color.RED);
+        }
+        validate();
+        repaint();
     }
 
     public GrillePanel getGrille() {

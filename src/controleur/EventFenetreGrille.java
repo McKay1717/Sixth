@@ -41,6 +41,7 @@ public class EventFenetreGrille implements ActionListener {
 
                         try {
                             jeu.addPion(i, j, jeu.getJoueur(jeu.getTourJoueur()).getPion());
+                            fenetreGrille.tourJoueur();
                         } catch (Exception ex) {
                             ex.printStackTrace();
                         }

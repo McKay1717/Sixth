@@ -17,7 +17,6 @@ public class FenetreGrille extends JFrame {
 
     public Joueur joueurR;
     public Joueur joueurB;
-    public int tourActuel;
     public int nbPionRRestant;
     public int nbPionBRestant;
     public FontButton bPileBlanc;
@@ -42,8 +41,6 @@ public class FenetreGrille extends JFrame {
 
         this.jeu = jeu;
         this.controlleurGeneral = controlleurGeneral;
-
-        tourActuel = jeu.getTourJoueur();
 
         nbPionBRestant = joueurB.getNbPionsRestants();
         nbPionRRestant = joueurR.getNbPionsRestants();
@@ -116,9 +113,10 @@ public class FenetreGrille extends JFrame {
     }
 
     public void tourJoueur() throws IOException {
-        if (tourActuel == BLANC) {
+        if (jeu.getTourJoueur() == BLANC) {
             lTourActuelle = new JLabel("TOUR DE " + joueurB.getNom());
             lTourActuelle.setForeground(Color.WHITE);
+            System.out.println("Miaou");
         } else {
             lTourActuelle = new JLabel("TOUR DE " + joueurR.getNom());
             lTourActuelle.setForeground(Color.RED);

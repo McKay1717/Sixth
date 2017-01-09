@@ -82,7 +82,7 @@ public class ControlleurGeneral {
             createMenuJeu();
             ((FenetreGrille) fenetre).setJMenuBar(menuJeu);
             showMessageDialog(fenetre, "Partie chargée", NOM_FENETRE_CHARGEMENT_PARTIE, INFORMATION_MESSAGE);
-            event = new EventFenetreGrille();
+            event = new EventFenetreGrille((FenetreGrille) fenetre, jeu);
             ((FenetreGrille) fenetre).addActionListener(event);
         } catch (IOException e) {
             e.printStackTrace();

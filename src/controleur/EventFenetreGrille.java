@@ -1,12 +1,16 @@
 package controleur;
 
 import model.Jeu;
+import model.Pion;
 import vue.FenetreGrille;
+import vue.FenetrePiece;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -16,16 +20,25 @@ import static model.Jeu.BLANC;
 import static model.Jeu.ROUGE;
 
 public class EventFenetreGrille implements ActionListener {
+    public int sizeofDeplace;
     boolean suspendPion;
     FenetreGrille fenetreGrille;
     Jeu jeu;
     ControlleurGeneral controlleurGeneral;
+    boolean deplace;
+    List<Pion> pieceEnSuspend;
+    int x, y;
 
     public EventFenetreGrille(FenetreGrille fenetreGrille, Jeu jeu, ControlleurGeneral controlleurGeneral) {
         suspendPion = false;
         this.fenetreGrille = fenetreGrille;
         this.jeu = jeu;
         this.controlleurGeneral = controlleurGeneral;
+        deplace = false;
+        pieceEnSuspend = new ArrayList<>();
+        x = -1;
+        y = -1;
+        sizeofDeplace = -1;
     }
 
     @Override
@@ -58,8 +71,24 @@ public class EventFenetreGrille implements ActionListener {
             suspendPion = true;
         else if (e.getSource().equals(fenetreGrille.bPileRouge) && jeu.getTourJoueur() == ROUGE)
             suspendPion = true;
+        else {
+            for (int i = 0; i < LONGUEUR; i++)
+                for (int j = 0; j < LARGEUR; j++)
+                    if (e.getSource().equals(fenetreGrille.getGrille().getGrillButton()[i][j])) {
+                        if (deplace) {
+                            jeu.deplacer(x, y, i, j, pieceEnSuspend.size(), jeu.getTourJoueur());
 
-        //Déplacer pièce
+                            //reset des valeurs
+                            deplace = false;
+                            x = -1;
+                            y = -1;
+                            sizeofDeplace = -1;
+                        } else {
+                            new FenetrePiece(sizeofDeplace, controlleurGeneral);
+                            deplace = true;
+                        }
+                    }
+        }
 
         if (jeu.finDePartie()) {
             showMessageDialog(fenetreGrille, "Le joueur " + jeu.getJoueur(jeu.getTourJoueur()).getNom() + " a gagné.", "C'est gagner", INFORMATION_MESSAGE);

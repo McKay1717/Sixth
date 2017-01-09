@@ -27,11 +27,11 @@ public class FenetreMenu extends JFrame {
     }
 
     public void initFenetre() {
-        setSize(1000, 1000);                                // Fixe la taille par défaut
+        setSize(700, 700);                                // Fixe la taille par défaut
         setLocationRelativeTo(null);                     //position de la fenetre sur l'ordi
 
-        setMaximizedBounds(new Rectangle(500, 500, 1000, 1000));
-        setMinimumSize(new Dimension(1000,1000));
+        setMaximizedBounds(new Rectangle(500, 500, 700, 700));
+        setMinimumSize(new Dimension(700,700));
         setVisible(true);                                // Affiche la fenetre
         setTitle("MenuJeu Sixth");                          //donne un titre au jFrame
         //setIconImage(...)                              //associer une icon a la fenetre
@@ -88,7 +88,7 @@ public class FenetreMenu extends JFrame {
 
 
         Box boxCentrage = Box.createVerticalBox();
-        boxCentrage.add(Box.createVerticalStrut(600));
+        boxCentrage.add(Box.createVerticalStrut(350));
         boxCentrage.add(pCentrageMenu, BorderLayout.CENTER);
 
         pPrinc.add(boxCentrage, BorderLayout.CENTER);

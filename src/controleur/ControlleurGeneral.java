@@ -56,7 +56,7 @@ public class ControlleurGeneral {
         try {
             jeu = new Jeu();
             jeu.setJoueurs(R, B);
-            fenetre = new FenetreGrille(R, B, jeu);
+            fenetre = new FenetreGrille(R, B, jeu, this);
             createMenuJeu();
             ((FenetreGrille) fenetre).setJMenuBar(menuJeu);
         } catch (IOException e) {
@@ -77,7 +77,7 @@ public class ControlleurGeneral {
         B = joueurs[1];
         this.jeu = jeu;
         try {
-            fenetre = new FenetreGrille(R, B, jeu);
+            fenetre = new FenetreGrille(R, B, jeu, this);
             createMenuJeu();
             ((FenetreGrille) fenetre).setJMenuBar(menuJeu);
             showMessageDialog(fenetre, "Partie chargée", NOM_FENETRE_CHARGEMENT_PARTIE, INFORMATION_MESSAGE);

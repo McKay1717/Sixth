@@ -18,14 +18,12 @@ public class EventJeuPilePion implements ActionListener {
 
     public FenetreGrille fenetreGrille;
     public Jeu jeu;
-    public Joueur joueur;
 
     public Boolean suspendPion;
 
-    public EventJeuPilePion(FenetreGrille fenetreGrille, Jeu jeu, Joueur joueur){
+    public EventJeuPilePion(FenetreGrille fenetreGrille, Jeu jeu){
         this.fenetreGrille = fenetreGrille;
         this.jeu = jeu;
-        this.joueur = joueur;
 
         suspendPion = false;
     }
@@ -38,7 +36,7 @@ public class EventJeuPilePion implements ActionListener {
 
             for (int i = 0 ; i < 5 ; i++)
                 for (int j = 0 ; j < 5 ; j++)
-                    fenetreGrille.getGrille().getGrillButton()[i][j].addActionListener(new EventJeuAjouPionGrille(fenetreGrille, jeu, joueur, i, j));
+                    fenetreGrille.getGrille().getGrillButton()[i][j].addActionListener(new EventJeuAjouPionGrille(fenetreGrille, jeu, i, j));
 
         }else{
            suspendPion = false;

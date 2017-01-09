@@ -6,6 +6,7 @@ import vue.FenetreGrille;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
@@ -17,13 +18,15 @@ public class EventJeuDeplacerPiece implements ActionListener {
     public Joueur joueur;
     int i;
     int j;
+    ControlleurGeneral controlleurGeneral;
 
-    public EventJeuDeplacerPiece(FenetreGrille fenetreGrille, Jeu jeu, Joueur joueur, int i, int j) {
+    public EventJeuDeplacerPiece(FenetreGrille fenetreGrille, Jeu jeu, Joueur joueur, int i, int j, ControlleurGeneral controlleurGeneral) {
         this.fenetreGrille = fenetreGrille;
         this.jeu = jeu;
         this.joueur = joueur;
         this.i = i;
         this.j = j;
+        this.controlleurGeneral = controlleurGeneral;
     }
 
     @Override
@@ -33,7 +36,11 @@ public class EventJeuDeplacerPiece implements ActionListener {
 
         if (jeu.finDePartie()){
             showMessageDialog(fenetreGrille, "Le joueur " + joueur.getNom() + " a gagné.", "C'est Gagner", INFORMATION_MESSAGE);
-            //fenetreGrille.setVisible(false);
+            try {
+                controlleurGeneral.createFenetreMenu();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
     }

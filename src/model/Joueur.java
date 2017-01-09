@@ -44,4 +44,12 @@ public class Joueur implements Serializable {
     public void joue() {
         nb_coups++;
     }
+
+    public Pion getPion() {
+        return pions.pop();
+    }
+
+    public void reposePion(Pion pion) {
+        pions.push(pion);
+    }
 }

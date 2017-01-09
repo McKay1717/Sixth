@@ -1,5 +1,6 @@
 package vue;
 
+import controleur.ControlleurGeneral;
 import controleur.EventJeuAjouPionGrille;
 import controleur.EventJeuPilePion;
 import model.Grille;
@@ -10,12 +11,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
+import static model.Jeu.BLANC;
+
 public class FenetreGrille extends JFrame {
 
 
     private Grille grille;
     private GrillePanel grillePanel;
     private FontPanel fontPanel;
+    private ControlleurGeneral controlleurGeneral;
 
     private int fWidth;
     private int fHeight;
@@ -27,11 +31,14 @@ public class FenetreGrille extends JFrame {
     public int nbPionRRestant;
     public int nbPionBRestant;
 
-    public FenetreGrille(Joueur R, Joueur B, Jeu jeu) throws IOException {
+    public FenetreGrille(Joueur R, Joueur B, Jeu jeu, ControlleurGeneral controlleurGeneral) throws IOException {
         joueurB = B;
         joueurR = R;
         fWidth = 1000;
         fHeight = 700;
+
+        this.jeu = jeu;
+        this.controlleurGeneral = controlleurGeneral;
 
         tourActuel = jeu.getTourJoueur();
 
@@ -64,35 +71,17 @@ public class FenetreGrille extends JFrame {
         pPrinc.setOpaque(false);
 
 
-        //affichage de la pile
         JPanel pPilePiece = new JPanel(new GridLayout(3, 1));
         pPilePiece.setOpaque(false);
 
         Dimension d = new Dimension(75, 75);
+        FontButton bPileBlanc = null;
+        FontButton bPileRouge = null;
+        JPanel pPileBlanc = null;
+        JPanel pPileRouge = null;
+        affichePiles(d, bPileBlanc, bPileRouge, pPileBlanc, pPileRouge);
+        System.out.println(bPileBlanc);
 
-        FontButton bPileBlanc = new FontButton(
-                String.valueOf(nbPionBRestant),
-                new ImageIcon("dataImage/pieceBlanc/rond-blanc" + nbPionBRestant + ".png").getImage(),
-                75, 75);
-        bPileBlanc.setPreferredSize(d);
-        //bPileBlanc.setBackground(Color.WHITE);
-
-        JPanel pPileBlanc = new JPanel();
-        pPileBlanc.add(bPileBlanc);
-        pPileBlanc.setOpaque(false);
-
-
-        FontButton bPileRouge = new FontButton(
-                String.valueOf(nbPionRRestant),
-                new ImageIcon("dataImage/pieceRouge/rond-rouge" + nbPionRRestant + ".png").getImage(),
-                75, 75);
-        bPileRouge.setPreferredSize(d);
-        //bPileRouge.setBackground(Color.RED);
-        bPileRouge.setForeground(Color.WHITE);
-
-        JPanel pPileRouge = new JPanel();
-        pPileRouge.add(bPileRouge);
-        pPileRouge.setOpaque(false);
 
         //affichage de la grille
         grille = new Grille();
@@ -103,32 +92,26 @@ public class FenetreGrille extends JFrame {
 
         JLabel lTourActuelle = null;
 
-        if (tourActuel == -1){
+        if (tourActuel == BLANC){
 
             //listener
-            bPileBlanc.addActionListener(new EventJeuPilePion(this, jeu, joueurB));
-
-            //grille.addMouseListener((new EventSouris(grille,this)); //getion des events
-
-
+            bPileBlanc.addActionListener(new EventJeuPilePion(this, jeu));
 
             //affichage tour actuelle
             lTourActuelle = new JLabel("TOUR DE " + joueurB.getNom());
             lTourActuelle.setForeground(Color.WHITE);
-
         }else {
 
             //listener
-            bPileRouge.addActionListener(new EventJeuPilePion(this, jeu, joueurR));
+            bPileRouge.addActionListener(new EventJeuPilePion(this, jeu));
             //grille.addMouseListener((new EventSouris(grille,this)); //getion des events
-
-
 
             //affichage tour actuelle
             lTourActuelle = new JLabel("TOUR DE " + joueurR.getNom());
             lTourActuelle.setForeground(Color.RED);
         }
 
+        affichePiles(d, bPileBlanc, bPileRouge, pPileBlanc, pPileRouge);
 
         Font f = new Font("Serif", Font.PLAIN, 36);
         lTourActuelle.setFont(f);
@@ -163,5 +146,33 @@ public class FenetreGrille extends JFrame {
 
     public GrillePanel getGrille() {
         return grillePanel;
+    }
+
+    private void affichePiles(Dimension d, FontButton bPileBlanc, FontButton bPileRouge, JPanel pPileBlanc, JPanel pPileRouge) throws IOException {
+        //affichage de la pile
+
+        bPileBlanc = new FontButton(
+                String.valueOf(nbPionBRestant),
+                new ImageIcon("dataImage/pieceBlanc/rond-blanc" + nbPionBRestant + ".png").getImage(),
+                75, 75);
+        bPileBlanc.setPreferredSize(d);
+        //bPileBlanc.setBackground(Color.WHITE);
+
+        pPileBlanc = new JPanel();
+        pPileBlanc.add(bPileBlanc);
+        pPileBlanc.setOpaque(false);
+
+
+        bPileRouge = new FontButton(
+                String.valueOf(nbPionRRestant),
+                new ImageIcon("dataImage/pieceRouge/rond-rouge" + nbPionRRestant + ".png").getImage(),
+                75, 75);
+        bPileRouge.setPreferredSize(d);
+        //bPileRouge.setBackground(Color.RED);
+        bPileRouge.setForeground(Color.WHITE);
+
+        pPileRouge = new JPanel();
+        pPileRouge.add(bPileRouge);
+        pPileRouge.setOpaque(false);
     }
 }

@@ -16,8 +16,8 @@ import static model.Grille.LONGUEUR;
 import static model.Piece.ROI;
 
 public class Jeu implements Serializable {
-    public static final int BLANC = -1;
-    public static final int ROUGE = -2;
+    public static final int BLANC = 1;
+    public static final int ROUGE = 0;
     public static final int PAS_DECOUPE = 0;
     private static final int NB_PARTIES_SAUVEGARDEES = 4096;
     private static final int NB_JOUEURS = 2;
@@ -31,6 +31,10 @@ public class Jeu implements Serializable {
     private Date date;
     private int tourJoueur;
     private int nbTour;
+
+    public Joueur getJoueur(int color) {
+        return joueurs[color];
+    }
 
     public Jeu() throws ParseException {
         grille = new Grille();

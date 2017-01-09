@@ -59,7 +59,7 @@ public class ControlleurGeneral {
             fenetre = new FenetreGrille(R, B, jeu, this);
             createMenuJeu();
             ((FenetreGrille) fenetre).setJMenuBar(menuJeu);
-            event = new EventFenetreGrille();
+            event = new EventFenetreGrille((FenetreGrille) fenetre, jeu);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {

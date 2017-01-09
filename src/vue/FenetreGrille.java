@@ -22,8 +22,8 @@ public class FenetreGrille extends JFrame {
     public int nbPionBRestant;
     JPanel pPileBlanc;
     JPanel pPileRouge;
-    FontButton bPileBlanc;
-    FontButton bPileRouge;
+    public FontButton bPileBlanc;
+    public FontButton bPileRouge;
     Dimension d;
     private Grille grille;
     private GrillePanel grillePanel;

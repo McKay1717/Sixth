@@ -54,12 +54,12 @@ public class FenetreGrille extends JFrame {
         creerWidget();
 
 
-        setMaximizedBounds(new Rectangle(20, 20, 1100, 750));
+        setMaximizedBounds(new Rectangle(20, 20, 1400, 800));
         setSize(fWidth, fHeight);                                // Fixe la taille par défaut
         setLocationRelativeTo(null);                     //position de la fenetre sur l'ordi
         setTitle("Sixth");                       //donne un titre au jFrame
         //setResizable(false);                             //empaiche la redimention du JFrame
-        setMinimumSize(new Dimension(750, 700));
+        setMinimumSize(new Dimension(1000, 700));
         //setIconImage(...)                              //associer une icon a la fenetre
         setVisible(true);                                // Affiche la fenetre
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // Gestion de la fermeture

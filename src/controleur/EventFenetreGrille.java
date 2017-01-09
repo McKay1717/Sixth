@@ -24,6 +24,8 @@ public class EventFenetreGrille implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        System.out.println("Yolo!");
+
         if (!suspendPion) {
             suspendPion = true;
             for (int i = 0; i < LONGUEUR; i++)

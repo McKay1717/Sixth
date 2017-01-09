@@ -1,13 +1,13 @@
 package vue;
 
 import controleur.ControlleurGeneral;
-import controleur.EventJeuPilePion;
 import model.Grille;
 import model.Jeu;
 import model.Joueur;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import static model.Jeu.BLANC;
@@ -79,36 +79,21 @@ public class FenetreGrille extends JFrame {
         d = new Dimension(75, 75);
         affichePiles();
 
-
         //affichage de la grille
         grille = new Grille();
         grillePanel = new GrillePanel(grille);
 
-
-        //gestion des tours
-
         JLabel lTourActuelle = null;
 
+        affichePiles();
+
         if (tourActuel == BLANC) {
-
-            //listener
-            bPileBlanc.addActionListener(new EventJeuPilePion(this, jeu));
-
-            //affichage tour actuelle
             lTourActuelle = new JLabel("TOUR DE " + joueurB.getNom());
             lTourActuelle.setForeground(Color.WHITE);
         } else {
-
-            //listener
-            bPileRouge.addActionListener(new EventJeuPilePion(this, jeu));
-            //grille.addMouseListener((new EventSouris(grille,this)); //getion des events
-
-            //affichage tour actuelle
             lTourActuelle = new JLabel("TOUR DE " + joueurR.getNom());
             lTourActuelle.setForeground(Color.RED);
         }
-
-        affichePiles();
 
         Font f = new Font("Serif", Font.PLAIN, 36);
         lTourActuelle.setFont(f);
@@ -131,12 +116,8 @@ public class FenetreGrille extends JFrame {
         boxCentrage.add(Box.createVerticalStrut(0));
         boxCentrage.add(pFram, BorderLayout.CENTER);
 
-        //Ecouteur lisner
-
-
         //affiche back ground
         fontPanel.add(boxCentrage, BorderLayout.CENTER);
-
 
         setContentPane(fontPanel);
     }
@@ -171,5 +152,13 @@ public class FenetreGrille extends JFrame {
         pPileRouge = new JPanel();
         pPileRouge.add(bPileRouge);
         pPileRouge.setOpaque(false);
+    }
+
+    public void addActionListener(ActionListener actionListener) {
+        bPileBlanc.addActionListener(actionListener);
+        bPileRouge.addActionListener(actionListener);
+        for (int i = 0; i < 5; i++)
+            for (int j = 0; j < 5; j++)
+                getGrille().getGrillButton()[i][j].addActionListener(actionListener);
     }
 }

@@ -31,7 +31,7 @@ public class FenetreMenu extends JFrame {
         setLocationRelativeTo(null);                     //position de la fenetre sur l'ordi
 
         setMaximizedBounds(new Rectangle(500, 500, 1000, 1000));
-        setMinimumSize(new Dimension(500,500));
+        setMinimumSize(new Dimension(1000,1000));
         setVisible(true);                                // Affiche la fenetre
         setTitle("MenuJeu Sixth");                          //donne un titre au jFrame
         //setIconImage(...)                              //associer une icon a la fenetre
@@ -57,15 +57,17 @@ public class FenetreMenu extends JFrame {
 
         JPanel pPLay = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pPLay.setOpaque(false);
-        JPanel pQuit = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pQuit.setOpaque(false);
+        //JPanel pQuit = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        //pQuit.setOpaque(false);
 
         //JLabel lTitel = new JLabel("Sixth");
         //   lTitel.setFont(new Font("FreeMono",Font.PLAIN,35));
 
-        bPLay = new BoutonFmenu("Jouer", 175, 70);
+        bPLay = new BoutonFmenu("Jouer", 124, 50);
         //bPLay.setPreferredSize(new Dimension(200, 80));
         bPLay.setFont(new Font("FreeMono", Font.PLAIN, 30));
+        bPLay.setBackground(Color.RED);
+        bPLay.setForeground(Color.WHITE);
         addComponentListener(bPLay);
 
         bQuit = new BoutonFmenu("Quitter",175, 70);
@@ -76,19 +78,18 @@ public class FenetreMenu extends JFrame {
         //construction de Frame
         //pTitel.add(lTitel);
         pPLay.add(bPLay);
-        pQuit.add(bQuit);
+        //pQuit.add(bQuit);
 
         pButton.add(pPLay);
-        pButton.add(pQuit);
+       // pButton.add(pQuit);
 
         pCentrageMenu.add(pTitel, BorderLayout.CENTER);
         pCentrageMenu.add(pButton, BorderLayout.CENTER);
 
 
         Box boxCentrage = Box.createVerticalBox();
-        boxCentrage.add(Box.createVerticalStrut(50));
+        boxCentrage.add(Box.createVerticalStrut(600));
         boxCentrage.add(pCentrageMenu, BorderLayout.CENTER);
-
 
         pPrinc.add(boxCentrage, BorderLayout.CENTER);
         fontPanel.add(pPrinc, BorderLayout.CENTER);

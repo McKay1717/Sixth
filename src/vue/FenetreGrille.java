@@ -115,7 +115,7 @@ public class FenetreGrille extends JFrame {
         setContentPane(fontPanel);
     }
 
-    public void tourJoueur() {
+    public void tourJoueur() throws IOException {
         if (tourActuel == BLANC) {
             lTourActuelle = new JLabel("TOUR DE " + joueurB.getNom());
             lTourActuelle.setForeground(Color.WHITE);
@@ -123,8 +123,6 @@ public class FenetreGrille extends JFrame {
             lTourActuelle = new JLabel("TOUR DE " + joueurR.getNom());
             lTourActuelle.setForeground(Color.RED);
         }
-        validate();
-        repaint();
     }
 
     public GrillePanel getGrille() {

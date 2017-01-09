@@ -24,10 +24,9 @@ public class EventFenetreGrille implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Yolo!");
-
         if (!suspendPion) {
             suspendPion = true;
+        } else {
             for (int i = 0; i < LONGUEUR; i++)
                 for (int j = 0; j < LARGEUR; j++) {
                     if (e.getSource().equals(fenetreGrille.getGrille().getGrillButton()[i][j])) {
@@ -35,7 +34,6 @@ public class EventFenetreGrille implements ActionListener {
                             fenetreGrille.getGrille().getGrillButton()[i][j].setImagefond(new ImageIcon("dataImage/pieceBlanc/rond-blanc.png").getImage());
                             fenetreGrille.getGrille().getGrillButton()[i][j].setHeight(600 / 5);
                             fenetreGrille.getGrille().getGrillButton()[i][j].setWidth(600 / 5);
-
                         } else {
                             fenetreGrille.getGrille().getGrillButton()[i][j].setImagefond(new ImageIcon("dataImage/pieceRouge/rond-rouge.png").getImage());
                             fenetreGrille.getGrille().getGrillButton()[i][j].setHeight(600 / 5);
@@ -50,7 +48,7 @@ public class EventFenetreGrille implements ActionListener {
                         }
                     }
                 }
-        } else
             suspendPion = false;
+        }
     }
 }

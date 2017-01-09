@@ -6,7 +6,10 @@ import vue.FenetreGrille;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
+import static javax.swing.JOptionPane.showMessageDialog;
 import static model.Grille.LARGEUR;
 import static model.Grille.LONGUEUR;
 import static model.Jeu.BLANC;
@@ -16,11 +19,13 @@ public class EventFenetreGrille implements ActionListener {
     boolean suspendPion;
     FenetreGrille fenetreGrille;
     Jeu jeu;
+    ControlleurGeneral controlleurGeneral;
 
-    public EventFenetreGrille(FenetreGrille fenetreGrille, Jeu jeu) {
+    public EventFenetreGrille(FenetreGrille fenetreGrille, Jeu jeu, ControlleurGeneral controlleurGeneral) {
         suspendPion = false;
         this.fenetreGrille = fenetreGrille;
         this.jeu = jeu;
+        this.controlleurGeneral = controlleurGeneral;
     }
 
     @Override
@@ -46,14 +51,23 @@ public class EventFenetreGrille implements ActionListener {
                             fenetreGrille.getGrille().getGrillButton()[i][j].setHeight(600 / 5);
                             fenetreGrille.getGrille().getGrillButton()[i][j].setWidth(600 / 5);
                         }
-
-                        suspendPion = false;
-                        return;
                     }
                 }
+            suspendPion = false;
         } else if (e.getSource().equals(fenetreGrille.bPileBlanc) && jeu.getTourJoueur() == BLANC)
             suspendPion = true;
         else if (e.getSource().equals(fenetreGrille.bPileRouge) && jeu.getTourJoueur() == ROUGE)
             suspendPion = true;
+
+        //Déplacer pièce
+
+        if (jeu.finDePartie()) {
+            showMessageDialog(fenetreGrille, "Le joueur " + jeu.getJoueur(jeu.getTourJoueur()).getNom() + " a gagné.", "C'est gagner", INFORMATION_MESSAGE);
+            try {
+                controlleurGeneral.createFenetreMenu();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 }

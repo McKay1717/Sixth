@@ -59,7 +59,7 @@ public class ControlleurGeneral {
             fenetre = new FenetreGrille(R, B, jeu, this);
             createMenuJeu();
             ((FenetreGrille) fenetre).setJMenuBar(menuJeu);
-            event = new EventFenetreGrille((FenetreGrille) fenetre, jeu);
+            event = new EventFenetreGrille((FenetreGrille) fenetre, jeu, this);
             ((FenetreGrille) fenetre).addActionListener(event);
         } catch (IOException e) {
             e.printStackTrace();
@@ -83,7 +83,7 @@ public class ControlleurGeneral {
             createMenuJeu();
             ((FenetreGrille) fenetre).setJMenuBar(menuJeu);
             showMessageDialog(fenetre, "Partie chargée", NOM_FENETRE_CHARGEMENT_PARTIE, INFORMATION_MESSAGE);
-            event = new EventFenetreGrille((FenetreGrille) fenetre, jeu);
+            event = new EventFenetreGrille((FenetreGrille) fenetre, jeu, this);
             ((FenetreGrille) fenetre).addActionListener(event);
         } catch (IOException e) {
             e.printStackTrace();

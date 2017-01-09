@@ -1,7 +1,6 @@
 package vue;
 
 import controleur.ControlleurGeneral;
-import controleur.EventJeuAjouPionGrille;
 import controleur.EventJeuPilePion;
 import model.Grille;
 import model.Jeu;
@@ -16,20 +15,23 @@ import static model.Jeu.BLANC;
 public class FenetreGrille extends JFrame {
 
 
+    public Joueur joueurR;
+    public Joueur joueurB;
+    public int tourActuel;
+    public int nbPionRRestant;
+    public int nbPionBRestant;
+    JPanel pPileBlanc;
+    JPanel pPileRouge;
+    FontButton bPileBlanc;
+    FontButton bPileRouge;
+    Dimension d;
     private Grille grille;
     private GrillePanel grillePanel;
     private FontPanel fontPanel;
     private ControlleurGeneral controlleurGeneral;
-
     private int fWidth;
     private int fHeight;
-
-    public Joueur joueurR;
-    public Joueur joueurB;
     private Jeu jeu;
-    public int tourActuel;
-    public int nbPionRRestant;
-    public int nbPionBRestant;
 
     public FenetreGrille(Joueur R, Joueur B, Jeu jeu, ControlleurGeneral controlleurGeneral) throws IOException {
         joueurB = B;
@@ -74,13 +76,8 @@ public class FenetreGrille extends JFrame {
         JPanel pPilePiece = new JPanel(new GridLayout(3, 1));
         pPilePiece.setOpaque(false);
 
-        Dimension d = new Dimension(75, 75);
-        FontButton bPileBlanc = null;
-        FontButton bPileRouge = null;
-        JPanel pPileBlanc = null;
-        JPanel pPileRouge = null;
-        affichePiles(d, bPileBlanc, bPileRouge, pPileBlanc, pPileRouge);
-        System.out.println(bPileBlanc);
+        d = new Dimension(75, 75);
+        affichePiles();
 
 
         //affichage de la grille
@@ -92,7 +89,7 @@ public class FenetreGrille extends JFrame {
 
         JLabel lTourActuelle = null;
 
-        if (tourActuel == BLANC){
+        if (tourActuel == BLANC) {
 
             //listener
             bPileBlanc.addActionListener(new EventJeuPilePion(this, jeu));
@@ -100,7 +97,7 @@ public class FenetreGrille extends JFrame {
             //affichage tour actuelle
             lTourActuelle = new JLabel("TOUR DE " + joueurB.getNom());
             lTourActuelle.setForeground(Color.WHITE);
-        }else {
+        } else {
 
             //listener
             bPileRouge.addActionListener(new EventJeuPilePion(this, jeu));
@@ -111,7 +108,7 @@ public class FenetreGrille extends JFrame {
             lTourActuelle.setForeground(Color.RED);
         }
 
-        affichePiles(d, bPileBlanc, bPileRouge, pPileBlanc, pPileRouge);
+        affichePiles();
 
         Font f = new Font("Serif", Font.PLAIN, 36);
         lTourActuelle.setFont(f);
@@ -148,7 +145,7 @@ public class FenetreGrille extends JFrame {
         return grillePanel;
     }
 
-    private void affichePiles(Dimension d, FontButton bPileBlanc, FontButton bPileRouge, JPanel pPileBlanc, JPanel pPileRouge) throws IOException {
+    private void affichePiles() throws IOException {
         //affichage de la pile
 
         bPileBlanc = new FontButton(

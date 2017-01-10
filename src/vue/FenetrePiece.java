@@ -13,7 +13,7 @@ public class FenetrePiece extends JFrame {
     public FenetrePiece(int taille, ControlleurGeneral controlleurGeneral) {
         creerWidget(taille, controlleurGeneral);
 
-        setSize(200, 200);
+        setSize(300, 300);
         setLocationRelativeTo(null);
         setTitle("Déplacement");
         setResizable(false);
@@ -36,6 +36,7 @@ public class FenetrePiece extends JFrame {
             jButtons.add(new JButton("Roi"));
 
         JPanel jPanel = new JPanel();
+        jPanel.setOpaque(false);
         EventFenetrePiece eventFenetrePiece = new EventFenetrePiece(this, controlleurGeneral);
         for (JButton jButton : jButtons) {
             jButton.addActionListener(eventFenetrePiece);

@@ -32,10 +32,6 @@ public class Jeu implements Serializable {
     private int tourJoueur;
     private int nbTour;
 
-    public Joueur getJoueur(int color) {
-        return joueurs[color];
-    }
-
     public Jeu() throws ParseException {
         grille = new Grille();
         joueurs = new Joueur[NB_JOUEURS];
@@ -68,29 +64,33 @@ public class Jeu implements Serializable {
         oos.close();
     }
 
+    public Joueur getJoueur(int color) {
+        return joueurs[color];
+    }
+
     public String getDate() {
         return SIMPLE_DATE_FORMAT.format(date);
     }
 
     private void changerJoueur() {
-        if(tourJoueur == BLANC)
+        if (tourJoueur == BLANC)
             tourJoueur = ROUGE;
         else
             tourJoueur = BLANC;
     }
 
     public boolean deplacer(int x, int y, int x2, int y2, int decoupe, int couleurJoueur) {
-        if(couleurJoueur != tourJoueur)
+        if (couleurJoueur != tourJoueur)
             return false;
 
         boolean deplacement = false;
 
-        if(decoupe != PAS_DECOUPE)
+        if (decoupe != PAS_DECOUPE)
             deplacement = grille.deplacer(x, y, x2, y2, decoupe, couleurJoueur);
         else
             deplacement = grille.deplacer(x, y, x2, y2, couleurJoueur);
 
-        if(deplacement)
+        if (deplacement)
             changerJoueur();
 
         nbTour++;
@@ -102,7 +102,7 @@ public class Jeu implements Serializable {
     }
 
     public boolean addPion(int x, int y, Pion pion) throws TailleMaximaleDepasseeException {
-        if(pion.getCouleur() != tourJoueur)
+        if (pion.getCouleur() != tourJoueur)
             return false;
 
         grille.addPion(x, y, pion);
@@ -115,8 +115,9 @@ public class Jeu implements Serializable {
     public boolean finDePartie() {
         for (int i = 0; i < LONGUEUR; i++)
             for (int j = 0; j < LARGEUR; j++)
-                if (grille.getPiece(i, j).getTaille() == ROI)
-                    return true;
+                if (grille.getPiece(i, j) != null)
+                    if (grille.getPiece(i, j).getTaille() == ROI)
+                        return true;
         return false;
     }
 

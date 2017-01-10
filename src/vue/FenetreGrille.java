@@ -118,7 +118,6 @@ public class FenetreGrille extends JFrame {
         if (jeu.getTourJoueur() == BLANC) {
             lTourActuelle.setText("TOUR DE " + joueurB.getNom());
             lTourActuelle.setForeground(Color.WHITE);
-            System.out.println("Miaou");
         } else {
             lTourActuelle.setText("TOUR DE " + joueurR.getNom());
             lTourActuelle.setForeground(Color.RED);

@@ -14,6 +14,7 @@ public class EventFenetrePiece implements ActionListener {
 
     public EventFenetrePiece(FenetrePiece fenetrePiece, ControlleurGeneral controlleurGeneral) {
         this.fenetrePiece = fenetrePiece;
+        this.controlleurGeneral = controlleurGeneral;
     }
 
     @Override

@@ -1,7 +1,6 @@
 package controleur;
 
 import model.Jeu;
-import model.Pion;
 import vue.FenetreGrille;
 import vue.FenetrePiece;
 
@@ -9,8 +8,6 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -26,7 +23,6 @@ public class EventFenetreGrille implements ActionListener {
     Jeu jeu;
     ControlleurGeneral controlleurGeneral;
     boolean deplace;
-    List<Pion> pieceEnSuspend;
     int x, y;
 
     public EventFenetreGrille(FenetreGrille fenetreGrille, Jeu jeu, ControlleurGeneral controlleurGeneral) {
@@ -35,7 +31,6 @@ public class EventFenetreGrille implements ActionListener {
         this.jeu = jeu;
         this.controlleurGeneral = controlleurGeneral;
         deplace = false;
-        pieceEnSuspend = new ArrayList<>();
         x = -1;
         y = -1;
         sizeofDeplace = -1;
@@ -76,7 +71,7 @@ public class EventFenetreGrille implements ActionListener {
                 for (int j = 0; j < LARGEUR; j++)
                     if (e.getSource().equals(fenetreGrille.getGrille().getGrillButton()[i][j])) {
                         if (deplace) {
-                            jeu.deplacer(x, y, i, j, pieceEnSuspend.size(), jeu.getTourJoueur());
+                            jeu.deplacer(x, y, i, j, sizeofDeplace, jeu.getTourJoueur());
 
                             //reset des valeurs
                             deplace = false;
@@ -84,8 +79,10 @@ public class EventFenetreGrille implements ActionListener {
                             y = -1;
                             sizeofDeplace = -1;
                         } else {
-                            new FenetrePiece(sizeofDeplace, controlleurGeneral);
+                            new FenetrePiece(jeu.getPiece(i, j).getTaille(), controlleurGeneral);
                             deplace = true;
+                            x = i;
+                            y = j;
                         }
                     }
         }

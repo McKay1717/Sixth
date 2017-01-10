@@ -45,7 +45,7 @@ public class EventFenetreGrille implements ActionListener {
                         try {
                             jeu.addPion(i, j, jeu.getJoueur(jeu.getTourJoueur()).getPion());
                             fenetreGrille.tourJoueur();
-                            //fenetreGrille.repaint();
+                            fenetreGrille.repaint();
                         } catch (Exception ex) {
                             ex.printStackTrace();
                         }
@@ -59,6 +59,9 @@ public class EventFenetreGrille implements ActionListener {
                             fenetreGrille.getGrille().getGrillButton()[i][j].setHeight(600 / 5);
                             fenetreGrille.getGrille().getGrillButton()[i][j].setWidth(600 / 5);
                         }
+
+                        fenetreGrille.bPileBlanc.setImagefond(new ImageIcon("dataImage/pieceBlanc/rond-blanc" + jeu.getJoueur(BLANC).getNbPionsRestants() + ".png").getImage());
+                        fenetreGrille.bPileRouge.setImagefond(new ImageIcon("dataImage/pieceRouge/rond-rouge" + jeu.getJoueur(ROUGE).getNbPionsRestants() + ".png").getImage());
                     }
                 }
             suspendPion = false;

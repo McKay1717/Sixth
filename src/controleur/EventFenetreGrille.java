@@ -82,10 +82,17 @@ public class EventFenetreGrille implements ActionListener {
                                             fenetreGrille.getGrille().getGrillButton()[x][y].setImagefond(new ImageIcon("dataImage/pieceBlanc/rond-blanc" + jeu.getPiece(x, y).getTaille() + ".png").getImage());
                                         else if (jeu.getPiece(x, y).getCouleur() == ROUGE)
                                             fenetreGrille.getGrille().getGrillButton()[x][y].setImagefond(new ImageIcon("dataImage/pieceRouge/rond-rouge" + jeu.getPiece(x, y).getTaille() + ".png").getImage());
-                                    } else if (x % 2 != 0 && y % 2 != 0)
-                                        fenetreGrille.getGrille().getGrillButton()[x][y].setImagefond(new ImageIcon("dataImage/texture-planche.jpg").getImage(), (600 / 5) * 2, (600 / 5) * 2);
-                                    else
-                                        fenetreGrille.getGrille().getGrillButton()[x][y].setImagefond(new ImageIcon("dataImage/texture-bois.jpg").getImage(), (600 / 5) * 2, (600 / 5) * 2);
+                                    } else if (x % 2 == 0) {
+                                        if (y % 2 == 0)
+                                            fenetreGrille.getGrille().getGrillButton()[x][y].setImagefond(new ImageIcon("dataImage/texture-planche.jpg").getImage(), (600 / 5) * 2, (600 / 5) * 2);
+                                        else
+                                            fenetreGrille.getGrille().getGrillButton()[x][y].setImagefond(new ImageIcon("dataImage/texture-bois.jpg").getImage(), (600 / 5) * 2, (600 / 5) * 2);
+                                    } else {
+                                        if (y % 2 != 0)
+                                            fenetreGrille.getGrille().getGrillButton()[x][y].setImagefond(new ImageIcon("dataImage/texture-planche.jpg").getImage(), (600 / 5) * 2, (600 / 5) * 2);
+                                        else
+                                            fenetreGrille.getGrille().getGrillButton()[x][y].setImagefond(new ImageIcon("dataImage/texture-bois.jpg").getImage(), (600 / 5) * 2, (600 / 5) * 2);
+                                    }
 
                                     if (jeu.getPiece(i, j).getCouleur() == BLANC)
                                         fenetreGrille.getGrille().getGrillButton()[i][j].setImagefond(new ImageIcon("dataImage/pieceBlanc/rond-blanc" + jeu.getPiece(i, j).getTaille() + ".png").getImage());

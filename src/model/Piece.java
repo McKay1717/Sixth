@@ -36,7 +36,7 @@ public class Piece implements Serializable {
     }
 
     public int getTaille() {
-        return taille;
+        return pions.size();
     }
 
     public Pion getPion(int i) { return pions.get(i); }

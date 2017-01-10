@@ -12,8 +12,7 @@ import java.io.IOException;
 import static javax.swing.JOptionPane.*;
 import static model.Grille.LARGEUR;
 import static model.Grille.LONGUEUR;
-import static model.Jeu.BLANC;
-import static model.Jeu.ROUGE;
+import static model.Jeu.*;
 
 public class EventFenetreGrille implements ActionListener {
     public int sizeofDeplace;
@@ -75,9 +74,24 @@ public class EventFenetreGrille implements ActionListener {
                     if (e.getSource().equals(fenetreGrille.getGrille().getGrillButton()[i][j])) {
                         if (deplace) {
                             if (sizeofDeplace == jeu.getPiece(x, y).getTaille())
-                                sizeofDeplace = Jeu.PAS_DECOUPE;
+                                sizeofDeplace = PAS_DECOUPE;
                             if (jeu.deplacer(x, y, i, j, sizeofDeplace, jeu.getTourJoueur())) {
                                 try {
+                                    if (jeu.getPiece(x, y) != null) {
+                                        if (jeu.getPiece(x, y).getCouleur() == BLANC)
+                                            fenetreGrille.getGrille().getGrillButton()[x][y].setImagefond(new ImageIcon("dataImage/pieceBlanc/rond-blanc" + jeu.getPiece(x, y).getTaille() + ".png").getImage());
+                                        else if (jeu.getPiece(x, y).getCouleur() == ROUGE)
+                                            fenetreGrille.getGrille().getGrillButton()[x][y].setImagefond(new ImageIcon("dataImage/pieceRouge/rond-rouge" + jeu.getPiece(x, y).getTaille() + ".png").getImage());
+                                    } else if (x % 2 == 0 && y % 2 != 0)
+                                        fenetreGrille.getGrille().getGrillButton()[x][y].setImagefond(new ImageIcon("dataImage/texture-bois.jpg").getImage());
+                                    else
+                                        fenetreGrille.getGrille().getGrillButton()[x][y].setImagefond(new ImageIcon("dataImage/texture-planche.jpg").getImage());
+
+                                    if (jeu.getPiece(i, j).getCouleur() == BLANC)
+                                        fenetreGrille.getGrille().getGrillButton()[i][j].setImagefond(new ImageIcon("dataImage/pieceBlanc/rond-blanc" + jeu.getPiece(i, j).getTaille() + ".png").getImage());
+                                    else if (jeu.getPiece(i, j).getCouleur() == ROUGE)
+                                        fenetreGrille.getGrille().getGrillButton()[i][j].setImagefond(new ImageIcon("dataImage/pieceRouge/rond-rouge" + jeu.getPiece(i, j).getTaille() + ".png").getImage());
+
                                     fenetreGrille.tourJoueur();
                                     fenetreGrille.repaint();
                                 } catch (IOException e1) {

@@ -9,8 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
-import static javax.swing.JOptionPane.showMessageDialog;
+import static javax.swing.JOptionPane.*;
 import static model.Grille.LARGEUR;
 import static model.Grille.LONGUEUR;
 import static model.Jeu.BLANC;
@@ -75,24 +74,30 @@ public class EventFenetreGrille implements ActionListener {
                 for (int j = 0; j < LARGEUR; j++)
                     if (e.getSource().equals(fenetreGrille.getGrille().getGrillButton()[i][j])) {
                         if (deplace) {
-                            jeu.deplacer(x, y, i, j, sizeofDeplace, jeu.getTourJoueur());
+                            if (sizeofDeplace == jeu.getPiece(x, y).getTaille())
+                                sizeofDeplace = Jeu.PAS_DECOUPE;
+                            if (jeu.deplacer(x, y, i, j, sizeofDeplace, jeu.getTourJoueur())) {
+                                try {
+                                    fenetreGrille.tourJoueur();
+                                    fenetreGrille.repaint();
+                                } catch (IOException e1) {
+                                    e1.printStackTrace();
+                                }
+                            } else
+                                showMessageDialog(fenetreGrille, "Déplacement impossible", "Déplacement", ERROR_MESSAGE);
 
                             //reset des valeurs
                             deplace = false;
                             x = -1;
                             y = -1;
                             sizeofDeplace = -1;
-                            try {
-                                fenetreGrille.tourJoueur();
-                                fenetreGrille.repaint();
-                            } catch (IOException e1) {
-                                e1.printStackTrace();
-                            }
                         } else {
-                            new FenetrePiece(jeu.getPiece(i, j).getTaille(), controlleurGeneral);
-                            deplace = true;
-                            x = i;
-                            y = j;
+                            if (jeu.getPiece(i, j) != null) {
+                                new FenetrePiece(jeu.getPiece(i, j).getTaille(), controlleurGeneral);
+                                deplace = true;
+                                x = i;
+                                y = j;
+                            }
                         }
                     }
         }

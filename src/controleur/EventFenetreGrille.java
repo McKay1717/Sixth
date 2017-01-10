@@ -41,8 +41,11 @@ public class EventFenetreGrille implements ActionListener {
                 for (int j = 0; j < LARGEUR; j++) {
                     if (e.getSource().equals(fenetreGrille.getGrille().getGrillButton()[i][j])) {
                         try {
-                            if (!jeu.addPion(i, j, jeu.getJoueur(jeu.getTourJoueur()).getPion()))
+                            if (!jeu.addPion(i, j, jeu.getJoueur(jeu.getTourJoueur()).getPion())) {
+                                suspendPion = false;
                                 return;
+                            }
+
                             fenetreGrille.tourJoueur();
                             fenetreGrille.repaint();
                         } catch (Exception ex) {

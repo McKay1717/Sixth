@@ -99,13 +99,22 @@ public class Jeu implements Serializable {
     }
 
     public void saveScores() {
+        try {
+            Scores.saveScores(joueurs[getTourJoueur()], nbTour);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean addPion(int x, int y, Pion pion) throws TailleMaximaleDepasseeException {
         if (pion.getCouleur() != tourJoueur)
             return false;
 
-        grille.addPion(x, y, pion);
+        if (!grille.addPion(x, y, pion))
+            return false;
+
         changerJoueur();
         nbTour++;
 
@@ -116,8 +125,10 @@ public class Jeu implements Serializable {
         for (int i = 0; i < LONGUEUR; i++)
             for (int j = 0; j < LARGEUR; j++)
                 if (grille.getPiece(i, j) != null)
-                    if (grille.getPiece(i, j).getTaille() == ROI)
+                    if (grille.getPiece(i, j).getTaille() == ROI) {
+                        saveScores();
                         return true;
+                    }
         return false;
     }
 

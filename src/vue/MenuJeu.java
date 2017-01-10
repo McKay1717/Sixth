@@ -26,7 +26,7 @@ public class MenuJeu extends JMenuBar {
         jMenuItems.get(jMenus.size() - 1).add(new JMenuItem("Accueil"));
         jMenuItems.get(jMenus.size() - 1).add(new JMenuItem("Quitter"));
 
-        //Scores
+        /*//Scores
         jMenus.add(new JMenu("Scores"));
         jMenuItems.add(new ArrayList<JMenuItem>());
         jMenuItems.get(jMenus.size() - 1).add(new JMenuItem("Meilleurs scores"));
@@ -36,7 +36,7 @@ public class MenuJeu extends JMenuBar {
         jMenuItems.add(new ArrayList<JMenuItem>());
         jMenuItems.get(jMenus.size() - 1).add(new JMenuItem("Charger une partie"));
         if (fenetre instanceof FenetreGrille)
-            jMenuItems.get(jMenus.size() - 1).add(new JMenuItem("Sauvegarder la partie"));
+            jMenuItems.get(jMenus.size() - 1).add(new JMenuItem("Sauvegarder la partie"));*/
     }
 
     private void creerMenu() {

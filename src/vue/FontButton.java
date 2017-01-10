@@ -33,4 +33,10 @@ public class FontButton extends JButton {
     public void setImagefond(Image imagefond) {
         this.imagefond = imagefond;
     }
+
+    public void setImagefond(Image imagefond, int width, int height) {
+        this.imagefond = imagefond;
+        this.width = width;
+        this.height = height;
+    }
 }

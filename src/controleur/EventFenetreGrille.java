@@ -82,6 +82,12 @@ public class EventFenetreGrille implements ActionListener {
                             x = -1;
                             y = -1;
                             sizeofDeplace = -1;
+                            try {
+                                fenetreGrille.tourJoueur();
+                                fenetreGrille.repaint();
+                            } catch (IOException e1) {
+                                e1.printStackTrace();
+                            }
                         } else {
                             new FenetrePiece(jeu.getPiece(i, j).getTaille(), controlleurGeneral);
                             deplace = true;

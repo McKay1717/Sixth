@@ -89,7 +89,7 @@ public class Grille implements Serializable {
     public boolean deplacer(int x, int y, int x2, int y2, int decoupe, int couleurJoueur) {
         if (deplacerCondBase(x, y, x2, y2, couleurJoueur) && grille[x][y].getPiece().getTaille() > 1 &&
                 decoupe >= 1 && decoupe < grille[x][y].getPiece().getTaille()) {
-            List<Pion> tasBas = grille[x][y].getPiece().getPions(1, decoupe);
+            List<Pion> tasBas = grille[x][y].getPiece().getPions(1, decoupe - 1);
             List<Pion> tasHaut = grille[x][y].getPiece().getPions(decoupe + 1, grille[x][y].getPiece().getTaille());
 
             grille[x][y].setPiece(new Piece(tasHaut));

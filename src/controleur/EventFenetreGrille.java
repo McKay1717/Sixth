@@ -51,11 +51,11 @@ public class EventFenetreGrille implements ActionListener {
                             ex.printStackTrace();
                         }
 
-                        if (jeu.getTourJoueur() == BLANC) {
+                        if (jeu.getTourJoueur() == ROUGE) {
                             fenetreGrille.getGrille().getGrillButton()[i][j].setImagefond(new ImageIcon("dataImage/pieceBlanc/rond-blanc.png").getImage());
                             fenetreGrille.getGrille().getGrillButton()[i][j].setHeight(600 / 5);
                             fenetreGrille.getGrille().getGrillButton()[i][j].setWidth(600 / 5);
-                        } else if (jeu.getTourJoueur() == ROUGE) {
+                        } else {
                             fenetreGrille.getGrille().getGrillButton()[i][j].setImagefond(new ImageIcon("dataImage/pieceRouge/rond-rouge.png").getImage());
                             fenetreGrille.getGrille().getGrillButton()[i][j].setHeight(600 / 5);
                             fenetreGrille.getGrille().getGrillButton()[i][j].setWidth(600 / 5);

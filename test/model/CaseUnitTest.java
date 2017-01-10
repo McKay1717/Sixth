@@ -4,6 +4,7 @@ import exceptions.TailleMaximaleDepasseeException;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.sun.xml.internal.ws.dump.LoggingDumpTube.Position.Before;
 import static model.Case.VIDE;
 import static model.Jeu.ROUGE;
 import static org.junit.Assert.assertEquals;
